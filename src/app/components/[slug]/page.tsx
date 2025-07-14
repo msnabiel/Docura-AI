@@ -8,18 +8,18 @@ const docs = {
   card: cardDoc,
 }
 
-// ✅ Renamed to avoid conflict with any global "PageProps"
 type ComponentPageProps = {
-  params: {
+  params: Promise<{
     slug: string
-  }
+  }>
 }
 
-export default function ComponentDocPage({ params }: ComponentPageProps) {
-  const DocComponent = docs[params.slug as keyof typeof docs]
-
+export default async function ComponentDocPage({ params }: ComponentPageProps) {
+  const { slug } = await params
+  const DocComponent = docs[slug as keyof typeof docs]
+  
   if (!DocComponent) return notFound()
-
+  
   return (
     <div className="max-w-6xl mx-auto px-4 sm:px-6 py-10">
       <div className="flex flex-col md:flex-row">
@@ -34,7 +34,6 @@ export default function ComponentDocPage({ params }: ComponentPageProps) {
   )
 }
 
-// ✅ Static params for SSG
 export function generateStaticParams() {
   return [{ slug: "button" }, { slug: "card" }]
 }
