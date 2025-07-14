@@ -8,12 +8,14 @@ const docs = {
   card: cardDoc,
 }
 
-// ✅ Use inline typing to avoid global type conflicts
-export default function ComponentDocPage({
-  params,
-}: {
-  params: { slug: string }
-}) {
+// ✅ Renamed to avoid conflict with any global "PageProps"
+type ComponentPageProps = {
+  params: {
+    slug: string
+  }
+}
+
+export default function ComponentDocPage({ params }: ComponentPageProps) {
   const DocComponent = docs[params.slug as keyof typeof docs]
 
   if (!DocComponent) return notFound()
@@ -32,10 +34,7 @@ export default function ComponentDocPage({
   )
 }
 
-// ✅ Tell Next.js which routes to generate at build time
+// ✅ Static params for SSG
 export function generateStaticParams() {
-  return [
-    { slug: "button" },
-    { slug: "card" },
-  ]
+  return [{ slug: "button" }, { slug: "card" }]
 }
