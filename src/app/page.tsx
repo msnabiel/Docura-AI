@@ -1,9 +1,9 @@
-// app/page.tsx
 "use client"
 
 import Link from "next/link"
+import { useState } from "react"
 import { motion } from "framer-motion"
-import { ArrowRight } from "lucide-react"
+import { ArrowRight, Check, Copy } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 
@@ -22,6 +22,15 @@ const stagger = {
 }
 
 export default function Home() {
+  const [copied, setCopied] = useState(false)
+  const command = "npm install @nabiel/ui"
+
+  const handleCopy = () => {
+    navigator.clipboard.writeText(command)
+    setCopied(true)
+    setTimeout(() => setCopied(false), 2000)
+  }
+
   return (
     <motion.section
       initial="hidden"
@@ -66,12 +75,32 @@ export default function Home() {
         </Link>
       </motion.div>
 
-      <motion.pre
-        variants={fadeInUp}
-        className="mt-10 text-sm bg-muted text-muted-foreground rounded-md px-4 py-2 font-mono select-all"
-      >
-        npm install nabiel-ui
-      </motion.pre>
+      {/* Install Command */}
+      <motion.div
+  variants={fadeInUp}
+  className="relative mt-8 inline-flex items-center bg-muted rounded-md px-4 py-3 text-sm font-mono text-muted-foreground w-auto"
+>
+  <span>{command}</span>
+  <Button
+    size="icon"
+    variant="ghost"
+    onClick={handleCopy}
+    className="hover:text-foreground ml-2"
+  >
+    {copied ? (
+      <Check className="h-4 w-4 text-green-500" />
+    ) : (
+      <Copy className="h-4 w-4" />
+    )}
+  </Button>
+
+  {copied && (
+    <span className="absolute -top-6 right-2 text-xs text-green-500 animate-fade-in">
+      Copied!
+    </span>
+  )}
+</motion.div>
+
     </motion.section>
   )
 }
