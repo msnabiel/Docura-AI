@@ -1,36 +1,129 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+```md
+# 🧩 nabiel-ui
 
-## Getting Started
+A beautiful, commerce-focused React component library built on **Tailwind CSS** and **Radix UI**, inspired by ShadCN, optimized for fast development and delightful user experiences.
 
-First, run the development server:
+![MIT License](https://img.shields.io/badge/license-MIT-blue.svg)
+![Built with Next.js](https://img.shields.io/badge/Built%20with-Next.js-black?logo=next.js)
+![NPM](https://img.shields.io/npm/v/@nabiel/ui)
+[![GitHub Stars](https://img.shields.io/github/stars/msnabiel/nabiel-ui.svg?style=social)](https://github.com/msnabiel/nabiel-ui)
+
+---
+
+## ✨ Features
+
+- 🎨 **Prebuilt UI components** for e-commerce (e.g., product cards, checkout forms, variant pickers)
+- 💨 Built with **Tailwind CSS** and **ShadCN components**
+- 🧱 Powered by **Radix UI** primitives
+- ⚙️ Supports **theme customization** and utility class overrides
+- 📦 **Tree-shakable**, optimized for performance
+- 🌗 Light & dark mode support
+- 🧑‍💻 TypeScript-ready
+
+---
+
+## 📦 Installation
 
 ```bash
-npm run dev
+npm install @nabiel/ui
 # or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+pnpm add @nabiel/ui
+````
+
+> ⚠️ Tailwind CSS and Radix UI should be set up in your project. See [Setup](#setup).
+
+---
+
+## 🛠️ Setup
+
+1. **Tailwind Config**
+
+```js
+// tailwind.config.js
+module.exports = {
+  content: [
+    "./node_modules/@nabiel/ui/**/*.{js,ts,jsx,tsx}",
+    "./app/**/*.{js,ts,jsx,tsx}",
+  ],
+  theme: {
+    extend: {},
+  },
+  plugins: [],
+}
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+2. **Add Theme Styles**
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```tsx
+// app/layout.tsx or root entry
+import "@/styles/globals.css"
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+3. **Done!** You're ready to use `@nabiel/ui` components in your app.
 
-## Learn More
+---
 
-To learn more about Next.js, take a look at the following resources:
+## 📚 Components
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+| Component             | Description                                      |
+| --------------------- | ------------------------------------------------ |
+| `<ProductCard />`     | Showcases product with images, name, price, etc. |
+| `<VariantSelector />` | Dropdown or swatch selector for product variants |
+| `<CartButton />`      | Add-to-cart button with animation                |
+| `<CheckoutForm />`    | Minimal checkout form UI                         |
+| `<RatingStars />`     | Star rating display or input                     |
+| ...and many more!     |                                                  |
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+👉 View full documentation: [https://nabiel-ui.vercel.app](https://nabiel-ui.vercel.app)
 
-## Deploy on Vercel
+---
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## 🧑‍💻 Local Development
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+```bash
+git clone https://github.com/msnabiel/nabiel-ui.git
+cd nabiel-ui
+pnpm install
+pnpm dev
+```
+
+---
+
+## 📈 Roadmap
+
+* [x] Component Documentation
+* [x] Dark Mode Support
+* [ ] CLI to scaffold new components
+* [ ] ShadCN-compatible theme tokens
+* [ ] Marketplace starter templates
+
+---
+
+## 🤝 Contributing
+
+PRs, feedback, and issues are very welcome!
+If you're using this in a project, feel free to share your showcase or use case!
+
+---
+
+## 📄 License
+
+MIT © [Nabiel M.](https://github.com/msnabiel)
+
+---
+
+## 🛍️ Built for Commerce
+
+`nabiel-ui` is not just another design system — it’s handcrafted for modern online stores, freelance platforms, and product-driven apps. Inspired by Shopify. Built with love.
+
+```
+
+---
+
+### ✅ Suggestions:
+
+- Replace `msnabiel` and `@nabiel/ui` with actual GitHub and npm details.
+- Add screenshots/gifs in a `/public/preview.png` or `/assets/demo.gif`.
+- If hosted, link to your live docs (like Storybook or Vercel site).
+- You can generate badges at [shields.io](https://shields.io/).
+```
