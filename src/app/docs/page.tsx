@@ -62,7 +62,7 @@ export default function Example() {
 
       {/* Next Steps */}
       <div className="flex justify-center">
-        <Link href="/docs/components">
+        <Link href="/components">
           <Button variant="default" size="lg">
             Browse Components
             <ArrowRight className="ml-2 h-4 w-4" />
