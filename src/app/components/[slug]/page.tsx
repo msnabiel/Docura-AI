@@ -14,10 +14,13 @@ type PageProps = {
     slug: string
   }
 }
-
-export default function ComponentDocPage({ params }: PageProps) {
+// ✅ Don't rely on any global PageProps type
+export default function ComponentDocPage({
+  params,
+}: {
+  params: { slug: string }
+}) {
   const DocComponent = docs[params.slug as keyof typeof docs]
-
   if (!DocComponent) return notFound()
 
   return (
@@ -34,10 +37,6 @@ export default function ComponentDocPage({ params }: PageProps) {
   )
 }
 
-// ✅ For static site generation
 export function generateStaticParams() {
-  return [
-    { slug: "button" },
-    { slug: "card" },
-  ]
+  return [{ slug: "button" }, { slug: "card" }]
 }
