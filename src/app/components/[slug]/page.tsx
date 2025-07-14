@@ -1,4 +1,3 @@
-// src/app/components/[slug]/page.tsx
 import { notFound } from "next/navigation"
 import { SidebarMenu } from "@/components/docs/sidebar-menu"
 import { buttonDoc } from "@/components/docs/button-doc"
@@ -9,18 +8,14 @@ const docs = {
   card: cardDoc,
 }
 
-type PageProps = {
-  params: {
-    slug: string
-  }
-}
-// ✅ Don't rely on any global PageProps type
+// ✅ Use inline typing to avoid global type conflicts
 export default function ComponentDocPage({
   params,
 }: {
   params: { slug: string }
 }) {
   const DocComponent = docs[params.slug as keyof typeof docs]
+
   if (!DocComponent) return notFound()
 
   return (
@@ -37,6 +32,10 @@ export default function ComponentDocPage({
   )
 }
 
+// ✅ Tell Next.js which routes to generate at build time
 export function generateStaticParams() {
-  return [{ slug: "button" }, { slug: "card" }]
+  return [
+    { slug: "button" },
+    { slug: "card" },
+  ]
 }
