@@ -1,4 +1,3 @@
-```md
 # 🧩 nabiel-ui
 
 A beautiful, commerce-focused React component library built on **Tailwind CSS** and **Radix UI**, inspired by ShadCN, optimized for fast development and delightful user experiences.
@@ -8,7 +7,6 @@ A beautiful, commerce-focused React component library built on **Tailwind CSS** 
 ![NPM](https://img.shields.io/npm/v/@nabiel/ui)
 [![GitHub Stars](https://img.shields.io/github/stars/msnabiel/nabiel-ui.svg?style=social)](https://github.com/msnabiel/nabiel-ui)
 
----
 
 ## ✨ Features
 
@@ -20,7 +18,6 @@ A beautiful, commerce-focused React component library built on **Tailwind CSS** 
 - 🌗 Light & dark mode support
 - 🧑‍💻 TypeScript-ready
 
----
 
 ## 📦 Installation
 
@@ -32,7 +29,6 @@ pnpm add @nabiel/ui
 
 > ⚠️ Tailwind CSS and Radix UI should be set up in your project. See [Setup](#setup).
 
----
 
 ## 🛠️ Setup
 
@@ -61,7 +57,6 @@ import "@/styles/globals.css"
 
 3. **Done!** You're ready to use `@nabiel/ui` components in your app.
 
----
 
 ## 📚 Components
 
@@ -76,7 +71,6 @@ import "@/styles/globals.css"
 
 👉 View full documentation: [https://nabiel-ui.vercel.app](https://nabiel-ui.vercel.app)
 
----
 
 ## 🧑‍💻 Local Development
 
@@ -87,7 +81,6 @@ pnpm install
 pnpm dev
 ```
 
----
 
 ## 📈 Roadmap
 
@@ -97,33 +90,19 @@ pnpm dev
 * [ ] ShadCN-compatible theme tokens
 * [ ] Marketplace starter templates
 
----
 
 ## 🤝 Contributing
 
 PRs, feedback, and issues are very welcome!
 If you're using this in a project, feel free to share your showcase or use case!
 
----
 
 ## 📄 License
 
 MIT © [Nabiel M.](https://github.com/msnabiel)
 
----
 
 ## 🛍️ Built for Commerce
 
 `nabiel-ui` is not just another design system — it’s handcrafted for modern online stores, freelance platforms, and product-driven apps. Inspired by Shopify. Built with love.
 
-```
-
----
-
-### ✅ Suggestions:
-
-- Replace `msnabiel` and `@nabiel/ui` with actual GitHub and npm details.
-- Add screenshots/gifs in a `/public/preview.png` or `/assets/demo.gif`.
-- If hosted, link to your live docs (like Storybook or Vercel site).
-- You can generate badges at [shields.io](https://shields.io/).
-```
