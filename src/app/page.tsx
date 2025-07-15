@@ -62,7 +62,7 @@ export default function Home() {
         variants={fadeInUp}
         className="flex flex-col sm:flex-row items-center gap-4"
       >
-        <Link href="/docs">
+        <Link href="/docs/razorpay">
           <Button size="lg">
             Explore Docs
             <ArrowRight className="ml-2 h-4 w-4" />
