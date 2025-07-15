@@ -8,7 +8,8 @@ import { newsletterDoc } from "@/components/docs/newsletter-doc"
 import { contactDoc } from "@/components/docs/contact-doc"
 import { heroDoc } from "@/components/docs/hero-doc"
 import { shopDoc } from "@/components/docs/shop-doc"
-
+import { cartDoc } from "@/components/docs/cart-doc"
+import { checkoutDoc } from "@/components/docs/checkout-doc"
 export type ComponentMeta = {
   name: string
   slug: string
@@ -24,6 +25,9 @@ export const components: ComponentMeta[] = [
   { name: "Contact Form", slug: "contact" },
   { name: "Hero Section", slug: "hero" },
   { name: "Shop Page", slug: "shop" },
+  { name: "Cart Page", slug: "cart" },
+  { name: "Checkout Page", slug: "checkout" },
+
 ].sort((a, b) => a.name.localeCompare(b.name))
 
 
@@ -32,6 +36,8 @@ export const componentDocs = {
 // Component name: Doc component function
   button: buttonDoc,
   card: cardDoc,
+  cart: cartDoc,
+  checkout: checkoutDoc,
   navbar: navbarDoc,
   footer: footerDoc,
   newsletter: newsletterDoc,
