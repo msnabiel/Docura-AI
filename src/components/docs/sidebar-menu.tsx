@@ -12,62 +12,69 @@ import {
 } from "@/components/ui/popover"
 
 import { components } from "@/data/components"
+import { docs } from "@/data/docs"
 
 export function SidebarMenu() {
   const pathname = usePathname()
+
+  const isDocsPage = pathname?.startsWith("/docs")
+  const items = isDocsPage ? docs : components
+  const basePath = isDocsPage ? "/docs" : "/components"
 
   return (
     <>
       {/* Desktop sidebar */}
       <div className="hidden md:block">
-        <h3 className="text-sm font-semibold mb-3 text-muted-foreground">Components</h3>
+        <h3 className="text-sm font-semibold mb-3 text-muted-foreground">
+          {isDocsPage ? "Docs" : "Components"}
+        </h3>
         <nav className="flex flex-col gap-2">
-          {components.map((comp) => (
+          {items.map((item) => (
             <Link
-              key={comp.slug}
-              href={`/components/${comp.slug}`}
+              key={item.slug}
+              href={`${basePath}/${item.slug}`}
               className={cn(
                 "text-sm hover:text-foreground transition",
-                pathname === `/components/${comp.slug}` && "font-medium text-foreground"
+                pathname === `${basePath}/${item.slug}` && "font-medium text-foreground"
               )}
             >
-              {comp.name}
+              {item.name}
             </Link>
           ))}
         </nav>
       </div>
-{/* Mobile popover menu */}
-<div className="block md:hidden mb-4">
-  <Popover>
-    <PopoverTrigger asChild>
-      <Button variant="outline" size="sm">
-        <Menu className="mr-2 h-4 w-4" />
-        Components
-      </Button>
-    </PopoverTrigger>
-    <PopoverContent
-      align="start"
-      sideOffset={8}
-      className="w-[200px] ml-2 mr-2 rounded-md border bg-popover p-3 shadow-md"
-    >
-      <nav className="flex flex-col gap-2">
-        {components.map((comp) => (
-          <Link
-            key={comp.slug}
-            href={`/components/${comp.slug}`}
-            className={cn(
-              "text-sm hover:text-foreground transition",
-              pathname === `/components/${comp.slug}` && "font-medium text-foreground"
-            )}
-          >
-            {comp.name}
-          </Link>
-        ))}
-      </nav>
-    </PopoverContent>
-  </Popover>
-</div>
 
+      {/* Mobile popover menu */}
+      <div className="block md:hidden mb-4">
+        <Popover>
+          <PopoverTrigger asChild>
+            <Button variant="outline" size="sm">
+              <Menu className="mr-2 h-4 w-4" />
+              {isDocsPage ? "Docs" : "Components"}
+            </Button>
+          </PopoverTrigger>
+          <PopoverContent
+            align="start"
+            sideOffset={8}
+            className="w-[200px] ml-2 mr-2 rounded-md border bg-popover p-3 shadow-md"
+          >
+            <nav className="flex flex-col gap-2">
+              {items.map((item) => (
+                <Link
+                  key={item.slug}
+                  href={`${basePath}/${item.slug}`}
+                  className={cn(
+                    "text-sm hover:text-foreground transition",
+                    pathname === `${basePath}/${item.slug}` && "font-medium text-foreground"
+                  )}
+                >
+                  {item.name}
+                </Link>
+              ))}
+            </nav>
+          </PopoverContent>
+        </Popover>
+      </div>
     </>
   )
 }

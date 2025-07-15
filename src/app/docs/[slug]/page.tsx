@@ -1,18 +1,18 @@
-// app/docs/[slug]/page.tsx
+// src/app/docs/[slug]/page.tsx
 
 import { notFound } from "next/navigation"
 import { SidebarMenu } from "@/components/docs/sidebar-menu"
-import { componentDocs, components } from "@/data/components"
+import { docPages } from "@/data/docs"
 
 type ComponentPageProps = {
-  params: Promise<{
-    slug: string
-  }>
+  params: { slug: string }
 }
 
-export default async function ComponentDocPage({ params }: ComponentPageProps) {
-  const { slug } = await params
-  const DocComponent = componentDocs[slug as keyof typeof componentDocs]
+export default function DocsPage({ params }: ComponentPageProps) {
+  const slug = params.slug
+
+  // 👇 Add this type assertion to make sure it's a React component
+  const DocComponent = docPages[slug] as React.FC
 
   if (!DocComponent) return notFound()
 
@@ -23,13 +23,9 @@ export default async function ComponentDocPage({ params }: ComponentPageProps) {
           <SidebarMenu />
         </aside>
         <div className="flex-1">
-          <DocComponent />
+          <DocComponent /> {/* ✅ Now valid JSX usage */}
         </div>
       </div>
     </div>
   )
-}
-
-export function generateStaticParams() {
-  return components.map((comp) => ({ slug: comp.slug }))
 }

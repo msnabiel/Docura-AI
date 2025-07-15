@@ -36,7 +36,10 @@ export function NavBar() {
 
       {/* Desktop Nav */}
       <div className="hidden md:flex items-center gap-6 flex-1 justify-center">
-        <Link href="/docs" className="text-sm font-medium hover:underline">
+        <Link href="/components" className="text-sm font-medium hover:underline">
+          Components
+        </Link>
+        <Link href="/docs/razorpay" className="text-sm font-medium hover:underline">
           Docs
         </Link>
         <a href="https://github.com" className="text-sm font-medium hover:underline">
