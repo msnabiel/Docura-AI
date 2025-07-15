@@ -58,14 +58,15 @@ export function mailchimpDoc() {
       }
       addSnippet={installSnippet}
       usageSnippet={usageSnippet}
-      preview={
+preview={
   <div className="max-w-md w-full mx-auto space-y-2">
     <NewsletterSignup />
     <p className="text-sm text-muted-foreground text-center">
-    Preview of your Mailchimp-connected newsletter form.
+      Preview of your Mailchimp-connected newsletter form.
     </p>
   </div>
 }
+
 
       extraNotes={
         <>

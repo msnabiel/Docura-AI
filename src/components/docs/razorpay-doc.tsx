@@ -85,7 +85,7 @@ export function razorpayDoc() {
           <Button onClick={() => alert("This would open Razorpay from your Checkout Page.")}>
             Simulate Razorpay Checkout
           </Button>
-          <p className="text-sm text-muted-foreground flex-col items-center space-y-4">
+          <p className="text-sm text-muted-foreground text-center">
             This simulates integration with the <code>CheckoutPage</code> template.
           </p>
         </div>
