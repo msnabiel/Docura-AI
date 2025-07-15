@@ -23,7 +23,7 @@ const stagger = {
 
 export default function Home() {
   const [copied, setCopied] = useState(false)
-  const command = "npm install @nabiel/ui"
+  const command = "npm install nabiel-ui"
 
   const handleCopy = () => {
     navigator.clipboard.writeText(command)
