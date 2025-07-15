@@ -81,10 +81,10 @@ export function NavBar() {
             />
             <Button type="submit" variant="ghost">Go</Button>
           </form>
-          <Link href="/components" className="block text-sm font-medium hover:underline">Components</Link>
-          <Link href="/docs" className="block text-sm font-medium hover:underline">Docs</Link>
-          <a href="https://github.com" className="block text-sm font-medium hover:underline">GitHub</a>
-          <a href="https://npmjs.com" className="block text-sm font-medium hover:underline">npm</a>
+          <Link href="/components" className="block text-sm font-medium">Components</Link>
+          <Link href="/docs" className="block text-sm font-medium">Docs</Link>
+          <a href="https://github.com" className="block text-sm font-medium">GitHub</a>
+          <a href="https://npmjs.com" className="block text-sm font-medium">npm</a>
         </div>
       )}
     </nav>
