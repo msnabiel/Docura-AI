@@ -17,6 +17,8 @@ import myAccountDoc from "@/components/docs/my-account-doc"
 import { supportCtaDoc } from "@/components/docs/support-cta-doc"
 import { productFiltersDoc } from "@/components/docs/product-filters-doc"
 import { recentlyViewedDoc } from "@/components/docs/recently-viewed-doc"
+import { ProductDetailPage } from "@/components/nabiel-ui/ProductDetailPage"
+import { productDetailDoc } from "@/components/docs/product-detail-doc"
 export type ComponentMeta = {
   name: string
   slug: string
@@ -37,6 +39,7 @@ export const components: ComponentMeta[] = [
   { name: "Support CTA", slug: "support-cta" },
   { name: "Product Filters", slug: "product-filters" },
   { name: "Recently Viewed", slug: "recently-viewed" },
+  {name: "Product Page",slug:"product-page"}
 
 ].sort((a, b) => a.name.localeCompare(b.name))
 
@@ -61,4 +64,5 @@ export const componentDocs = {
   faq: faqDoc,
   "my-account": myAccountDoc,
   "support-cta": supportCtaDoc,
+  "product-page": productDetailDoc
 } as const
