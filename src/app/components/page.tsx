@@ -2,5 +2,5 @@
 import { redirect } from "next/navigation"
 
 export default function ComponentPage() {
-  redirect("/components/button")
+  redirect("/components/cart")
 }

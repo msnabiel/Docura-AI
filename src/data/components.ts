@@ -19,10 +19,6 @@ export type ComponentMeta = {
   slug: string
 }
 export const components: ComponentMeta[] = [
-  { name: "Button", slug: "button" },
-  { name: "Card", slug: "card" },
-  { name: "Badge", slug: "badge" },
-  { name: "Input", slug: "input" },
   { name: "Navbar", slug: "navbar" },
   { name: "Footer", slug: "footer" },
   { name: "Newsletter Signup", slug: "newsletter" },
