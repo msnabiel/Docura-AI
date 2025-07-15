@@ -1,4 +1,5 @@
 "use client"
+
 import Image from "next/image"
 import { useState, useEffect } from "react"
 import { Button } from "@/components/ui/button"
@@ -13,6 +14,14 @@ type Variant = {
   price: number
   images: string[]
 }
+type CartItem = {
+  id: string
+  name: string
+  slug: string
+  image: string
+  price: number
+  quantity: number
+}
 
 interface ProductDetailPageProps {
   variant: Variant
@@ -20,6 +29,9 @@ interface ProductDetailPageProps {
 
 export const ProductDetailPage: React.FC<ProductDetailPageProps> = ({ variant }) => {
   const [selectedImage, setSelectedImage] = useState(variant.images?.[0] ?? "/hero.jpeg")
+
+  // Optional: deduplicate images
+  const uniqueImages = Array.from(new Set(variant.images))
 
   // Add to recently viewed
   useEffect(() => {
@@ -36,11 +48,31 @@ export const ProductDetailPage: React.FC<ProductDetailPageProps> = ({ variant })
   }, [variant])
 
   const handleAddToCart = () => {
-    const stored = localStorage.getItem("cart")
-    const cart = stored ? JSON.parse(stored) : []
-    const updated = [...cart, { ...variant, quantity: 1 }]
-    localStorage.setItem("cart", JSON.stringify(updated))
+  const stored = localStorage.getItem("cart")
+  const cart: (CartItem & { quantity: number })[] = stored ? JSON.parse(stored) : []
+
+  // Check if item already exists in cart
+  const existingIndex = cart.findIndex((item) => item.id === variant.id)
+
+  if (existingIndex !== -1) {
+    // If exists, increase quantity
+    cart[existingIndex].quantity += 1
+  } else {
+    // Else add new item with quantity 1
+    cart.push({ 
+      id: variant.id,
+      name: variant.name,
+      slug: variant.slug,
+      image: variant.images[0] || "/hero.jpeg",
+      price: variant.price,
+      quantity: 1,
+    })
   }
+
+  localStorage.setItem("cart", JSON.stringify(cart))
+  // Optionally update any cart state or trigger re-render
+}
+
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 gap-8 px-4 py-8">
@@ -55,29 +87,25 @@ export const ProductDetailPage: React.FC<ProductDetailPageProps> = ({ variant })
             className="w-full h-auto object-cover"
           />
         </div>
+
         <div className="flex gap-2 overflow-x-auto p-1">
-          {variant.images.map((img, idx) => {
-            const isSelected = selectedImage === img
-            return (
-              <button
-                key={idx}
-                onClick={() => setSelectedImage(img)}
-                className={`
-                  relative w-16 h-16 flex-shrink-0 rounded-md
-                  border bg-background
-                  overflow-hidden
-                  ${isSelected ? "ring-2 ring-offset-2 ring-primary" : ""}
-                `}
-              >
-                <Image
-                  src={img}
-                  alt={`Thumbnail ${idx + 1}`}
-                  fill
-                  className="object-cover"
-                />
-              </button>
-            )
-          })}
+          {uniqueImages.map((img, idx) => (
+            <button
+              key={`${img}-${idx}`}
+              onClick={() => setSelectedImage(img)}
+              className={`w-16 h-16 border rounded ${
+                selectedImage === img ? "ring-2 ring-primary" : ""
+              }`}
+            >
+              <Image
+                src={img}
+                alt={`Thumbnail ${idx + 1}`}
+                width={64}
+                height={64}
+                className="w-full h-full object-cover"
+              />
+            </button>
+          ))}
         </div>
       </div>
 
@@ -100,3 +128,4 @@ export const ProductDetailPage: React.FC<ProductDetailPageProps> = ({ variant })
     </div>
   )
 }
+ 

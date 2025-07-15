@@ -38,6 +38,7 @@ export const CartPage: React.FC<CartPageProps> = ({ className }) => {
     const filtered = cart.filter((item) => item.id !== id)
     updateCart(filtered)
   }
+  
 
   const total = cart.reduce((sum, item) => sum + item.price * item.quantity, 0)
 
@@ -56,8 +57,8 @@ export const CartPage: React.FC<CartPageProps> = ({ className }) => {
         ) : (
           <>
             <div className="divide-y border rounded-md">
-              {cart.map((item) => (
-                <div key={item.id} className="flex items-center gap-4 p-4">
+              {cart.map((item, index) => (
+                <div key={`${item.id}-${index}`} className="flex items-center gap-4 p-4">
                   <Image
                     src={item.image || "/hero.jpeg"}
                     alt={item.name}
