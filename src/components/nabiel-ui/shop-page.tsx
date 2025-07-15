@@ -2,7 +2,7 @@
 
 import { useState } from "react"
 import { Input } from "@/components/ui/input"
-import { ProductCard } from "@/components/nabiel-ui/Product-card"
+import { ProductCard } from "@/components/nabiel-ui/product-card"
 import { FlattenedVariant } from "@/data/products"
 import { cn } from "@/lib/utils"
 
