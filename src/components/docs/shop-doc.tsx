@@ -1,36 +1,32 @@
 "use client"
 
-import { Card, CardHeader, CardTitle, CardContent, CardDescription } from "@/components/ui/card"
 import { ShopPage } from "@/components/nabiel-ui/shop-page"
 import { flattenedVariants } from "@/data/products"
+import { DocPageLayout } from "@/components/docs/doc-page-layout"
 
 export function shopDoc() {
   return (
-    <div>
-      <h1 className="text-2xl font-bold mb-2">ShopPage</h1>
-      <p className="text-muted-foreground mb-6">
-        The <code>ShopPage</code> component renders a responsive product listing grid with search filtering.
-      </p>
+    <DocPageLayout
+      title="ShopPage"
+      description={
+        <>
+          The <code>ShopPage</code> component renders a responsive product listing grid with search
+          and category filtering. It works well with your <code>ProductCard</code> and{" "}
+          <code>ProductFilters</code> components.
+        </>
+      }
+      preview={<ShopPage products={flattenedVariants.slice(0, 8)} />}
+      addSnippet={`npx nabiel-ui add shop-page`}
+      usageSnippet={`import { ShopPage } from "@/components/nabiel-ui/shop-page"
+import { flattenedVariants } from "@/data/products"
 
-      <div className="mb-6">
-        <Card className="w-full overflow-hidden">
-          <CardHeader>
-            <CardTitle>Example Shop Page</CardTitle>
-            <CardDescription>
-              A searchable grid of candle products with responsive layout and product cards.
-            </CardDescription>
-          </CardHeader>
-          <CardContent className="px-0">
-            <ShopPage products={flattenedVariants.slice(0, 8)} />
-          </CardContent>
-        </Card>
-      </div>
-
-      <div className="relative mt-4 bg-muted px-4 py-3 rounded-md text-sm font-mono text-muted-foreground overflow-auto">
-        <code>
-{`<ShopPage products={flattenedVariants} />`}
-        </code>
-      </div>
-    </div>
+<ShopPage products={flattenedVariants} />`}
+      extraNotes={
+        <>
+          💡 Ideal for collection or shop routes like <code>/shop</code> or{" "}
+          <code>/category/[slug]</code>. Supports full client-side filtering and search.
+        </>
+      }
+    />
   )
 }

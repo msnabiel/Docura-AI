@@ -1,48 +1,100 @@
-// components/footer.tsx
-import Link from "next/link"
-import { Package } from "lucide-react"
+"use client"
 
-export function Footer() {
+import Link from "next/link"
+import { Facebook, Instagram, Twitter, Mail } from "lucide-react"
+import { cn } from "@/lib/utils"
+
+export interface FooterLink {
+  label: string
+  href: string
+}
+
+export interface FooterProps {
+  logo?: React.ReactNode
+  links?: FooterLink[]
+  contactEmail?: string
+  social?: {
+    facebook?: string
+    twitter?: string
+    instagram?: string
+  }
+}
+
+export const Footer: React.FC<FooterProps> = ({
+  logo = <span className="font-bold text-xl">Nabiel</span>,
+  links = [
+    { label: "Shop", href: "/shop" },
+    { label: "About", href: "/about" },
+    { label: "Contact", href: "/contact" },
+  ],
+  contactEmail = "support@nabiel.store",
+  social = {
+    instagram: "https://instagram.com/nabiel.store",
+    twitter: "https://twitter.com/nabiel_store",
+    facebook: "https://facebook.com/nabiel.store",
+  },
+}) => {
   return (
-    <footer className="border-t bg-background">
-      <div className="container px-6 py-10 md:py-6 flex flex-col md:flex-row items-center justify-between gap-6 text-sm">
-        
-        {/* Logo + Tagline */}
-        <div className="flex flex-col items-center md:items-start text-center md:text-left gap-2">
-          <div className="flex items-center gap-2 text-foreground">
-            <Package className="w-5 h-5 text-primary" />
-            <span className="font-semibold">nabiel-ui</span>
-          </div>
-          <p className="text-muted-foreground max-w-xs leading-relaxed">
-            Beautiful, accessible components for modern React apps.
+    <footer className="bg-muted border-t text-muted-foreground">
+      <div className="container px-4 py-10 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
+        {/* Branding */}
+        <div className="space-y-2">
+          <Link href="/" className="text-foreground">
+            {logo}
+          </Link>
+          <p className="text-sm">
+            Crafted with care. High-quality handmade products for your space.
           </p>
         </div>
 
-        {/* Links */}
-        <div className="flex flex-wrap justify-center md:justify-end items-center gap-4 text-muted-foreground">
-          <Link
-            href="/docs"
-            className="hover:text-foreground transition-colors"
-          >
-            Documentation
-          </Link>
-          <Link
-            href="https://github.com/nabiel/nabiel-ui"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="hover:text-foreground transition-colors"
-          >
-            GitHub
-          </Link>
-          <Link
-            href="https://www.npmjs.com/package/nabiel-ui"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="hover:text-foreground transition-colors"
-          >
-            npm
-          </Link>
+        {/* Quick Links */}
+        <div>
+          <h3 className="text-sm font-semibold mb-2 text-foreground">Quick Links</h3>
+          <ul className="space-y-1">
+            {links.map((link) => (
+              <li key={link.href}>
+                <Link href={link.href} className="hover:text-foreground transition">
+                  {link.label}
+                </Link>
+              </li>
+            ))}
+          </ul>
         </div>
+
+        {/* Contact + Social */}
+        <div>
+          <h3 className="text-sm font-semibold mb-2 text-foreground">Contact</h3>
+          <ul className="space-y-1">
+            <li>
+              <a href={`mailto:${contactEmail}`} className="hover:text-foreground transition flex items-center gap-1">
+                <Mail className="w-4 h-4" />
+                {contactEmail}
+              </a>
+            </li>
+          </ul>
+
+          <div className="flex items-center gap-4 mt-4">
+            {social?.instagram && (
+              <a href={social.instagram} target="_blank" rel="noreferrer" className="hover:text-foreground">
+                <Instagram className="h-5 w-5" />
+              </a>
+            )}
+            {social?.twitter && (
+              <a href={social.twitter} target="_blank" rel="noreferrer" className="hover:text-foreground">
+                <Twitter className="h-5 w-5" />
+              </a>
+            )}
+            {social?.facebook && (
+              <a href={social.facebook} target="_blank" rel="noreferrer" className="hover:text-foreground">
+                <Facebook className="h-5 w-5" />
+              </a>
+            )}
+          </div>
+        </div>
+      </div>
+
+      <div className="border-t text-center py-4 text-xs">
+        &copy; {new Date().getFullYear()} Nabiel. All rights reserved.
       </div>
     </footer>
   )

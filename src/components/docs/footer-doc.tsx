@@ -1,55 +1,57 @@
 "use client"
 
-import { Card, CardHeader, CardTitle, CardContent, CardDescription } from "@/components/ui/card"
 import { Footer } from "@/components/nabiel-ui/footer"
+import { DocPageLayout } from "@/components/docs/doc-page-layout"
 
 export function footerDoc() {
   return (
-    <div>
-      <h1 className="text-2xl font-bold mb-2">Footer</h1>
-      <p className="text-muted-foreground mb-6">
-        The <code>Footer</code> component provides a responsive e-commerce site footer with links, contact info, and social media icons.
-      </p>
+    <DocPageLayout
+      title="Footer"
+      description={
+        <>
+          The <code>Footer</code> component provides a responsive e-commerce site footer with links, contact
+          info, and social media icons.
+        </>
+      }
+      preview={
+        <Footer
+          contactEmail="hello@nabiel.store"
+          links={[
+            { label: "Shop", href: "/shop" },
+            { label: "About", href: "/about" },
+            { label: "Contact", href: "/contact" },
+          ]}
+          social={{
+            instagram: "https://instagram.com/nabiel.store",
+            twitter: "https://twitter.com/nabiel_store",
+          }}
+        />
+      }
+      addSnippet={`npx nabiel-ui add footer`}
+      usageSnippet={`import { Footer } from "@/components/nabiel-ui/footer"
 
-      <div className="mb-6">
-        <Card className="w-full overflow-hidden">
-          <CardHeader>
-            <CardTitle>Example Footer</CardTitle>
-            <CardDescription>A clean footer with branding, quick links, and social links.</CardDescription>
-          </CardHeader>
-          <CardContent className="px-0">
-            <Footer
-              contactEmail="hello@nabiel.store"
-              links={[
-                { label: "Shop", href: "/shop" },
-                { label: "About", href: "/about" },
-                { label: "Contact", href: "/contact" },
-              ]}
-              social={{
-                instagram: "https://instagram.com/nabiel.store",
-                twitter: "https://twitter.com/nabiel_store",
-              }}
-            />
-          </CardContent>
-        </Card>
-      </div>
-
-      <div className="relative mt-4 bg-muted px-4 py-3 rounded-md text-sm font-mono text-muted-foreground overflow-auto">
-        <code>
-{`<Footer
-  contactEmail="hello@nabiel.store"
-  links={[
-    { label: "Shop", href: "/shop" },
-    { label: "About", href: "/about" },
-    { label: "Contact", href: "/contact" },
-  ]}
-  social={{
-    instagram: "https://instagram.com/nabiel.store",
-    twitter: "https://twitter.com/nabiel_store",
-  }}
-/>`}
-        </code>
-      </div>
-    </div>
+export default function Page() {
+  return (
+    <Footer
+      contactEmail="hello@nabiel.store"
+      links={[
+        { label: "Shop", href: "/shop" },
+        { label: "About", href: "/about" },
+        { label: "Contact", href: "/contact" },
+      ]}
+      social={{
+        instagram: "https://instagram.com/nabiel.store",
+        twitter: "https://twitter.com/nabiel_store",
+      }}
+    />
+  )
+}`}
+      extraNotes={
+        <>
+          💡 You can customize the layout, add a newsletter signup, or inject additional links like FAQs, terms, or
+          support. The `social` prop is optional and supports Instagram, Twitter, and LinkedIn.
+        </>
+      }
+    />
   )
 }
