@@ -1,5 +1,9 @@
+import { clerkDoc } from "@/components/docs/clerk-doc"
+import { mailchimpDoc } from "@/components/docs/mailchimp-doc"
 import { razorpayDoc } from "@/components/docs/razorpay-doc"
+import { resendDoc } from "@/components/docs/resend-doc"
 import { stripeDoc } from "@/components/docs/stripe-doc"
+import { supabaseDoc } from "@/components/docs/supabase-doc"
 
 export type DocMeta = {
   name: string
@@ -8,10 +12,18 @@ export type DocMeta = {
 
 export const docs: DocMeta[] = [
   { name: "Razorpay Integration", slug: "razorpay" },
-  {name:"Stripe Integration",slug:"stripe"}
+  {name:"Stripe Integration",slug:"stripe"},
+  {name: "Supabase Integration", slug: "supabase"},
+  {name:"Resend Integration",slug:"resend"},
+  {name:"Clerk Integration",slug:"clerk"},
+  {name:"Mailchimp Integration",slug:"mailchimp"},
   // Add more docs here later
-]
+].sort((a, b) => a.name.localeCompare(b.name))
 export const docPages: Record<string, React.FC> = {
   razorpay: razorpayDoc,
-  stripe:stripeDoc
+  stripe:stripeDoc,
+  supabase: supabaseDoc,
+  resend: resendDoc,
+  clerk: clerkDoc,
+  mailchimp:mailchimpDoc
 }
