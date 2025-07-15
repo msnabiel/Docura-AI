@@ -11,6 +11,8 @@ import { shopDoc } from "@/components/docs/shop-doc"
 import { cartDoc } from "@/components/docs/cart-doc"
 import { checkoutDoc } from "@/components/docs/checkout-doc"
 import { orderSuccessDoc } from "@/components/docs/order-success-doc"
+import { trackOrderDoc } from "@/components/docs/track-order-doc"
+import { faqDoc } from "@/components/docs/faq-doc"
 export type ComponentMeta = {
   name: string
   slug: string
@@ -29,6 +31,8 @@ export const components: ComponentMeta[] = [
   { name: "Cart Page", slug: "cart" },
   { name: "Checkout Page", slug: "checkout" },
   { name: "Order Success", slug: "order-success" },
+  { name: "Track Order", slug: "track-order" },
+  { name: "FAQ", slug: "faq" },
 
 ].sort((a, b) => a.name.localeCompare(b.name))
 
@@ -47,4 +51,6 @@ export const componentDocs = {
   hero: heroDoc,
   shop: shopDoc,
   "order-success": orderSuccessDoc,
+  "track-order": trackOrderDoc,
+  faq: faqDoc,
 } as const
