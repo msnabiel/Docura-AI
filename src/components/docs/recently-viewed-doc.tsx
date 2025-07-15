@@ -14,7 +14,13 @@ export function recentlyViewedDoc() {
           renders on the client side.
         </>
       }
-      preview={<RecentlyViewedProducts />}
+      
+      preview={
+  <div className="px-4">
+    <RecentlyViewedProducts />
+  </div>
+}
+
       addSnippet={`npx nabiel-ui add recently-viewed`}
       usageSnippet={`import { RecentlyViewedProducts } from "@/components/nabiel-ui/recently-viewed"
 

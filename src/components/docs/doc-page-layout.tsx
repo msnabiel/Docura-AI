@@ -43,7 +43,7 @@ export function DocPageLayout({
               A demo of the <code>{title}</code> component in action.
             </CardDescription>
           </CardHeader>
-          <CardContent className="px-4">{preview}</CardContent>
+          <CardContent className="px-0">{preview}</CardContent>
         </Card>
       </div>
 
