@@ -68,7 +68,7 @@ export default function Home() {
             <ArrowRight className="ml-2 h-4 w-4" />
           </Button>
         </Link>
-        <Link href="https://github.com/nabiel/nabiel-ui" target="_blank">
+        <Link href="https://github.com/msnabiel/nabiel-ui" target="_blank">
           <Button variant="outline" size="lg">
             View on GitHub
           </Button>
