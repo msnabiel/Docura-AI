@@ -1,12 +1,8 @@
+// app/docs/[slug]/page.tsx
+
 import { notFound } from "next/navigation"
 import { SidebarMenu } from "@/components/docs/sidebar-menu"
-import { buttonDoc } from "@/components/docs/button-doc"
-import { cardDoc } from "@/components/docs/card-doc"
-
-const docs = {
-  button: buttonDoc,
-  card: cardDoc,
-}
+import { componentDocs, components } from "@/data/components"
 
 type ComponentPageProps = {
   params: Promise<{
@@ -16,10 +12,10 @@ type ComponentPageProps = {
 
 export default async function ComponentDocPage({ params }: ComponentPageProps) {
   const { slug } = await params
-  const DocComponent = docs[slug as keyof typeof docs]
-  
+  const DocComponent = componentDocs[slug as keyof typeof componentDocs]
+
   if (!DocComponent) return notFound()
-  
+
   return (
     <div className="max-w-6xl mx-auto px-4 sm:px-6 py-10">
       <div className="flex flex-col md:flex-row">
@@ -35,5 +31,5 @@ export default async function ComponentDocPage({ params }: ComponentPageProps) {
 }
 
 export function generateStaticParams() {
-  return [{ slug: "button" }, { slug: "card" }]
+  return components.map((comp) => ({ slug: comp.slug }))
 }

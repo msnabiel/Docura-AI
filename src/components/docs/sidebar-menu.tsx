@@ -11,11 +11,7 @@ import {
   PopoverContent,
 } from "@/components/ui/popover"
 
-const components = [
-  { name: "Button", slug: "button" },
-  { name: "Card", slug: "card" },
-  { name: "Badge", slug: "badge" },
-]
+import { components } from "@/data/components"
 
 export function SidebarMenu() {
   const pathname = usePathname()
