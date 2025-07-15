@@ -71,7 +71,7 @@ export function stripeDoc() {
           <Button onClick={() => alert("This would redirect to Stripe Checkout.")}>
             Simulate Stripe Checkout
           </Button>
-          <p className="text-sm text-muted-foreground flex-col items-center space-y-4">
+          <p className="text-sm text-muted-foreground text-center">
             This simulates redirecting users to Stripe’s hosted checkout page.
           </p>
         </div>
