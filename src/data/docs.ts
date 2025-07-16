@@ -13,6 +13,9 @@ import { cashfreeDoc } from "@/components/docs/cashfree-doc"
 import { Spline } from "lucide-react"
 import { splineDoc } from "@/components/docs/spline-doc"
 import { airtableDoc } from "@/components/docs/airtable-doc"
+import { zapierDoc } from "@/components/docs/zapier-doc"
+import { NabielUiInstallationDoc } from "@/components/docs/installation-doc"
+import { NabielUiIntroDoc } from "@/components/docs/introduction-doc"
 export type DocMeta = {
   name: string
   slug: string
@@ -20,21 +23,31 @@ export type DocMeta = {
 
 export const docs: DocMeta[] = [
   { name: "Razorpay Integration", slug: "razorpay" },
-  {name:"Stripe Integration",slug:"stripe"},
-  {name: "Supabase Integration", slug: "supabase"},
-  {name:"Resend Integration",slug:"resend"},
-  {name:"Clerk Integration",slug:"clerk"},
-  {name:"Mailchimp Integration",slug:"mailchimp"},
-    {name:"Shopify Integration",slug:"shopify"},
-    { name: "PayPal Integration", slug: "paypal" }, 
-    { name: "UploadThing Integration", slug: "uploadthing" },
-    { name: "Google Sheets Integration", slug: "google-sheets" },
-    {name:"Paytm Integration",slug:"paytm"},
-    {name: "Cashfree Integration", slug: "cashfree"},
-    {name: "Spline Integration", slug: "spline"},
-    {name: "Airtable Integration", slug: "airtable" },
+  { name: "Stripe Integration", slug: "stripe" },
+  { name: "Supabase Integration", slug: "supabase" },
+  { name: "Resend Integration", slug: "resend" },
+  { name: "Clerk Integration", slug: "clerk" },
+  { name: "Mailchimp Integration", slug: "mailchimp" },
+  { name: "Shopify Integration", slug: "shopify" },
+  { name: "PayPal Integration", slug: "paypal" },
+  { name: "UploadThing Integration", slug: "uploadthing" },
+  { name: "Google Sheets Integration", slug: "google-sheets" },
+  { name: "Paytm Integration", slug: "paytm" },
+  { name: "Cashfree Integration", slug: "cashfree" },
+  { name: "Spline Integration", slug: "spline" },
+  { name: "Airtable Integration", slug: "airtable" },
+  { name: "Zapier Integration", slug: "zapier" },
+  { name: "Installation", slug: "installation" },
+  { name: "Introduction", slug: "introduction" },
   // Add more docs here later
-].sort((a, b) => a.name.localeCompare(b.name))
+].sort((a, b) => {
+  if (a.slug === "introduction") return -1
+  if (b.slug === "introduction") return 1
+  if (a.slug === "installation") return -1
+  if (b.slug === "installation") return 1
+  return a.name.localeCompare(b.name)
+})
+
 export const docPages: Record<string, React.FC> = {
   razorpay: razorpayDoc,
   stripe:stripeDoc,
@@ -49,5 +62,8 @@ export const docPages: Record<string, React.FC> = {
      paytm: paytmDoc,
      cashfree: cashfreeDoc,
      spline: splineDoc,
-    airtable: airtableDoc
+    airtable: airtableDoc,
+    zapier:zapierDoc,
+    installation:NabielUiInstallationDoc,
+    introduction:NabielUiIntroDoc
 }

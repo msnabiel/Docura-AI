@@ -7,6 +7,11 @@ import { ArrowRight, Check, Copy } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import { IntegrationsMarquee } from "@/components/integrations-marquee"
+import { WhyChooseSection } from "@/components/why-choose"
+import { FeatureHighlightsSection } from "@/components/FeatureHighlightsSection"
+import { TestimonialSection } from "@/components/TestimonialSection"
+import { PricingSection } from "@/components/pricing"
+import { StartSellingSection } from "@/components/StartSellingSection"
 const fadeInUp = {
   hidden: { opacity: 0, y: 20 },
   show: { opacity: 1, y: 0, transition: { duration: 0.6 } },
@@ -32,86 +37,94 @@ export default function Home() {
   }
 
   return (
-    <motion.section
-      initial="hidden"
-      animate="show"
-      variants={stagger}
-      className="min-h-[calc(100vh-4rem)] flex flex-col items-center justify-center px-6 text-center"
+<motion.section
+  initial="hidden"
+  animate="show"
+  variants={stagger}
+  className="min-h-[calc(100vh-4rem)] flex flex-col items-center justify-center px-6 text-center pt-8 
+    bg-gradient-to-br from-[#E0F7FA] via-white to-[#FFF3E0] 
+    dark:from-[#0f172a] dark:via-[#1e293b] dark:to-[#0f172a]"
+>
+<motion.div variants={fadeInUp} className="w-full py-24 text-center">
+  <motion.div variants={fadeInUp}>
+    <Badge variant="secondary" className="mb-4 text-sm tracking-wide bg-[#E1F5FE] text-[#0277BD] dark:bg-[#1e3a8a]/20 dark:text-blue-400">
+      🚀 Now Available — <code className="ml-1 text-xs font-mono">nabiel-ui</code> powered by <span className="font-semibold ml-1">vendora</span>
+    </Badge>
+  </motion.div>
+
+  <motion.h1
+    variants={fadeInUp}
+    className="text-4xl sm:text-5xl md:text-6xl font-extrabold tracking-tight text-foreground mb-4"
+  >
+    Build fast, stunning commerce UIs
+  </motion.h1>
+
+  <motion.p
+    variants={fadeInUp}
+    className="max-w-2xl mx-auto text-base sm:text-lg text-muted-foreground mb-8"
+  >
+    <span className="font-semibold text-foreground">nabiel-ui</span> is a drop-in component kit for
+    product pages, carts, checkouts, and everything e-commerce — crafted with Tailwind CSS,
+    ShadCN, and supercharged by <span className="text-primary font-semibold">vendora</span>.
+  </motion.p>
+
+  <motion.div
+    variants={fadeInUp}
+    className="flex flex-col sm:flex-row justify-center gap-3 sm:gap-4 mb-8"
+  >
+    <Link href="/docs/razorpay">
+      <Button size="lg" className="bg-[#0288D1] text-white hover:bg-[#0277BD]">
+        Documentation <ArrowRight className="ml-2 h-4 w-4" />
+      </Button>
+    </Link>
+    <Link href="/components">
+      <Button size="lg" className="bg-[#388E3C] text-white hover:bg-[#2E7D32]">
+        Components <ArrowRight className="ml-2 h-4 w-4" />
+      </Button>
+    </Link>
+    <Link href="https://github.com/msnabiel/nabiel-ui" target="_blank" rel="noopener noreferrer">
+      <Button variant="outline" size="lg">
+        View on GitHub
+      </Button>
+    </Link>
+  </motion.div>
+
+  <motion.div
+    variants={fadeInUp}
+    className="relative inline-flex items-center bg-white dark:bg-muted px-4 py-3 rounded-md border shadow-sm text-sm font-mono text-muted-foreground"
+  >
+    <span className="text-xs sm:text-sm">npm install nabiel-ui</span>
+    <Button
+      size="icon"
+      variant="ghost"
+      onClick={handleCopy}
+      className="ml-2 hover:text-foreground"
     >
-      <motion.div variants={fadeInUp}>
-        <Badge variant="outline" className="mb-4">
-          Now Available — <code className="ml-1 text-xs font-mono">nabiel-ui</code> for commerce
-        </Badge>
-      </motion.div>
+      {copied ? (
+        <Check className="h-4 w-4 text-green-500" />
+      ) : (
+        <Copy className="h-4 w-4" />
+      )}
+    </Button>
+    {copied && (
+      <span className="absolute -top-6 right-2 text-xs text-green-500 animate-fade-in">
+        Copied!
+      </span>
+    )}
+  </motion.div>
+</motion.div>
 
-      <motion.h1
-        variants={fadeInUp}
-        className="text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight mb-4"
-      >
-        Build fast, stunning commerce UIs
-      </motion.h1>
-
-      <motion.p
-        variants={fadeInUp}
-        className="max-w-xl text-muted-foreground text-base sm:text-lg mb-6"
-      >
-        <span className="font-medium text-foreground">nabiel-ui</span> is a drop-in component kit for
-        product pages, carts, checkouts, and everything e-commerce — styled with Tailwind CSS and ShadCN.
-      </motion.p>
-
-      <motion.div
-        variants={fadeInUp}
-        className="flex flex-col sm:flex-row gap-3 sm:gap-4 mb-6"
-      >
-        <Link href="/docs/razorpay">
-          <Button size="lg">
-            Documentation
-            <ArrowRight className="ml-2 h-4 w-4" />
-          </Button>
-        </Link>
-        <Link href="/components">
-          <Button size="lg">
-            Components
-            <ArrowRight className="ml-2 h-4 w-4" />
-          </Button>
-        </Link>
-        <Link href="https://github.com/msnabiel/nabiel-ui" target="_blank" rel="noopener noreferrer">
-          <Button variant="outline" size="lg">
-            View on GitHub
-          </Button>
-        </Link>
-      </motion.div>
-
-      <motion.div
-        variants={fadeInUp}
-        className="relative mt-4 inline-flex items-center bg-muted rounded-md px-4 py-3 text-sm font-mono text-muted-foreground"
-      >
-        <span>{command}</span>
-        <Button
-          size="icon"
-          variant="ghost"
-          onClick={handleCopy}
-          className="ml-2 hover:text-foreground"
-        >
-          {copied ? (
-            <Check className="h-4 w-4 text-green-500" />
-          ) : (
-            <Copy className="h-4 w-4" />
-          )}
-        </Button>
-        {copied && (
-          <span className="absolute -top-6 right-2 text-xs text-green-500 animate-fade-in">
-            Copied!
-          </span>
-        )}
-      </motion.div>
       <motion.div variants={fadeInUp} className="w-full mt-10">
   <h2 className="text-center text-muted-foreground text-sm uppercase font-medium mb-2">
     10+ Integrations
   </h2>
   <IntegrationsMarquee />
 </motion.div>
-
+        <WhyChooseSection />
+      <FeatureHighlightsSection />
+      <TestimonialSection />
+      <PricingSection />
+      <StartSellingSection />
     </motion.section>
     
   )

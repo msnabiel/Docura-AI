@@ -30,22 +30,34 @@ export function NavBar() {
   return (
     <nav className="border-b px-4 py-3 flex items-center justify-between">
       {/* Left: Logo */}
-      <Link href="/" className="text-xl font-bold">
-        ▨ nabiel-ui
+      <Link href="/" className="text-xl font-bold tracking-tight">
+        ▨ Vendora
       </Link>
 
       {/* Desktop Nav */}
       <div className="hidden md:flex items-center gap-6 flex-1 justify-center">
-        <Link href="/components" className="text-sm font-medium hover:underline">
-          Components
-        </Link>
-        <Link href="/docs/razorpay" className="text-sm font-medium hover:underline">
-          Docs
+        <Link href="/" className="text-sm font-medium hover:underline">
+          Get Started
         </Link>
         <Link href="/templates" className="text-sm font-medium hover:underline">
           Templates
         </Link>
-        <a href="https://github.com" className="text-sm font-medium hover:underline">
+        <Link href="/components" className="text-sm font-medium hover:underline">
+          Nabiel UI
+        </Link>
+        
+        <Link href="/donations" className="text-sm font-medium hover:underline">
+          Donations
+        </Link>
+        <Link href="/contact" className="text-sm font-medium hover:underline">
+          Contact Us
+        </Link>
+        <a
+          href="https://github.com/msnabiel/nabiel-ui"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-sm font-medium hover:underline"
+        >
           GitHub
         </a>
       </div>
@@ -58,7 +70,9 @@ export function NavBar() {
           onChange={(e) => setQuery(e.target.value)}
           className="w-[200px]"
         />
-        <Button type="submit" variant="ghost">Go</Button>
+        <Button type="submit" variant="ghost">
+          Go
+        </Button>
       </form>
 
       {/* Mobile Toggle */}
@@ -79,12 +93,25 @@ export function NavBar() {
               value={query}
               onChange={(e) => setQuery(e.target.value)}
             />
-            <Button type="submit" variant="ghost">Go</Button>
+            <Button type="submit" variant="ghost">
+              Go
+            </Button>
           </form>
-          <Link href="/components" className="block text-sm font-medium">Components</Link>
-          <Link href="/docs/razorpay" className="block text-sm font-medium">Docs</Link>
+          <Link href="/" className="block text-sm font-medium">Get Started</Link>
           <Link href="/templates" className="block text-sm font-medium">Templates</Link>
-          <a href="https://github.com" className="block text-sm font-medium">GitHub</a>
+                  <Link href="/components" className="text-sm font-medium hover:underline">
+          Vendora
+        </Link>
+          <Link href="/donations" className="block text-sm font-medium">Donations</Link>
+          <Link href="/contact" className="block text-sm font-medium">Contact Us</Link>
+          <a
+            href="https://github.com/msnabiel/nabiel-ui"
+            className="block text-sm font-medium"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            GitHub
+          </a>
         </div>
       )}
     </nav>

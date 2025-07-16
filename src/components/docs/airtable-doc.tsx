@@ -3,8 +3,6 @@
 import { DocPageLayout } from "@/components/docs/doc-page-layout"
 import { CodeBlockWithCopy } from "@/components/code-block-with-copy"
 import { Button } from "@/components/ui/button"
-import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
-import { Terminal } from "lucide-react"
 
 const installSnippet = `npm install airtable`
 
@@ -36,22 +34,12 @@ AIRTABLE_BASE_ID=your_base_id`
 
 const usageSnippet = `// app/shop/page.tsx
 import { fetchProducts } from "@/lib/airtable"
+import { ShopPage } from  "@/components/nabiel-ui/shop-page"
 
-export default async function ShopPage() {
+export default async function Page() {
   const products = await fetchProducts()
 
-  return (
-    <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-      {products.map((product) => (
-        <div key={product.id} className="border rounded-xl p-4">
-          <img src={product.image} alt={product.name} className="rounded-md mb-2" />
-          <h3 className="font-semibold">{product.name}</h3>
-          <p className="text-muted-foreground text-sm mb-2">{product.description}</p>
-          <span className="text-sm font-medium">₹{product.price}</span>
-        </div>
-      ))}
-    </div>
-  )
+  return <ShopPage products={products} />
 }`
 
 export function airtableDoc() {
@@ -64,18 +52,17 @@ export function airtableDoc() {
       addSnippet={installSnippet}
       usageSnippet={fetchSnippet}
       preview={
-<div className="space-y-4 text-sm text-muted-foreground text-center">
-  <a
-    href="https://airtable.com"
-    target="_blank"
-    rel="noreferrer"
-    className="inline-block"
-  >
-    <Button>Open Airtable</Button>
-  </a>
-  <p>Use it to manage your product listings via the <code>Products</code> table.</p>
-</div>
-
+        <div className="space-y-4 text-sm text-muted-foreground text-center">
+          <a
+            href="https://airtable.com"
+            target="_blank"
+            rel="noreferrer"
+            className="inline-block"
+          >
+            <Button>Open Airtable</Button>
+          </a>
+          <p>Use it to manage your product listings via the <code>Products</code> table.</p>
+        </div>
       }
       extraInfo={
         <div className="space-y-6">
@@ -96,7 +83,10 @@ export function airtableDoc() {
           </div>
 
           <div>
-            <h3 className="text-lg font-semibold mb-2">🛍️ Example Usage</h3>
+            <h3 className="text-lg font-semibold mb-2">🛍️ Integrate with Nabiel UI's ShopPage</h3>
+            <p className="text-sm text-muted-foreground mb-2">
+              The <code>ShopPage</code> component from <code>@nabiel/ui</code> accepts a <code>products</code> prop. Pass the array returned from <code>fetchProducts()</code> like this:
+            </p>
             <CodeBlockWithCopy code={usageSnippet} />
           </div>
         </div>

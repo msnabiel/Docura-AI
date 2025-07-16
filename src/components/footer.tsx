@@ -30,7 +30,7 @@ export const Footer: React.FC<FooterProps> = ({
   { label: "GitHub", href: "https://github.com/msnabiel/nabiel-ui", external: true },
 
 ],
-  contactEmail = "msyednabiel@gmail.com",
+  contactEmail = "info.nabielco@gmail.com",
   social = {
     instagram: "https://instagram.com/nabiel.store",
     twitter: "https://twitter.com/nabiel_store",
