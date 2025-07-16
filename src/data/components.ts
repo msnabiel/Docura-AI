@@ -19,6 +19,8 @@ import { productFiltersDoc } from "@/components/docs/product-filters-doc"
 import { recentlyViewedDoc } from "@/components/docs/recently-viewed-doc"
 import { productDetailDoc } from "@/components/docs/product-detail-doc"
 import { razorpayDoc } from "@/components/docs/razorpay-doc"
+import { testimonialDoc } from "@/components/docs/testimonial-doc"
+import { featuresGridDoc } from "@/components/docs/features-grid-doc"
 export type ComponentMeta = {
   name: string
   slug: string
@@ -40,7 +42,10 @@ export const components: ComponentMeta[] = [
   { name: "Product Filters", slug: "product-filters" },
   { name: "Recently Viewed", slug: "recently-viewed" },
   {name: "Product Page",slug:"product-page"},
-  { name: "Razorpay Integration", slug: "razorpay" }
+  {name: "Testimonial", slug: "testimonial"},
+  { name: "Features Grid", slug: "features-grid" },
+
+  
 
 ].sort((a, b) => a.name.localeCompare(b.name))
 
@@ -66,5 +71,7 @@ export const componentDocs = {
   faq: faqDoc,
   "my-account": myAccountDoc,
   "support-cta": supportCtaDoc,
-  "product-page": productDetailDoc
+  "product-page": productDetailDoc,
+  testimonial: testimonialDoc,
+  "features-grid":featuresGridDoc
 } as const

@@ -23,11 +23,11 @@ export interface FooterProps {
 export const Footer: React.FC<FooterProps> = ({
   logo = <span className="font-bold text-xl">Nabiel</span>,
   links = [
-    { label: "Shop", href: "/shop" },
-    { label: "About", href: "/about" },
-    { label: "Contact", href: "/contact" },
-  ],
-  contactEmail = "support@nabiel.store",
+  { label: "Docs", href: "/docs" },
+  { label: "Components", href: "/components" },
+  { label: "GitHub", href: "https://github.com/msnabiel/nabiel-ui", external: true },
+],
+  contactEmail = "msyednabiel@gmail.com",
   social = {
     instagram: "https://instagram.com/nabiel.store",
     twitter: "https://twitter.com/nabiel_store",

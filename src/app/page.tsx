@@ -36,10 +36,10 @@ export default function Home() {
       initial="hidden"
       animate="show"
       variants={stagger}
-      className="min-h-[calc(100vh-4rem)] flex flex-col items-center justify-center text-center px-6"
+      className="min-h-[calc(100vh-4rem)] flex flex-col items-center justify-center px-6 text-center"
     >
       <motion.div variants={fadeInUp}>
-        <Badge className="mb-4" variant="outline">
+        <Badge variant="outline" className="mb-4">
           Now Available — <code className="ml-1 text-xs font-mono">nabiel-ui</code> for commerce
         </Badge>
       </motion.div>
@@ -55,52 +55,56 @@ export default function Home() {
         variants={fadeInUp}
         className="max-w-xl text-muted-foreground text-base sm:text-lg mb-6"
       >
-        <span className="font-medium text-foreground">nabiel-ui</span> is a drop-in UI kit built for product pages, carts, checkouts, and everything e-commerce — built with Tailwind CSS and ShadCN components.
+        <span className="font-medium text-foreground">nabiel-ui</span> is a drop-in component kit for
+        product pages, carts, checkouts, and everything e-commerce — styled with Tailwind CSS and ShadCN.
       </motion.p>
 
       <motion.div
         variants={fadeInUp}
-        className="flex flex-col sm:flex-row items-center gap-4"
+        className="flex flex-col sm:flex-row gap-3 sm:gap-4 mb-6"
       >
         <Link href="/docs/razorpay">
           <Button size="lg">
-            Explore Docs
+            Documentation
             <ArrowRight className="ml-2 h-4 w-4" />
           </Button>
         </Link>
-        <Link href="https://github.com/msnabiel/nabiel-ui" target="_blank">
+        <Link href="/components">
+          <Button size="lg">
+            Components
+            <ArrowRight className="ml-2 h-4 w-4" />
+          </Button>
+        </Link>
+        <Link href="https://github.com/msnabiel/nabiel-ui" target="_blank" rel="noopener noreferrer">
           <Button variant="outline" size="lg">
             View on GitHub
           </Button>
         </Link>
       </motion.div>
 
-      {/* Install Command */}
       <motion.div
-  variants={fadeInUp}
-  className="relative mt-8 inline-flex items-center bg-muted rounded-md px-4 py-3 text-sm font-mono text-muted-foreground w-auto"
->
-  <span>{command}</span>
-  <Button
-    size="icon"
-    variant="ghost"
-    onClick={handleCopy}
-    className="hover:text-foreground ml-2"
-  >
-    {copied ? (
-      <Check className="h-4 w-4 text-green-500" />
-    ) : (
-      <Copy className="h-4 w-4" />
-    )}
-  </Button>
-
-  {copied && (
-    <span className="absolute -top-6 right-2 text-xs text-green-500 animate-fade-in">
-      Copied!
-    </span>
-  )}
-</motion.div>
-
+        variants={fadeInUp}
+        className="relative mt-4 inline-flex items-center bg-muted rounded-md px-4 py-3 text-sm font-mono text-muted-foreground"
+      >
+        <span>{command}</span>
+        <Button
+          size="icon"
+          variant="ghost"
+          onClick={handleCopy}
+          className="ml-2 hover:text-foreground"
+        >
+          {copied ? (
+            <Check className="h-4 w-4 text-green-500" />
+          ) : (
+            <Copy className="h-4 w-4" />
+          )}
+        </Button>
+        {copied && (
+          <span className="absolute -top-6 right-2 text-xs text-green-500 animate-fade-in">
+            Copied!
+          </span>
+        )}
+      </motion.div>
     </motion.section>
   )
 }
