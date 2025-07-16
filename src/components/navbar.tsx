@@ -1,21 +1,37 @@
 "use client"
 
 import Link from "next/link"
+import { usePathname } from "next/navigation"
 import { useState } from "react"
 import { Menu, X } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
+import clsx from "clsx"
 
 const components = [
   { name: "Button", slug: "button" },
   { name: "Card", slug: "card" },
   { name: "Badge", slug: "badge" },
-  // Add more here...
 ]
 
 export function NavBar() {
+  const pathname = usePathname()
   const [isOpen, setIsOpen] = useState(false)
   const [query, setQuery] = useState("")
+
+  const navLinks = [
+    { label: "Get Started", href: "/" },
+    { label: "Documentation", href: "/docs/razorpay" },
+    { label: "Templates", href: "/templates" },
+    { label: "Nabiel UI", href: "/components" },
+    { label: "Donations", href: "/donations" },
+    { label: "Contact Us", href: "/contact" },
+    {
+      label: "GitHub",
+      href: "https://github.com/msnabiel/nabiel-ui",
+      external: true,
+    },
+  ]
 
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault()
@@ -28,66 +44,72 @@ export function NavBar() {
   }
 
   return (
-    <nav className="border-b px-4 py-3 flex items-center justify-between">
-      {/* Left: Logo */}
-      <Link href="/" className="text-xl font-bold tracking-tight">
-        ▨ Vendora
-      </Link>
+    <nav className="border-b bg-background/80 backdrop-blur-sm px-4 py-3 sticky top-0 z-50 shadow-sm">
+      <div className="flex items-center justify-between">
+        <Link href="/" className="text-xl font-bold tracking-tight">
+          ▨ Vendora
+        </Link>
 
-      {/* Desktop Nav */}
-      <div className="hidden md:flex items-center gap-6 flex-1 justify-center">
-        <Link href="/" className="text-sm font-medium hover:underline">
-          Get Started
-        </Link>
-        <Link href="/templates" className="text-sm font-medium hover:underline">
-          Templates
-        </Link>
-        <Link href="/components" className="text-sm font-medium hover:underline">
-          Nabiel UI
-        </Link>
-        
-        <Link href="/donations" className="text-sm font-medium hover:underline">
-          Donations
-        </Link>
-        <Link href="/contact" className="text-sm font-medium hover:underline">
-          Contact Us
-        </Link>
-        <a
-          href="https://github.com/msnabiel/nabiel-ui"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="text-sm font-medium hover:underline"
+        {/* Desktop Nav */}
+        <div className="hidden md:flex items-center gap-6 flex-1 justify-center">
+          {navLinks.map(({ label, href, external }) => {
+            const isActive = pathname === href
+            const baseClass =
+              "relative text-sm font-medium transition-colors hover:text-primary"
+            return external ? (
+              <a
+                key={label}
+                href={href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={baseClass}
+              >
+                {label}
+              </a>
+            ) : (
+              <Link
+                key={label}
+                href={href}
+                className={clsx(baseClass, {
+                  "text-primary": isActive,
+                })}
+              >
+                {label}
+                {isActive && (
+                  <span className="absolute left-0 -bottom-1 w-full h-[2px] bg-primary transition-all rounded-full" />
+                )}
+              </Link>
+            )
+          })}
+        </div>
+
+        {/* Desktop Search */}
+        <form onSubmit={handleSearch} className="hidden md:flex items-center space-x-2">
+          <Input
+            placeholder="Search components..."
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
+            className="w-[200px]"
+          />
+          <Button type="submit" variant="ghost">
+            Go
+          </Button>
+        </form>
+
+        {/* Mobile Toggle */}
+        <Button
+          variant="ghost"
+          className="md:hidden"
+          onClick={() => setIsOpen(!isOpen)}
         >
-          GitHub
-        </a>
-      </div>
-
-      {/* Right: Search */}
-      <form onSubmit={handleSearch} className="hidden md:flex items-center space-x-2">
-        <Input
-          placeholder="Search components..."
-          value={query}
-          onChange={(e) => setQuery(e.target.value)}
-          className="w-[200px]"
-        />
-        <Button type="submit" variant="ghost">
-          Go
+          {isOpen ? <X size={20} /> : <Menu size={20} />}
         </Button>
-      </form>
-
-      {/* Mobile Toggle */}
-      <Button
-        variant="ghost"
-        className="md:hidden"
-        onClick={() => setIsOpen(!isOpen)}
-      >
-        {isOpen ? <X size={20} /> : <Menu size={20} />}
-      </Button>
+      </div>
 
       {/* Mobile Menu */}
       {isOpen && (
-        <div className="absolute top-16 left-0 right-0 bg-white border-t shadow-md px-4 py-3 space-y-3 md:hidden z-50">
-          <form onSubmit={handleSearch} className="flex items-center gap-2">
+        <div className="mt-4 space-y-4 md:hidden">
+          <form onSubmit={handleSearch} className="flex items-center gap-2 px-1">
             <Input
               placeholder="Search components..."
               value={query}
@@ -97,21 +119,31 @@ export function NavBar() {
               Go
             </Button>
           </form>
-          <Link href="/" className="block text-sm font-medium">Get Started</Link>
-          <Link href="/templates" className="block text-sm font-medium">Templates</Link>
-                  <Link href="/components" className="text-sm font-medium hover:underline">
-          Vendora
-        </Link>
-          <Link href="/donations" className="block text-sm font-medium">Donations</Link>
-          <Link href="/contact" className="block text-sm font-medium">Contact Us</Link>
-          <a
-            href="https://github.com/msnabiel/nabiel-ui"
-            className="block text-sm font-medium"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            GitHub
-          </a>
+          {navLinks.map(({ label, href, external }) =>
+            external ? (
+              <a
+                key={label}
+                href={href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="block text-sm font-medium px-1"
+              >
+                {label}
+              </a>
+            ) : (
+              <Link
+                key={label}
+                href={href}
+                className={clsx(
+                  "block text-sm font-medium px-1",
+                  pathname === href && "text-primary"
+                )}
+                onClick={() => setIsOpen(false)}
+              >
+                {label}
+              </Link>
+            )
+          )}
         </div>
       )}
     </nav>
