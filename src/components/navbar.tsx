@@ -42,11 +42,11 @@ export function NavBar() {
         <Link href="/docs/razorpay" className="text-sm font-medium hover:underline">
           Docs
         </Link>
+        <Link href="/templates" className="text-sm font-medium hover:underline">
+          Templates
+        </Link>
         <a href="https://github.com" className="text-sm font-medium hover:underline">
           GitHub
-        </a>
-        <a href="https://www.npmjs.com/package/nabiel-ui" className="text-sm font-medium hover:underline">
-          npm
         </a>
       </div>
 
@@ -83,8 +83,8 @@ export function NavBar() {
           </form>
           <Link href="/components" className="block text-sm font-medium">Components</Link>
           <Link href="/docs/razorpay" className="block text-sm font-medium">Docs</Link>
+          <Link href="/templates" className="block text-sm font-medium">Templates</Link>
           <a href="https://github.com" className="block text-sm font-medium">GitHub</a>
-          <a href="https://npmjs.com" className="block text-sm font-medium">npm</a>
         </div>
       )}
     </nav>

@@ -1,7 +1,7 @@
 "use client"
 
 import Link from "next/link"
-import { Facebook, Instagram, Twitter, Mail } from "lucide-react"
+import { Mail, Github, Linkedin } from "lucide-react"
 import { cn } from "@/lib/utils"
 
 export interface FooterLink {
@@ -17,6 +17,8 @@ export interface FooterProps {
     facebook?: string
     twitter?: string
     instagram?: string
+    github?: string
+    linkedin?: string
   }
 }
 
@@ -32,6 +34,8 @@ export const Footer: React.FC<FooterProps> = ({
     instagram: "https://instagram.com/nabiel.store",
     twitter: "https://twitter.com/nabiel_store",
     facebook: "https://facebook.com/nabiel.store",
+    github: "https://github.com/msnabiel",
+  linkedin: "https://linkedin.com/in/msnabiel",
   },
 }) => {
   return (
@@ -74,23 +78,19 @@ export const Footer: React.FC<FooterProps> = ({
             </li>
           </ul>
 
-          <div className="flex items-center gap-4 mt-4">
-            {social?.instagram && (
-              <a href={social.instagram} target="_blank" rel="noreferrer" className="hover:text-foreground">
-                <Instagram className="h-5 w-5" />
-              </a>
-            )}
-            {social?.twitter && (
-              <a href={social.twitter} target="_blank" rel="noreferrer" className="hover:text-foreground">
-                <Twitter className="h-5 w-5" />
-              </a>
-            )}
-            {social?.facebook && (
-              <a href={social.facebook} target="_blank" rel="noreferrer" className="hover:text-foreground">
-                <Facebook className="h-5 w-5" />
-              </a>
-            )}
-          </div>
+<div className="flex items-center gap-4 mt-4">
+    {social?.github && (
+    <a href={social.github} target="_blank" rel="noreferrer" className="hover:text-foreground">
+      <Github className="h-5 w-5" />
+    </a>
+  )}
+  {social?.linkedin && (
+    <a href={social.linkedin} target="_blank" rel="noreferrer" className="hover:text-foreground">
+      <Linkedin className="h-5 w-5" />
+    </a>
+  )}
+</div>
+
         </div>
       </div>
 
