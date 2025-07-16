@@ -6,7 +6,7 @@ import { shopifyIntegrationDoc } from "@/components/docs/shopify-doc"
 import { stripeDoc } from "@/components/docs/stripe-doc"
 import { supabaseDoc } from "@/components/docs/supabase-doc"
 import { paypalDoc } from "@/components/docs/paypal-doc"
-
+import { uploadthingDoc } from "@/components/docs/uploadthing-doc"
 export type DocMeta = {
   name: string
   slug: string
@@ -21,6 +21,7 @@ export const docs: DocMeta[] = [
   {name:"Mailchimp Integration",slug:"mailchimp"},
     {name:"Shopify Integration",slug:"shopify"},
     { name: "PayPal Integration", slug: "paypal" }, 
+    { name: "UploadThing Integration", slug: "uploadthing" }
   // Add more docs here later
 ].sort((a, b) => a.name.localeCompare(b.name))
 export const docPages: Record<string, React.FC> = {
@@ -32,4 +33,5 @@ export const docPages: Record<string, React.FC> = {
   mailchimp:mailchimpDoc,
   shopify:shopifyIntegrationDoc,
   paypal: paypalDoc,
+  uploadthing: uploadthingDoc
 }
