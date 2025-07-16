@@ -50,7 +50,7 @@ export default function Home() {
             variant="secondary"
             className="mb-6 text-sm tracking-wide bg-[#E1F5FE] text-[#0277BD] dark:bg-[#1e3a8a]/20 dark:text-blue-400"
           >
-            🚀 Now Available — <code className="ml-1 text-xs font-mono">nabiel-ui</code> powered by{" "}
+            🚀 <code className="ml-1 text-xs font-mono">nabiel-ui</code> powered by{" "}
             <span className="font-semibold ml-1">vendora</span>
           </Badge>
         </motion.div>

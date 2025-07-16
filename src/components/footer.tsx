@@ -23,7 +23,7 @@ export interface FooterProps {
 }
 
 export const Footer: React.FC<FooterProps> = ({
-  logo = <span className="font-bold text-xl">Nabiel UI</span>,
+  logo = <span className="font-bold text-xl">Vendora</span>,
   links = [
   { label: "Docs", href: "/docs" },
   { label: "Components", href: "/components" },
@@ -115,7 +115,7 @@ export const Footer: React.FC<FooterProps> = ({
       </div>
 
       <div className="border-t text-center py-4 text-xs">
-        &copy; {new Date().getFullYear()} Nabiel. All rights reserved.
+        &copy; {new Date().getFullYear()} Vendora. All rights reserved.
       </div>
     </footer>
   )

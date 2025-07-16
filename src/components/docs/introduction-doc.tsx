@@ -21,13 +21,13 @@ export function NabielUiIntroDoc() {
             className="mx-auto w-24 h-24"
           />
           <p className="text-muted-foreground max-w-xl mx-auto">
-            Build <strong>beautiful</strong>, <strong>functional</strong> e-commerce UIs fast with prebuilt components, consistent design, and easy theming.
+           Build sleek e-commerce UIs with prebuilt components and easy theming.
           </p>
           <div className="flex justify-center space-x-4">
             <Link href="/docs/installation">
               <Button>Get Started</Button>
             </Link>
-            <Link href="/docs/components">
+            <Link href="/components">
               <Button variant="outline">View Components</Button>
             </Link>
           </div>
