@@ -77,6 +77,11 @@ export const Footer: React.FC<FooterProps> = ({
       Privacy Policy
     </Link>
   </li>
+    <li>
+    <Link href="/legal/cookies" className="hover:text-foreground transition">
+      Cookie Policy
+    </Link>
+  </li>
 </ul>
 
         </div>

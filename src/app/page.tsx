@@ -6,7 +6,7 @@ import { motion } from "framer-motion"
 import { ArrowRight, Check, Copy } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
-
+import { IntegrationsMarquee } from "@/components/integrations-marquee"
 const fadeInUp = {
   hidden: { opacity: 0, y: 20 },
   show: { opacity: 1, y: 0, transition: { duration: 0.6 } },
@@ -105,6 +105,14 @@ export default function Home() {
           </span>
         )}
       </motion.div>
+      <motion.div variants={fadeInUp} className="w-full mt-10">
+  <h2 className="text-center text-muted-foreground text-sm uppercase font-medium mb-2">
+    10+ Integrations
+  </h2>
+  <IntegrationsMarquee />
+</motion.div>
+
     </motion.section>
+    
   )
 }

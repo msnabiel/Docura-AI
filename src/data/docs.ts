@@ -5,13 +5,14 @@ import { resendDoc } from "@/components/docs/resend-doc"
 import { shopifyIntegrationDoc } from "@/components/docs/shopify-doc"
 import { stripeDoc } from "@/components/docs/stripe-doc"
 import { supabaseDoc } from "@/components/docs/supabase-doc"
-import { paypalDoc } from "@/components/docs/paypal-doc"
+import {  paypalDoc } from "@/components/docs/paypal-doc"
 import { uploadthingDoc } from "@/components/docs/uploadthing-doc"
 import { googleSheetsIntegrationDoc } from "@/components/docs/google-sheets-doc"
 import { paytmDoc } from "@/components/docs/paytm-doc"
 import { cashfreeDoc } from "@/components/docs/cashfree-doc"
 import { Spline } from "lucide-react"
 import { splineDoc } from "@/components/docs/spline-doc"
+import { airtableDoc } from "@/components/docs/airtable-doc"
 export type DocMeta = {
   name: string
   slug: string
@@ -31,6 +32,7 @@ export const docs: DocMeta[] = [
     {name:"Paytm Integration",slug:"paytm"},
     {name: "Cashfree Integration", slug: "cashfree"},
     {name: "Spline Integration", slug: "spline"},
+    {name: "Airtable Integration", slug: "airtable" },
   // Add more docs here later
 ].sort((a, b) => a.name.localeCompare(b.name))
 export const docPages: Record<string, React.FC> = {
@@ -46,5 +48,6 @@ export const docPages: Record<string, React.FC> = {
     "google-sheets": googleSheetsIntegrationDoc,
      paytm: paytmDoc,
      cashfree: cashfreeDoc,
-     spline: splineDoc
+     spline: splineDoc,
+    airtable: airtableDoc
 }
