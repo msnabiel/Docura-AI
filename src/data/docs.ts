@@ -7,6 +7,11 @@ import { stripeDoc } from "@/components/docs/stripe-doc"
 import { supabaseDoc } from "@/components/docs/supabase-doc"
 import { paypalDoc } from "@/components/docs/paypal-doc"
 import { uploadthingDoc } from "@/components/docs/uploadthing-doc"
+import { googleSheetsIntegrationDoc } from "@/components/docs/google-sheets-doc"
+import { paytmDoc } from "@/components/docs/paytm-doc"
+import { cashfreeDoc } from "@/components/docs/cashfree-doc"
+import { Spline } from "lucide-react"
+import { splineDoc } from "@/components/docs/spline-doc"
 export type DocMeta = {
   name: string
   slug: string
@@ -21,7 +26,11 @@ export const docs: DocMeta[] = [
   {name:"Mailchimp Integration",slug:"mailchimp"},
     {name:"Shopify Integration",slug:"shopify"},
     { name: "PayPal Integration", slug: "paypal" }, 
-    { name: "UploadThing Integration", slug: "uploadthing" }
+    { name: "UploadThing Integration", slug: "uploadthing" },
+    { name: "Google Sheets Integration", slug: "google-sheets" },
+    {name:"Paytm Integration",slug:"paytm"},
+    {name: "Cashfree Integration", slug: "cashfree"},
+    {name: "Spline Integration", slug: "spline"},
   // Add more docs here later
 ].sort((a, b) => a.name.localeCompare(b.name))
 export const docPages: Record<string, React.FC> = {
@@ -33,5 +42,9 @@ export const docPages: Record<string, React.FC> = {
   mailchimp:mailchimpDoc,
   shopify:shopifyIntegrationDoc,
   paypal: paypalDoc,
-  uploadthing: uploadthingDoc
+  uploadthing: uploadthingDoc,
+    "google-sheets": googleSheetsIntegrationDoc,
+     paytm: paytmDoc,
+     cashfree: cashfreeDoc,
+     spline: splineDoc
 }
