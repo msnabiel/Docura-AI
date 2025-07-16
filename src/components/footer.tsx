@@ -21,7 +21,7 @@ export interface FooterProps {
 }
 
 export const Footer: React.FC<FooterProps> = ({
-  logo = <span className="font-bold text-xl">Nabiel</span>,
+  logo = <span className="font-bold text-xl">Nabiel UI</span>,
   links = [
   { label: "Docs", href: "/docs" },
   { label: "Components", href: "/components" },
@@ -42,9 +42,10 @@ export const Footer: React.FC<FooterProps> = ({
           <Link href="/" className="text-foreground">
             {logo}
           </Link>
-          <p className="text-sm">
-            Crafted with care. High-quality handmade products for your space.
-          </p>
+<p className="text-sm">
+  Build better, faster. Beautiful, production-ready components for commerce apps.
+</p>
+
         </div>
 
         {/* Quick Links */}
