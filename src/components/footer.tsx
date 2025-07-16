@@ -28,6 +28,7 @@ export const Footer: React.FC<FooterProps> = ({
   { label: "Docs", href: "/docs" },
   { label: "Components", href: "/components" },
   { label: "GitHub", href: "https://github.com/msnabiel/nabiel-ui", external: true },
+
 ],
   contactEmail = "msyednabiel@gmail.com",
   social = {
@@ -64,6 +65,20 @@ export const Footer: React.FC<FooterProps> = ({
               </li>
             ))}
           </ul>
+          <h3 className="text-sm font-semibold mt-6 mb-2 text-foreground">Legal</h3>
+<ul className="space-y-1">
+  <li>
+    <Link href="/legal/terms" className="hover:text-foreground transition">
+      Terms & Conditions
+    </Link>
+  </li>
+  <li>
+    <Link href="/legal/privacy" className="hover:text-foreground transition">
+      Privacy Policy
+    </Link>
+  </li>
+</ul>
+
         </div>
 
         {/* Contact + Social */}
