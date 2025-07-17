@@ -3,6 +3,8 @@
 import { useState } from "react"
 import { useForm } from "react-hook-form"
 import * as z from "zod"
+import { useRouter } from "next/navigation"
+import slugify from "slugify" // npm install slugify
 import { zodResolver } from "@hookform/resolvers/zod"
 import { AnimatePresence, motion } from "framer-motion"
 import {
@@ -45,6 +47,7 @@ const steps = [
 ]
 
 export default function AnimatedCreateForm() {
+    const router = useRouter()
   const form = useForm<FormValues>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -77,9 +80,25 @@ export default function AnimatedCreateForm() {
   }
 
   const onSubmit = (data: FormValues) => {
-    console.log("Submitted data", data)
-    alert("Website generation started!")
+  const slug = slugify(data.storeName, { lower: true })
+  const payload = {
+    storeName: data.storeName,
+    tagline: data.tagline,
+    themeColor: data.primaryColor,
+    logoUrl: data.logoUrl,
+    description: data.aboutText,
+    ctaText: data.ctaText,
+    ctaLink: data.ctaLink,
+    contactEmail: data.contactEmail,
+    socials: data.socials,
+    featuredProducts: [], // Add if you have this
+    template: "vendora", // so you know which template to use
   }
+
+  localStorage.setItem(`site-${slug}`, JSON.stringify(payload))
+
+  router.push(`/store/${slug}`)
+}
 
   return (
     <main className="min-h-screen bg-gradient-to-b from-[#FFE8DC] to-[#FFFAF5] flex items-center justify-center px-4 py-10">

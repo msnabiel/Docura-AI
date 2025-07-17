@@ -1,0 +1,36 @@
+.
+├── (marketing)
+│   ├── components
+│   │   ├── [slug]
+│   │   └── page.tsx
+│   ├── contact
+│   │   └── page.tsx
+│   ├── create
+│   │   └── page.tsx
+│   ├── docs
+│   │   ├── [slug]
+│   │   └── page.tsx
+│   ├── donations
+│   │   └── page.tsx
+│   ├── layout.tsx
+│   ├── legal
+│   │   ├── cookies
+│   │   ├── privacy
+│   │   └── terms
+│   ├── presets
+│   │   └── page.tsx
+│   ├── pricing
+│   │   └── page.tsx
+│   └── templates
+│       └── vendora
+├── (store)
+│   └── store
+│       └── [slug]
+├── favicon.ico
+├── globals.css
+├── page.tsx
+├── structure.txt
+└── test
+    └── page.tsx
+
+21 directories, 13 files
