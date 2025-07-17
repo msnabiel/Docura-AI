@@ -20,7 +20,7 @@ import { Testimonial } from "@/components/nabiel-ui/Testimonial"
 import { StartSellingSection } from "@/components/StartSellingSection"
 import { PricingSection } from "@/components/pricing"
 
-export default function VendoraTemplate({ data }: { data: any }) {
+export function VendoraTemplate({ data }: { data: any }) {
   const [formData, setFormData] = useState<any>(data || null)
 
   useEffect(() => {

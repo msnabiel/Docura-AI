@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react"
 import { useParams } from "next/navigation"
-import { VendoraTemplate } from "../../../(marketing)/templates/vendora/page"
+import { VendoraTemplate } from "@/components/templates/vendora"
 
 export default function StorePage() {
   const { slug } = useParams()
