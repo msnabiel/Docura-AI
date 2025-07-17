@@ -70,27 +70,37 @@ export default function Home() {
           product pages, carts, checkouts, and everything e-commerce — crafted with Tailwind CSS,
           ShadCN, and supercharged by <span className="text-primary font-semibold">vendora</span>.
         </motion.p>
+<motion.div
+  variants={fadeInUp}
+  className="flex flex-col sm:flex-row justify-center items-center gap-3 sm:gap-4 mb-6 px-2"
+>
+  {/* Get Started */}
+  <Link href="/create" className="w-[90%] sm:w-auto max-w-xs">
+    <Button size="lg" className="w-full bg-indigo-500 text-white hover:bg-indigo-600">
+      Get Started <ArrowRight className="ml-2 h-4 w-4" />
+    </Button>
+  </Link>
 
-        <motion.div
-          variants={fadeInUp}
-          className="flex flex-col sm:flex-row justify-center gap-3 sm:gap-4 mb-6 px-2"
-        >
-          <Link href="/docs/razorpay">
-            <Button size="lg" className="w-full sm:w-auto bg-[#0288D1] text-white hover:bg-[#0277BD]">
-              Documentation <ArrowRight className="ml-2 h-4 w-4" />
-            </Button>
-          </Link>
-          <Link href="/components">
-            <Button size="lg" className="w-full sm:w-auto bg-[#388E3C] text-white hover:bg-[#2E7D32]">
-              Components <ArrowRight className="ml-2 h-4 w-4" />
-            </Button>
-          </Link>
-          <Link href="https://github.com/msnabiel/nabiel-ui" target="_blank" rel="noopener noreferrer">
-            <Button size="lg" variant="outline" className="w-full sm:w-auto">
-              View on GitHub
-            </Button>
-          </Link>
-        </motion.div>
+  {/* Templates */}
+  <Link href="/templates" className="w-[90%] sm:w-auto max-w-xs">
+    <Button
+      size="lg"
+      className="w-full bg-gray-100 text-gray-800 hover:bg-gray-200 border border-gray-300"
+    >
+      Templates <ArrowRight className="ml-2 h-4 w-4" />
+    </Button>
+  </Link>
+
+  {/* Nabiel UI */}
+  <Link href="/docs/introduction" className="w-[90%] sm:w-auto max-w-xs">
+    <Button
+      size="lg"
+      className="w-full bg-emerald-500 text-black hover:bg-emerald-600"
+    >
+      Nabiel UI <ArrowRight className="ml-2 h-4 w-4" />
+    </Button>
+  </Link>
+</motion.div>
 
         <motion.div
           variants={fadeInUp}

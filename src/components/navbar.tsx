@@ -21,7 +21,7 @@ export function NavBar() {
 
   const navLinks = [
     { label: "Get Started", href: "/" },
-    { label: "Documentation", href: "/docs/razorpay" },
+    { label: "Documentation", href: "/docs/introduction" },
     { label: "Templates", href: "/templates" },
     { label: "Nabiel UI", href: "/components" },
     { label: "Donations", href: "/donations" },

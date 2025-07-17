@@ -68,22 +68,22 @@ export default function TemplatesPage() {
   }}
 >
 
-      <h1 className="text-4xl font-extrabold mb-12 text-[#333333] dark:text-[#444444] tracking-tight select-none">
-        Vendora Templates
-      </h1>
+<h1 className="text-3xl font-semibold mb-8 text-[#444444] dark:text-[#555555] tracking-tight select-none">
+  Vendora Templates
+</h1>
 
-      <input
-        type="search"
-        value={search}
-        onChange={(e) => setSearch(e.target.value)}
-        placeholder="Search templates..."
-        aria-label="Search templates"
-        className="mb-14 w-full max-w-md rounded-lg border border-[#F5C6CB] bg-[#FFEFF1] dark:bg-[#F9F6FF] dark:border-[#D8C6F0] px-5 py-3
-          text-lg font-semibold text-[#a6365a] dark:text-[#7d579f] placeholder-[#d299ba]
-          focus:outline-none focus:ring-2 focus:ring-[#F5C6CB] focus:ring-offset-1
-          transition"
-        autoFocus
-      />
+<input
+  type="search"
+  value={search}
+  onChange={(e) => setSearch(e.target.value)}
+  placeholder="Search templates..."
+  aria-label="Search templates"
+  className="mb-12 w-full max-w-sm rounded-md border border-[#EADBDC] bg-[#FFF5F7] dark:bg-[#F3EDF7] dark:border-[#D8C6F0] px-4 py-2
+    text-base font-medium text-[#914C6D] dark:text-[#6D4C91] placeholder-[#CBA0B6]
+    focus:outline-none focus:border-[#E0BFC5]
+    transition"
+/>
+
 
       {filtered.length === 0 ? (
         <p className="text-[#a98c9e] dark:text-[#9b88a1] text-center text-lg font-medium">

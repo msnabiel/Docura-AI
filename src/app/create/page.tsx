@@ -1,6 +1,10 @@
 "use client"
 
 import { useState } from "react"
+import { useForm } from "react-hook-form"
+import * as z from "zod"
+import { zodResolver } from "@hookform/resolvers/zod"
+import { AnimatePresence, motion } from "framer-motion"
 import {
   Form,
   FormControl,
@@ -12,20 +16,16 @@ import {
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import { Button } from "@/components/ui/button"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { useForm } from "react-hook-form"
-import * as z from "zod"
-import { zodResolver } from "@hookform/resolvers/zod"
 
 const formSchema = z.object({
-  storeName: z.string().min(2, "Store name is required"),
-  tagline: z.string().min(2, "Tagline is required"),
-  primaryColor: z.string().regex(/^#([0-9A-Fa-f]{6})$/, "Enter a valid hex color"),
-  logoUrl: z.string().url("Enter a valid URL"),
-  aboutText: z.string().min(10, "Please tell us about your store"),
-  ctaText: z.string().min(2, "CTA text required"),
-  ctaLink: z.string().url("Enter a valid URL"),
-  contactEmail: z.string().email("Enter a valid email"),
+  storeName: z.string().min(2),
+  tagline: z.string().min(2),
+  primaryColor: z.string().regex(/^#([0-9A-Fa-f]{6})$/),
+  logoUrl: z.string().url(),
+  aboutText: z.string().min(10),
+  ctaText: z.string().min(2),
+  ctaLink: z.string().url(),
+  contactEmail: z.string().email(),
   socials: z.object({
     facebook: z.string().url().optional(),
     twitter: z.string().url().optional(),
@@ -35,166 +35,22 @@ const formSchema = z.object({
 
 type FormValues = z.infer<typeof formSchema>
 
-function MainInfoForm({
-  form,
-  onSubmit,
-}: {
-  form: ReturnType<typeof useForm<FormValues>>
-  onSubmit: (data: FormValues) => void
-}) {
-  return (
-    <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} noValidate>
-        {[
-          {
-            name: "storeName",
-            label: "Store Name *",
-            placeholder: "Your store name",
-            type: "text",
-          },
-          {
-            name: "tagline",
-            label: "Tagline *",
-            placeholder: "Catchy tagline",
-            type: "text",
-          },
-          {
-            name: "primaryColor",
-            label: "Primary Color (Hex) *",
-            placeholder: "#FFC4B2",
-            type: "color",
-            className: "w-16 h-10 p-0 border-none cursor-pointer mb-6",
-          },
-          {
-            name: "logoUrl",
-            label: "Logo URL (500x500 px) *",
-            placeholder: "https://example.com/logo.png",
-            type: "url",
-          },
-          {
-            name: "aboutText",
-            label: "About Your Store *",
-            placeholder: "Tell us about your store...",
-            type: "textarea",
-            rows: 4,
-          },
-          {
-            name: "ctaText",
-            label: "Call To Action Text *",
-            placeholder: "Shop Now, Contact Us...",
-            type: "text",
-          },
-          {
-            name: "ctaLink",
-            label: "Call To Action Link *",
-            placeholder: "https://yourstore.com/shop",
-            type: "url",
-          },
-          {
-            name: "contactEmail",
-            label: "Contact Email *",
-            placeholder: "contact@yourstore.com",
-            type: "email",
-          },
-        ].map(({ name, label, placeholder, type, className, rows }) => (
-          <FormField
-            key={name}
-            control={form.control}
-            name={name as any} // TS fix
-            render={({ field }) => (
-              <FormItem className="mb-6">
-                <FormLabel className="text-[#A6473E] font-semibold">{label}</FormLabel>
-                <FormControl>
-                  {type === "textarea" ? (
-                    <Textarea
-                      placeholder={placeholder}
-                      rows={rows}
-                      {...field}
-                      className="border-[#F5C4B0] focus:ring-[#F5A97F]"
-                    />
-                  ) : (
-                    <Input
-                      type={type}
-                      placeholder={placeholder}
-                      {...field}
-                      className={
-                        className ??
-                        "border-[#F5C4B0] focus:ring-[#F5A97F]"
-                      }
-                    />
-                  )}
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-        ))}
+const steps = [
+  ["storeName", "tagline"],
+  ["primaryColor", "logoUrl"],
+  ["aboutText"],
+  ["ctaText", "ctaLink"],
+  ["contactEmail"],
+  ["socials.facebook", "socials.twitter", "socials.instagram"],
+]
 
-        <Button
-          type="submit"
-          className="mt-4 bg-[#F5A97F] hover:bg-[#e68a5c] text-white font-semibold w-full"
-        >
-          Create Website
-        </Button>
-      </form>
-    </Form>
-  )
-}
-
-function SocialLinksForm({
-  form,
-  onSubmit,
-}: {
-  form: ReturnType<typeof useForm<FormValues>>
-  onSubmit: (data: FormValues) => void
-}) {
-  return (
-    <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} noValidate>
-        {[
-          { name: "socials.facebook", label: "Facebook URL", placeholder: "https://facebook.com/yourstore" },
-          { name: "socials.twitter", label: "Twitter URL", placeholder: "https://twitter.com/yourstore" },
-          { name: "socials.instagram", label: "Instagram URL", placeholder: "https://instagram.com/yourstore" },
-        ].map(({ name, label, placeholder }) => (
-          <FormField
-            key={name}
-            control={form.control}
-            name={name as any}
-            render={({ field }) => (
-              <FormItem className="mb-6">
-                <FormLabel className="text-[#A6473E] font-semibold">{label}</FormLabel>
-                <FormControl>
-                  <Input
-                    type="url"
-                    placeholder={placeholder}
-                    {...field}
-                    className="border-[#F5C4B0] focus:ring-[#F5A97F]"
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-        ))}
-
-        <Button
-          type="submit"
-          className="mt-4 bg-[#F5A97F] hover:bg-[#e68a5c] text-white font-semibold w-full"
-        >
-          Save Socials
-        </Button>
-      </form>
-    </Form>
-  )
-}
-
-export default function CreateWebsiteForm() {
+export default function AnimatedCreateForm() {
   const form = useForm<FormValues>({
     resolver: zodResolver(formSchema),
     defaultValues: {
       storeName: "",
       tagline: "",
-      primaryColor: "#FFC4B2", // peach pastel
+      primaryColor: "#FFC4B2",
       logoUrl: "",
       aboutText: "",
       ctaText: "",
@@ -204,48 +60,137 @@ export default function CreateWebsiteForm() {
     },
   })
 
-  const [tab, setTab] = useState("main")
+  const [step, setStep] = useState(0)
+  const currentFields = steps[step]
 
-  function onSubmit(data: FormValues) {
-    console.log("Form submitted", data)
-    alert("Website creation started! Check console for data.")
-    // TODO: send data to backend to generate website
+  const isLastStep = step === steps.length - 1
+
+  const handleNext = async () => {
+    const result = await form.trigger(currentFields as any, { shouldFocus: true })
+    if (result) {
+      setStep((s) => s + 1)
+    }
+  }
+
+  const handleBack = () => {
+    setStep((s) => Math.max(0, s - 1))
+  }
+
+  const onSubmit = (data: FormValues) => {
+    console.log("Submitted data", data)
+    alert("Website generation started!")
   }
 
   return (
-    <main
-      className="min-h-screen bg-gradient-to-b from-[#FFE8DC] to-[#FFFAF5] p-6 flex flex-col items-center"
-      aria-label="Create website form"
-    >
-      <div className="max-w-3xl w-full">
-        <h1 className="text-4xl font-extrabold mb-8 text-[#A6473E] text-center tracking-tight">
-          Create Your Website
-        </h1>
+    <main className="min-h-screen bg-gradient-to-b from-[#FFE8DC] to-[#FFFAF5] flex items-center justify-center px-4 py-10">
+      <div className="max-w-xl w-full">
+        <h1 className="text-4xl font-extrabold mb-3 text-[#A6473E] text-center">Create Your Website</h1>
+        <p className="text-center text-[#A6473E] mb-6 font-medium">
+          Just a few quick questions and we’ll get your site up in no time.
+        </p>
 
-        <Tabs value={tab} onValueChange={setTab} className="mb-8">
-          <TabsList className="bg-[#FAD7C7] rounded-lg p-1 shadow-inner">
-            <TabsTrigger
-              value="main"
-              className="text-[#A6473E] font-semibold data-[state=active]:bg-[#F5A97F] data-[state=active]:text-white rounded-lg"
-            >
-              Main Info
-            </TabsTrigger>
-            <TabsTrigger
-              value="socials"
-              className="text-[#A6473E] font-semibold data-[state=active]:bg-[#F5A97F] data-[state=active]:text-white rounded-lg"
-            >
-              Social Links
-            </TabsTrigger>
-          </TabsList>
+        <Form {...form}>
+          <form onSubmit={form.handleSubmit(onSubmit)}>
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={step}
+                initial={{ opacity: 0, x: 50 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: -50 }}
+                transition={{ duration: 0.4 }}
+                className="bg-white shadow-lg rounded-2xl p-6 space-y-6"
+              >
+                {currentFields.map((fieldName) => (
+                  <FormField
+                    key={fieldName}
+                    control={form.control}
+                    name={fieldName as any}
+                    render={({ field }) => {
+                      const isTextarea = fieldName === "aboutText"
+                      const label = {
+                        storeName: "Store Name",
+                        tagline: "Tagline",
+                        primaryColor: "Primary Color (Hex)",
+                        logoUrl: "Logo URL",
+                        aboutText: "About Your Store",
+                        ctaText: "CTA Text",
+                        ctaLink: "CTA Link",
+                        contactEmail: "Contact Email",
+                        "socials.facebook": "Facebook URL",
+                        "socials.twitter": "Twitter URL",
+                        "socials.instagram": "Instagram URL",
+                      }[fieldName] ?? fieldName
 
-          <TabsContent value="main" className="mt-6">
-            <MainInfoForm form={form} onSubmit={onSubmit} />
-          </TabsContent>
+                      const placeholder = {
+                        storeName: "Your store name",
+                        tagline: "Catchy tagline",
+                        primaryColor: "#FFC4B2",
+                        logoUrl: "https://example.com/logo.png",
+                        aboutText: "Tell us about your store...",
+                        ctaText: "Shop Now, Contact Us...",
+                        ctaLink: "https://yourstore.com/shop",
+                        contactEmail: "contact@yourstore.com",
+                        "socials.facebook": "https://facebook.com/yourstore",
+                        "socials.twitter": "https://twitter.com/yourstore",
+                        "socials.instagram": "https://instagram.com/yourstore",
+                      }[fieldName]
 
-          <TabsContent value="socials" className="mt-6">
-            <SocialLinksForm form={form} onSubmit={onSubmit} />
-          </TabsContent>
-        </Tabs>
+                      return (
+                        <FormItem>
+                          <FormLabel className="text-[#A6473E] font-semibold">{label}</FormLabel>
+                          <FormControl>
+                            {fieldName === "primaryColor" ? (
+                              <Input
+                                type="color"
+                                className="w-16 h-10 p-0 border-none cursor-pointer"
+                                {...field}
+                              />
+                            ) : isTextarea ? (
+                              <Textarea
+                                rows={4}
+                                placeholder={placeholder}
+                                className="border-[#F5C4B0] focus:ring-[#F5A97F]"
+                                {...field}
+                              />
+                            ) : (
+                              <Input
+                                type={fieldName.includes("email") ? "email" : "text"}
+                                placeholder={placeholder}
+                                className="border-[#F5C4B0] focus:ring-[#F5A97F]"
+                                {...field}
+                              />
+                            )}
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )
+                    }}
+                  />
+                ))}
+
+                <div className="flex justify-between pt-4">
+                  <Button
+                    type="button"
+                    onClick={handleBack}
+                    disabled={step === 0}
+                    variant="outline"
+                  >
+                    Back
+                  </Button>
+                  {isLastStep ? (
+                    <Button type="submit" className="bg-[#F5A97F] hover:bg-[#e68a5c] text-white">
+                      Generate Site
+                    </Button>
+                  ) : (
+                    <Button type="button" onClick={handleNext} className="bg-[#F5A97F] hover:bg-[#e68a5c] text-white">
+                      Next
+                    </Button>
+                  )}
+                </div>
+              </motion.div>
+            </AnimatePresence>
+          </form>
+        </Form>
       </div>
     </main>
   )
