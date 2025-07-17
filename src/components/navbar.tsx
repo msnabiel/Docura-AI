@@ -19,19 +19,21 @@ export function NavBar() {
   const [isOpen, setIsOpen] = useState(false)
   const [query, setQuery] = useState("")
 
-  const navLinks = [
-    { label: "Get Started", href: "/" },
-    { label: "Documentation", href: "/docs/introduction" },
-    { label: "Templates", href: "/templates" },
-    { label: "Nabiel UI", href: "/components" },
-    { label: "Donations", href: "/donations" },
-    { label: "Contact Us", href: "/contact" },
-    {
-      label: "GitHub",
-      href: "https://github.com/msnabiel/nabiel-ui",
-      external: true,
-    },
-  ]
+const navLinks = [
+  { label: "Get Started", href: "/" },
+  { label: "Templates", href: "/templates" },
+  { label: "Nabiel UI", href: "/components" },
+  { label: "Documentation", href: "/docs/introduction" },
+  { label: "Pricing", href: "/pricing" },
+  { label: "Donate", href: "/donations" },
+  { label: "Contact Us", href: "/contact" },
+  {
+    label: "GitHub",
+    href: "https://github.com/msnabiel/nabiel-ui",
+    external: true,
+  },
+]
+
 
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault()
