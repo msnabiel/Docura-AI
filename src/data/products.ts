@@ -13,11 +13,13 @@ export type Product = {
   name: string
   type: "Aura" | "Zen"
   variants: Variant[]
+  category?: string // ✅ Optional category
 }
 
 export type FlattenedVariant = Variant & {
   parentName: string
   type: "Aura" | "Zen"
+  category?: string // ✅ Optional category
 }
 
 export const products: Product[] = [
@@ -25,6 +27,7 @@ export const products: Product[] = [
     id: "p1",
     name: "Aura Candle",
     type: "Aura",
+    category: "Scented", // ✅ Optional, can be removed
     variants: [
       {
         id: "v1",
@@ -50,6 +53,7 @@ export const products: Product[] = [
     id: "p2",
     name: "Zen Candle",
     type: "Zen",
+    category: "Aromatic", // ✅ Optional, can be removed
     variants: [
       {
         id: "v3",
@@ -73,11 +77,12 @@ export const products: Product[] = [
   },
 ]
 
-// ✅ Corrected flattenedVariants with proper typing
-export const flattenedVariants: FlattenedVariant[] = products.flatMap((product: Product) =>
-  product.variants.map((variant: Variant) => ({
+// ✅ Exporting flattened variant list for reuse
+export const flattenedVariants: FlattenedVariant[] = products.flatMap((product) =>
+  product.variants.map((variant) => ({
     ...variant,
     parentName: product.name,
     type: product.type,
+    category: product.category, // Will be undefined if not set
   }))
 )

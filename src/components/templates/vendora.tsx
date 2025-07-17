@@ -58,6 +58,9 @@ export function VendoraTemplate({ data }: { data: any }) {
       <HeroSection title={formData.storeName} subtitle={formData.description} />
       <FeaturesGrid features={formData.features || []} />
 
+      {showFilters && (
+        <ProductFilters categories={formData.categories && formData.categories.length > 0 ? formData.categories : ["Books", "Electronics", "Clothing", "Home"]} />
+      )}
 
       {/* Shop Grid */}
       <ShopPage
