@@ -7,13 +7,17 @@ import { SlidersHorizontal } from "lucide-react"
 import { ProductCard } from "@/components/nabiel-ui/product-card"
 import { FlattenedVariant } from "@/data/products"
 import { cn } from "@/lib/utils"
-import { ProductFilters } from "@/components/nabiel-ui/product-filters"
 
 interface ShopPageProps {
   products: FlattenedVariant[]
   query?: string
   onQueryChange?: (query: string) => void
   className?: string
+  showFilters?: boolean
+  onToggleFilters?: () => void
+  selectedCategories?: string[]
+  onSelectedCategoriesChange?: (categories: string[]) => void
+  
 }
 
 export const ShopPage: React.FC<ShopPageProps> = ({
@@ -21,19 +25,25 @@ export const ShopPage: React.FC<ShopPageProps> = ({
   query = "",
   onQueryChange,
   className,
+  showFilters,
+  onToggleFilters,
+  selectedCategories: externalCategories,
+  onSelectedCategoriesChange,
 }) => {
-  const [showFilters, setShowFilters] = useState(false)
-  const [filters, setFilters] = useState<{
-    selectedCategories: string[]
-    priceRange: [number, number]
-    sortBy: string
-  }>({
-    selectedCategories: [],
-    priceRange: [0, 1000],
-    sortBy: "newest",
-  })
+  const [internalCategories, setInternalCategories] = useState<string[]>([])
+  const selectedCategories = externalCategories ?? internalCategories
 
-  const toggleFilters = () => setShowFilters((prev) => !prev)
+  const toggleCategory = (category: string) => {
+    const updated = selectedCategories.includes(category)
+      ? selectedCategories.filter((c) => c !== category)
+      : [...selectedCategories, category]
+
+    if (onSelectedCategoriesChange) {
+      onSelectedCategoriesChange(updated)
+    } else {
+      setInternalCategories(updated)
+    }
+  }
 
   const allCategories = Array.from(
     new Set(products.map((p) => p.category).filter(Boolean))
@@ -41,22 +51,12 @@ export const ShopPage: React.FC<ShopPageProps> = ({
 
   const filtered = products
     .filter((p) =>
-      filters.selectedCategories.length === 0 ||
-      filters.selectedCategories.includes(p.category!)
+      selectedCategories.length === 0 || selectedCategories.includes(p.category!)
     )
-    .filter((p) => {
-      const price = p.price ?? 0
-      return price >= filters.priceRange[0] && price <= filters.priceRange[1]
-    })
     .filter((p) =>
       p.name.toLowerCase().includes(query.toLowerCase()) ||
       p.parentName.toLowerCase().includes(query.toLowerCase())
     )
-    .sort((a, b) => {
-      if (filters.sortBy === "low-to-high") return (a.price ?? 0) - (b.price ?? 0)
-      if (filters.sortBy === "high-to-low") return (b.price ?? 0) - (a.price ?? 0)
-      return 0 // "newest" or default (assumes pre-sorted or no sorting)
-    })
 
   return (
     <section className={cn("w-full py-10 px-4 sm:px-6 lg:px-8", className)}>
@@ -73,24 +73,41 @@ export const ShopPage: React.FC<ShopPageProps> = ({
               onChange={(e) => onQueryChange?.(e.target.value)}
               className="w-full sm:w-72"
             />
-            <Button
-              variant="outline"
-              size="sm"
-              onClick={toggleFilters}
-              className="shrink-0"
-            >
-              <SlidersHorizontal className="w-4 h-4 mr-1" />
-              {showFilters ? "Hide Filters" : "Filters"}
-            </Button>
+            {onToggleFilters && (
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={onToggleFilters}
+                className="shrink-0"
+              >
+                <SlidersHorizontal className="w-4 h-4 mr-1" />
+                {showFilters ? "Hide Filters" : "Filters"}
+              </Button>
+            )}
           </div>
         </div>
 
-        {/* Filters */}
-        {showFilters && (
-          <ProductFilters
-            categories={allCategories}
-            onFilterChange={(updated) => setFilters(updated)}
-          />
+        {/* Filter UI */}
+        {showFilters && allCategories.length > 0 && (
+          <div className="space-y-2">
+            <h2 className="text-base font-semibold">Filter by Category</h2>
+            <div className="flex flex-wrap gap-2">
+              {allCategories.map((category) => (
+                <button
+                  key={category}
+                  className={cn(
+                    "px-3 py-1 rounded-full border text-sm",
+                    selectedCategories.includes(category)
+                      ? "bg-black text-white"
+                      : "bg-white text-black"
+                  )}
+                  onClick={() => toggleCategory(category)}
+                >
+                  {category}
+                </button>
+              ))}
+            </div>
+          </div>
         )}
 
         {/* Product Grid */}
