@@ -1,18 +1,17 @@
 "use client"
 
-import * as React from "react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
+import { useState } from "react"
 import { Menu, ShoppingCart, User, X } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
-import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
-import { ScrollArea } from "@/components/ui/scroll-area"
-import { cn } from "@/lib/utils"
+import clsx from "clsx"
 
 interface NavLink {
   label: string
   href: string
+  external?: boolean
 }
 
 interface NavBarProps {
@@ -24,60 +23,102 @@ interface NavBarProps {
   promoBar?: React.ReactNode
 }
 
-export const NavBar: React.FC<NavBarProps> = ({
-  logo = <span className="font-bold text-xl tracking-tight">Nabiel</span>,
-  links = [
-    { label: "Shop", href: "/shop" },
-    { label: "Collections", href: "/collections" },
-    { label: "About", href: "/about" },
-  ],
+const defaultLinks: NavLink[] = [
+  { label: "Shop", href: "/shop" },
+  { label: "Collections", href: "/collections" },
+  { label: "About", href: "/about" },
+  { label: "Pricing", href: "/pricing" },
+]
+
+const components = [
+  { name: "Button", slug: "button" },
+  { name: "Card", slug: "card" },
+  { name: "Badge", slug: "badge" }
+]
+
+export function NavBar({
+  logo = <span className="font-bold text-xl tracking-tight">▨ Vendora</span>,
+  links = defaultLinks,
   cartCount = 0,
   showSearch = true,
   sticky = true,
-  promoBar,
-}) => {
+  promoBar
+}: NavBarProps) {
   const pathname = usePathname()
+  const [isOpen, setIsOpen] = useState(false)
+  const [query, setQuery] = useState("")
+
+  const handleSearch = (e: React.FormEvent) => {
+    e.preventDefault()
+    const match = components.find(
+      (comp) => comp.name.toLowerCase() === query.trim().toLowerCase()
+    )
+    if (match) {
+      window.location.href = `/components/${match.slug}`
+    }
+  }
 
   return (
     <>
       {promoBar}
 
-      <header
-        className={cn(
-          "z-50 w-full border-b bg-background/70 backdrop-blur supports-[backdrop-filter]:bg-background/50 transition-all",
-          sticky ? "sticky top-0" : ""
+      <nav
+        className={clsx(
+          "border-b bg-background/80 backdrop-blur-sm px-4 py-3 shadow-sm z-50 transition-all",
+          sticky && "sticky top-0"
         )}
       >
-        <div className="container flex h-16 items-center justify-between px-4">
+        <div className="flex items-center justify-between">
           {/* Logo */}
-          <Link href="/" className="flex items-center gap-2">
+          <Link href="/" className="text-xl font-bold tracking-tight">
             {logo}
           </Link>
 
-          {/* Desktop Navigation */}
-          <nav className="hidden md:flex items-center gap-6 text-sm font-medium">
-            {links.map((link) => (
-              <Link
-                key={link.href}
-                href={link.href}
-                className={cn(
-                  "transition-colors hover:text-foreground text-muted-foreground",
-                  pathname === link.href && "text-foreground font-semibold"
-                )}
-              >
-                {link.label}
-              </Link>
-            ))}
-          </nav>
+          {/* Desktop Nav Links */}
+          <div className="hidden md:flex items-center gap-6 flex-1 justify-center">
+            {links.map(({ label, href, external }) =>
+              external ? (
+                <a
+                  key={label}
+                  href={href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-sm font-medium hover:text-primary transition"
+                >
+                  {label}
+                </a>
+              ) : (
+                <Link
+                  key={label}
+                  href={href}
+                  className={clsx(
+                    "relative text-sm font-medium transition-colors hover:text-primary",
+                    pathname === href && "text-primary"
+                  )}
+                >
+                  {label}
+                  {pathname === href && (
+                    <span className="absolute left-0 -bottom-1 w-full h-[2px] bg-primary rounded-full" />
+                  )}
+                </Link>
+              )
+            )}
+          </div>
 
           {/* Desktop Actions */}
           <div className="hidden md:flex items-center gap-4">
             {showSearch && (
-              <Input
-                type="search"
-                placeholder="Search products..."
-                className="w-[200px] lg:w-[300px]"
-              />
+              <form onSubmit={handleSearch} className="flex items-center space-x-2">
+                <Input
+                  placeholder="Search components..."
+                  value={query}
+                  onChange={(e) => setQuery(e.target.value)}
+                  className="w-[200px]"
+                />
+                <Button type="submit" variant="ghost">
+                  Go
+                </Button>
+              </form>
             )}
             <Link href="/cart" className="relative">
               <ShoppingCart className="h-5 w-5" />
@@ -92,65 +133,68 @@ export const NavBar: React.FC<NavBarProps> = ({
             </Link>
           </div>
 
-          {/* Mobile Sheet Menu */}
-          <div className="md:hidden">
-            <Sheet>
-              <SheetTrigger asChild>
-                <Button variant="ghost" size="icon" aria-label="Menu">
-                  <Menu className="h-5 w-5" />
-                </Button>
-              </SheetTrigger>
-              <SheetContent side="right" className="w-[300px] sm:w-[350px]">
-                <div className="flex flex-col h-full">
-                  <div className="flex items-center justify-between mb-4">
-                    <span className="font-semibold text-lg">Menu</span>
-                    <Button variant="ghost" size="icon" aria-label="Close">
-                      <X className="h-5 w-5" />
-                    </Button>
-                  </div>
-
-                  <ScrollArea className="flex-1">
-                    <nav className="flex flex-col gap-3 text-sm">
-                      {links.map((link) => (
-                        <Link
-                          key={link.href}
-                          href={link.href}
-                          className={cn(
-                            "text-muted-foreground hover:text-foreground transition",
-                            pathname === link.href && "text-foreground font-semibold"
-                          )}
-                        >
-                          {link.label}
-                        </Link>
-                      ))}
-                    </nav>
-
-                    {showSearch && (
-                      <div className="mt-4">
-                        <Input placeholder="Search..." />
-                      </div>
-                    )}
-
-                    <div className="flex items-center gap-4 mt-6">
-                      <Link href="/cart" className="relative">
-                        <ShoppingCart className="h-5 w-5" />
-                        {cartCount > 0 && (
-                          <span className="absolute -top-2 -right-2 rounded-full bg-primary text-white text-xs px-1">
-                            {cartCount}
-                          </span>
-                        )}
-                      </Link>
-                      <Link href="/account">
-                        <User className="h-5 w-5" />
-                      </Link>
-                    </div>
-                  </ScrollArea>
-                </div>
-              </SheetContent>
-            </Sheet>
-          </div>
+          {/* Mobile Menu Toggle */}
+          <Button variant="ghost" className="md:hidden" onClick={() => setIsOpen(!isOpen)}>
+            {isOpen ? <X size={20} /> : <Menu size={20} />}
+          </Button>
         </div>
-      </header>
+
+        {/* Mobile Menu */}
+        {isOpen && (
+          <div className="mt-4 space-y-4 md:hidden">
+            {showSearch && (
+              <form onSubmit={handleSearch} className="flex items-center gap-2">
+                <Input
+                  placeholder="Search components..."
+                  value={query}
+                  onChange={(e) => setQuery(e.target.value)}
+                />
+                <Button type="submit" variant="ghost">
+                  Go
+                </Button>
+              </form>
+            )}
+            {links.map(({ label, href, external }) =>
+              external ? (
+                <a
+                  key={label}
+                  href={href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="block text-sm font-medium"
+                >
+                  {label}
+                </a>
+              ) : (
+                <Link
+                  key={label}
+                  href={href}
+                  onClick={() => setIsOpen(false)}
+                  className={clsx(
+                    "block text-sm font-medium",
+                    pathname === href && "text-primary"
+                  )}
+                >
+                  {label}
+                </Link>
+              )
+            )}
+            <div className="flex gap-4 pt-2">
+              <Link href="/cart" className="relative">
+                <ShoppingCart className="h-5 w-5" />
+                {cartCount > 0 && (
+                  <span className="absolute -top-2 -right-2 rounded-full bg-primary text-white text-xs px-1">
+                    {cartCount}
+                  </span>
+                )}
+              </Link>
+              <Link href="/account">
+                <User className="h-5 w-5" />
+              </Link>
+            </div>
+          </div>
+        )}
+      </nav>
     </>
   )
 }
