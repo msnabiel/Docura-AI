@@ -21,6 +21,9 @@ interface NavBarProps {
   showSearch?: boolean
   sticky?: boolean
   promoBar?: React.ReactNode
+  storeSlug?: string
+  searchPlaceholder?: string
+  searchRedirectBase?: string // e.g. "/components"
 }
 
 const defaultLinks: NavLink[] = [
@@ -42,11 +45,16 @@ export function NavBar({
   cartCount = 0,
   showSearch = true,
   sticky = true,
-  promoBar
+  promoBar,
+  storeSlug,
+  searchPlaceholder = "Search components...",
+  searchRedirectBase = "/components",
 }: NavBarProps) {
   const pathname = usePathname()
   const [isOpen, setIsOpen] = useState(false)
   const [query, setQuery] = useState("")
+
+  const prefix = storeSlug ? `/store/${storeSlug}` : ""
 
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault()
@@ -54,7 +62,7 @@ export function NavBar({
       (comp) => comp.name.toLowerCase() === query.trim().toLowerCase()
     )
     if (match) {
-      window.location.href = `/components/${match.slug}`
+      window.location.href = `${searchRedirectBase}/${match.slug}`
     }
   }
 
@@ -70,14 +78,15 @@ export function NavBar({
       >
         <div className="flex items-center justify-between">
           {/* Logo */}
-          <Link href="/" className="text-xl font-bold tracking-tight">
+          <Link href={prefix || "/"} className="text-xl font-bold tracking-tight">
             {logo}
           </Link>
 
           {/* Desktop Nav Links */}
           <div className="hidden md:flex items-center gap-6 flex-1 justify-center">
-            {links.map(({ label, href, external }) =>
-              external ? (
+            {links.map(({ label, href, external }) => {
+              const fullHref = external ? href : `${prefix}${href}`
+              return external ? (
                 <a
                   key={label}
                   href={href}
@@ -90,19 +99,19 @@ export function NavBar({
               ) : (
                 <Link
                   key={label}
-                  href={href}
+                  href={fullHref}
                   className={clsx(
                     "relative text-sm font-medium transition-colors hover:text-primary",
-                    pathname === href && "text-primary"
+                    pathname === fullHref && "text-primary"
                   )}
                 >
                   {label}
-                  {pathname === href && (
+                  {pathname === fullHref && (
                     <span className="absolute left-0 -bottom-1 w-full h-[2px] bg-primary rounded-full" />
                   )}
                 </Link>
               )
-            )}
+            })}
           </div>
 
           {/* Desktop Actions */}
@@ -110,7 +119,7 @@ export function NavBar({
             {showSearch && (
               <form onSubmit={handleSearch} className="flex items-center space-x-2">
                 <Input
-                  placeholder="Search components..."
+                  placeholder={searchPlaceholder}
                   value={query}
                   onChange={(e) => setQuery(e.target.value)}
                   className="w-[200px]"
@@ -120,7 +129,7 @@ export function NavBar({
                 </Button>
               </form>
             )}
-            <Link href="/cart" className="relative">
+            <Link href={`${prefix}/cart`} className="relative">
               <ShoppingCart className="h-5 w-5" />
               {cartCount > 0 && (
                 <span className="absolute -top-2 -right-2 rounded-full bg-primary text-white text-xs px-1">
@@ -128,7 +137,7 @@ export function NavBar({
                 </span>
               )}
             </Link>
-            <Link href="/account">
+            <Link href={`${prefix}/account`}>
               <User className="h-5 w-5" />
             </Link>
           </div>
@@ -145,7 +154,7 @@ export function NavBar({
             {showSearch && (
               <form onSubmit={handleSearch} className="flex items-center gap-2">
                 <Input
-                  placeholder="Search components..."
+                  placeholder={searchPlaceholder}
                   value={query}
                   onChange={(e) => setQuery(e.target.value)}
                 />
@@ -154,8 +163,9 @@ export function NavBar({
                 </Button>
               </form>
             )}
-            {links.map(({ label, href, external }) =>
-              external ? (
+            {links.map(({ label, href, external }) => {
+              const fullHref = external ? href : `${prefix}${href}`
+              return external ? (
                 <a
                   key={label}
                   href={href}
@@ -168,19 +178,19 @@ export function NavBar({
               ) : (
                 <Link
                   key={label}
-                  href={href}
+                  href={fullHref}
                   onClick={() => setIsOpen(false)}
                   className={clsx(
                     "block text-sm font-medium",
-                    pathname === href && "text-primary"
+                    pathname === fullHref && "text-primary"
                   )}
                 >
                   {label}
                 </Link>
               )
-            )}
+            })}
             <div className="flex gap-4 pt-2">
-              <Link href="/cart" className="relative">
+              <Link href={`${prefix}/cart`} className="relative">
                 <ShoppingCart className="h-5 w-5" />
                 {cartCount > 0 && (
                   <span className="absolute -top-2 -right-2 rounded-full bg-primary text-white text-xs px-1">
@@ -188,7 +198,7 @@ export function NavBar({
                   </span>
                 )}
               </Link>
-              <Link href="/account">
+              <Link href={`${prefix}/account`}>
                 <User className="h-5 w-5" />
               </Link>
             </div>

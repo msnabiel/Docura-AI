@@ -52,7 +52,9 @@ export function VendoraTemplate({ data }: { data: any }) {
       <FeaturesGrid features={formData.features || []} />
       <ShopPage products={formData.featuredProducts || []} />
       <ProductFilters categories={formData.categories || []} />
-      <ProductDetailPage
+
+      {/*
+            <ProductDetailPage
         variant={
           formData.featuredProducts?.[0] || {
             id: "1",
@@ -69,18 +71,22 @@ export function VendoraTemplate({ data }: { data: any }) {
       <OrderSuccess />
       <TrackOrder />
       <MyAccount />
-      <RecentlyViewedProducts />
-      <ContactForm />
-      <FAQ items={formData.faqItems || []} />
+      <PricingSection />
       <Testimonial
         name={formData.testimonial?.name || "Jane Doe"}
         role={formData.testimonial?.role || "Customer"}
         quote={formData.testimonial?.quote || "This is the best store ever!"}
         image={formData.testimonial?.image}
       />
+      <FAQ items={formData.faqItems || []} />
+      <ContactForm />*/}
+      <RecentlyViewedProducts />
+      
+      
+      
       <SupportCTA />
       <NewsletterSignup />
-      <PricingSection />
+      
       <StartSellingSection />
     </div>
   )

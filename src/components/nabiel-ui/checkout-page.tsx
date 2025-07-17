@@ -18,6 +18,7 @@ type CartItem = {
 
 interface CheckoutPageProps {
   className?: string
+  storeSlug?: string 
 }
 
 export const CheckoutPage: React.FC<CheckoutPageProps> = ({ className }) => {

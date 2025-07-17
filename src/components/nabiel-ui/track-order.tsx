@@ -8,6 +8,7 @@ import { cn } from "@/lib/utils"
 
 interface TrackOrderProps {
   className?: string
+  storeSlug?: string // <-- Add this line
 }
 
 type OrderStatus = {

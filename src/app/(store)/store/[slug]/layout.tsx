@@ -1,42 +1,61 @@
-import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
-import "../../../globals.css";
-import { Footer } from "@/components/nabiel-ui/footer";
-import { NavBar } from "@/components/nabiel-ui/navbar";
+import type { Metadata } from "next"
+import { Geist, Geist_Mono } from "next/font/google"
+import "../../../globals.css"
+import { Footer } from "@/components/nabiel-ui/footer"
+import { NavBar } from "@/components/nabiel-ui/navbar"
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
-});
+})
 
 const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
-});
+})
 
+// Static metadata — can be made dynamic too if needed
 export const metadata: Metadata = {
   title: "Nabiel UI",
   description: "A modern e-commerce UI kit for Next.js",
-};
+}
 
-export default function RootLayout({
+export default function StoreLayout({
   children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+  params,
+}: {
+  children: React.ReactNode
+  params: { slug: string }
+}) {
+  const { slug } = params
+
   return (
     <html lang="en">
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen flex flex-col`}
       >
-        <NavBar />
+<NavBar
+  logo={<span className="font-bold text-xl">{slug.toUpperCase()}</span>}
+  links={[
+    { label: "Shop", href: `/store/${slug}/shop` },
+    { label: "Orders", href: `/store/${slug}/orders` },
+    { label: "About", href: `/store/${slug}/about` },
+    { label: "FAQ", href:'/store/${slug}/faq' },
+  ]}
+  cartCount={0}
+  sticky
+  promoBar={
+    <div className="bg-primary text-white text-center text-sm py-2">
+      Get 10% off on your first order!
+    </div>
+  }
+/>
 
-        {/* Main content area */}
+
         <main className="flex-1">{children}</main>
 
         <Footer />
       </body>
-      
     </html>
-  );
+  )
 }

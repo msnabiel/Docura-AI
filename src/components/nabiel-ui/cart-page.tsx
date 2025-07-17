@@ -18,6 +18,7 @@ type CartItem = {
 
 interface CartPageProps {
   className?: string
+  storeSlug?: string
 }
 
 export const CartPage: React.FC<CartPageProps> = ({ className }) => {

@@ -26,7 +26,7 @@ export const ShopPage: React.FC<ShopPageProps> = ({ products, className }) => {
           <h1 className="text-3xl font-bold tracking-tight text-foreground">Shop</h1>
           <Input
             type="search"
-            placeholder="Search candles..."
+            placeholder="Search products..."
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             className="w-full sm:w-72"
