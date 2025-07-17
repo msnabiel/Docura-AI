@@ -6,6 +6,7 @@ import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { Trash2 } from "lucide-react"
 import { cn } from "@/lib/utils"
+import { useParams } from "next/navigation"
 
 type CartItem = {
   id: string
@@ -21,10 +22,19 @@ interface CartPageProps {
   storeSlug?: string
 }
 
-export const CartPage: React.FC<CartPageProps> = ({ className }) => {
+export const CartPage: React.FC<CartPageProps> = ({ className, storeSlug }) => {
   const [cart, setCart] = useState<CartItem[]>([])
+  const params = useParams()
 
-  // Fetch cart from localStorage on load
+  const fallbackSlug =
+    typeof params?.slug === "string"
+      ? params.slug
+      : Array.isArray(params?.slug)
+      ? params.slug[0]
+      : undefined
+
+  const finalSlug = storeSlug ?? fallbackSlug
+
   useEffect(() => {
     const stored = localStorage.getItem("cart")
     if (stored) setCart(JSON.parse(stored))
@@ -39,7 +49,6 @@ export const CartPage: React.FC<CartPageProps> = ({ className }) => {
     const filtered = cart.filter((item) => item.id !== id)
     updateCart(filtered)
   }
-  
 
   const total = cart.reduce((sum, item) => sum + item.price * item.quantity, 0)
 
@@ -52,7 +61,9 @@ export const CartPage: React.FC<CartPageProps> = ({ className }) => {
           <div className="text-center py-12">
             <p className="text-muted-foreground mb-4">Your cart is empty.</p>
             <Button asChild>
-              <Link href="/shop">Continue Shopping</Link>
+              <Link href={finalSlug ? `/store/${finalSlug}/shop` : `/shop`}>
+                Continue Shopping
+              </Link>
             </Button>
           </div>
         ) : (

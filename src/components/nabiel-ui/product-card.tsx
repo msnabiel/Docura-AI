@@ -1,5 +1,8 @@
+"use client"
+
 import Link from "next/link"
 import Image from "next/image"
+import { useParams } from "next/navigation"
 import { FlattenedVariant } from "@/data/products"
 import { Button } from "@/components/ui/button"
 
@@ -8,8 +11,18 @@ interface ProductCardProps {
 }
 
 export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
+  const params = useParams()
+  const storeSlug = typeof params?.slug === "string" ? params.slug : undefined
+
+  const productLink = storeSlug
+    ? `/store/${storeSlug}/product/${product.slug}`
+    : `/product/${product.slug}`
+
   return (
-    <Link href={`/product/${product.slug}`} className="group block overflow-hidden rounded-xl border bg-background hover:shadow transition">
+    <Link
+      href={productLink}
+      className="group block overflow-hidden rounded-xl border bg-background hover:shadow transition"
+    >
       <Image
         src={product.images?.[0] || "/placeholder.svg"}
         alt={product.name}
@@ -22,7 +35,9 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
           {product.parentName} – {product.name}
         </h3>
         <p className="text-sm text-muted-foreground">₹{product.price}</p>
-        <Button variant="outline" size="sm" className="w-full mt-2">View</Button>
+        <Button variant="outline" size="sm" className="w-full mt-2">
+          View
+        </Button>
       </div>
     </Link>
   )

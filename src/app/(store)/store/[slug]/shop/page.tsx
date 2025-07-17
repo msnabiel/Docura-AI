@@ -17,29 +17,21 @@ export default function StoreShopPage() {
     const [priceRange, setPriceRange] = useState<[number, number]>([0, 1000])
 const [sortBy, setSortBy] = useState<string>("newest")
 
-  useEffect(() => {
-    const saved = localStorage.getItem(`site-${slug}`)
-    if (saved) {
-      try {
-        const data = JSON.parse(saved)
-        setFormData(data)
+useEffect(() => {
+  const saved = localStorage.getItem(`site-${slug}`)
+  if (saved) {
+    try {
+      const data = JSON.parse(saved)
+      setFormData(data)
 
-        const products: Product[] = data?.products || []
-        const flat: FlattenedVariant[] = products.flatMap((product) =>
-          product.variants.map((variant: Variant) => ({
-            ...variant,
-            parentName: product.name,
-            type: product.type,
-            category: product.category,
-          }))
-        )
-
-        setFlattened(flat)
-      } catch (err) {
-        console.error("Invalid product data in localStorage", err)
-      }
+      const variants = data?.featuredProducts || []
+      setFlattened(variants)
+    } catch (err) {
+      console.error("Invalid product data in localStorage", err)
     }
-  }, [slug])
+  }
+}, [slug])
+
 
   const filteredProducts = flattened
     .filter((product) =>
@@ -77,7 +69,7 @@ const [sortBy, setSortBy] = useState<string>("newest")
         onToggleFilters={() => setShowFilters((prev) => !prev)}
       />
 
-      <div className="pl-8">
+      <div className="pl-4">
         <RecentlyViewedProducts />
       </div>
     </div>

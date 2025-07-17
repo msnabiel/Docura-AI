@@ -37,13 +37,14 @@ export default function StoreLayout({
 <NavBar
   logo={<span className="font-bold text-xl">{slug.toUpperCase()}</span>}
   links={[
-    { label: "Shop", href: `/store/${slug}/shop` },
-    { label: "Orders", href: `/store/${slug}/orders` },
-    { label: "About", href: `/store/${slug}/about` },
-    { label: "FAQ", href:'/store/${slug}/faq' },
+    { label: "Shop", href: "/shop" },
+    { label: "Orders", href: "/orders" },
+    { label: "About", href: "/about" },
+    { label: "FAQ", href: "/faq" },
   ]}
   cartCount={0}
   sticky
+  storeSlug={slug} // ✅ correctly passed
   promoBar={
     <div className="bg-primary text-white text-center text-sm py-2">
       Get 10% off on your first order!
