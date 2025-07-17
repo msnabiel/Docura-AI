@@ -30,7 +30,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
   const generalDescription = `Welcome to our store — ${title}. Discover products crafted for comfort, quality, and everyday convenience. Hit “${ctaLabel}” to explore what we’ve picked just for you.`
 
   return (
-    <section className={cn("w-full px-4 sm:px-6 lg:px-8 py-8 md:py-12", className)}>
+    <section className={cn("w-full px-4 sm:px-6 lg:px-8 pt-8 md:pt-12", className)}>
       <div
         className={cn(
           "mx-auto max-w-6xl flex flex-col-reverse md:flex-row items-center gap-6 md:gap-10",

@@ -9,8 +9,6 @@ import { NewsletterSignup } from "@/components/newsletter-signup"
 import { SupportCTA } from "@/components/nabiel-ui/support-cta"
 import { FeaturesGrid } from "@/components/nabiel-ui/FeaturesGrid"
 import { StartSellingSection } from "@/components/StartSellingSection"
-import { Button } from "@/components/ui/button"
-import { SlidersHorizontal } from "lucide-react"
 
 export function VendoraTemplate({ data }: { data: any }) {
   const [formData, setFormData] = useState<any>(data || null)
@@ -43,6 +41,7 @@ export function VendoraTemplate({ data }: { data: any }) {
 
   const allProducts = formData.featuredProducts || []
   const allCategories = formData.categories || []
+  const features = formData.features || []
 
   const filteredProducts = allProducts
     .filter((product: any) =>
@@ -54,26 +53,51 @@ export function VendoraTemplate({ data }: { data: any }) {
     )
 
   return (
-    <div className="flex flex-col space-y-16 px-4 sm:px-6 lg:px-8 max-w-screen-xl mx-auto">
-      <HeroSection title={formData.storeName} subtitle={formData.description} />
-      <FeaturesGrid features={formData.features || []} />
+    <div className="flex flex-col px-4 sm:px-6 lg:px-8 max-w-screen-xl mx-auto">
+      <div className="mb-8">
+        <HeroSection title={formData.storeName} subtitle={formData.description} />
+      </div>
 
-      {showFilters && (
-        <ProductFilters categories={formData.categories && formData.categories.length > 0 ? formData.categories : ["Books", "Electronics", "Clothing", "Home"]} />
+      {features.length > 0 && (
+        <div className="mb-10">
+          <FeaturesGrid features={features} />
+        </div>
       )}
 
-      {/* Shop Grid */}
-      <ShopPage
-        products={filteredProducts}
-        query={searchQuery}
-        onQueryChange={setSearchQuery}
-        showFilters={showFilters}
-        onToggleFilters={() => setShowFilters(prev => !prev)}
-      />
+      {showFilters && (
+        <div className="mb-10">
+          <ProductFilters
+            categories={
+              allCategories.length > 0
+                ? allCategories
+                : ["Books", "Electronics", "Clothing", "Home"]
+            }
+          />
+        </div>
+      )}
 
-      <RecentlyViewedProducts />
-      <SupportCTA />
-      <NewsletterSignup />
+<div className={`${features.length > 0 ? 'mb-10' : 'mb-6'}`}>
+  <ShopPage
+    products={filteredProducts}
+    query={searchQuery}
+    onQueryChange={setSearchQuery}
+    showFilters={showFilters}
+    onToggleFilters={() => setShowFilters((prev) => !prev)}
+  />
+</div>
+
+      <div className="mb-10">
+        <RecentlyViewedProducts />
+      </div>
+
+      <div className="mb-10">
+        <SupportCTA />
+      </div>
+
+      <div className="mb-16">
+        <NewsletterSignup />
+      </div>
+
       <StartSellingSection />
     </div>
   )
