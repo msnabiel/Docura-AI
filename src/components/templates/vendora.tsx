@@ -3,25 +3,20 @@
 import { useEffect, useState } from "react"
 import { HeroSection } from "@/components/nabiel-ui/hero-section"
 import { ShopPage } from "@/components/nabiel-ui/shop-page"
-import { CheckoutPage } from "@/components/nabiel-ui/checkout-page"
-import { CartPage } from "@/components/nabiel-ui/cart-page"
-import { MyAccount } from "@/components/nabiel-ui/my-account"
-import { NewsletterSignup } from "@/components/newsletter-signup"
 import { ProductFilters } from "@/components/nabiel-ui/product-filters"
-import { ProductDetailPage } from "@/components/nabiel-ui/ProductDetailPage"
 import { RecentlyViewedProducts } from "@/components/nabiel-ui/recently-viewed"
-import { ContactForm } from "@/components/nabiel-ui/contact-form"
-import { OrderSuccess } from "@/components/nabiel-ui/order-success"
-import { TrackOrder } from "@/components/nabiel-ui/track-order"
-import { FAQ } from "@/components/nabiel-ui/faq"
-import { FeaturesGrid } from "@/components/nabiel-ui/FeaturesGrid"
+import { NewsletterSignup } from "@/components/newsletter-signup"
 import { SupportCTA } from "@/components/nabiel-ui/support-cta"
-import { Testimonial } from "@/components/nabiel-ui/Testimonial"
+import { FeaturesGrid } from "@/components/nabiel-ui/FeaturesGrid"
 import { StartSellingSection } from "@/components/StartSellingSection"
-import { PricingSection } from "@/components/pricing"
+import { Button } from "@/components/ui/button"
+import { SlidersHorizontal } from "lucide-react"
 
 export function VendoraTemplate({ data }: { data: any }) {
   const [formData, setFormData] = useState<any>(data || null)
+  const [showFilters, setShowFilters] = useState(false)
+  const [selectedCategories, setSelectedCategories] = useState<string[]>([])
+  const [searchQuery, setSearchQuery] = useState("")
 
   useEffect(() => {
     if (!data) {
@@ -46,47 +41,36 @@ export function VendoraTemplate({ data }: { data: any }) {
     )
   }
 
+  const allProducts = formData.featuredProducts || []
+  const allCategories = formData.categories || []
+
+  const filteredProducts = allProducts
+    .filter((product: any) =>
+      selectedCategories.length === 0 || selectedCategories.includes(product.category)
+    )
+    .filter((product: any) =>
+      product.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      product.parentName.toLowerCase().includes(searchQuery.toLowerCase())
+    )
+
   return (
     <div className="flex flex-col space-y-16 px-4 sm:px-6 lg:px-8 max-w-screen-xl mx-auto">
       <HeroSection title={formData.storeName} subtitle={formData.description} />
       <FeaturesGrid features={formData.features || []} />
-      <ShopPage products={formData.featuredProducts || []} />
-      <ProductFilters categories={formData.categories || []} />
 
-      {/*
-            <ProductDetailPage
-        variant={
-          formData.featuredProducts?.[0] || {
-            id: "1",
-            name: "Sample Product",
-            slug: "sample-product",
-            description: "This is a sample product.",
-            price: 999,
-            images: ["/hero.jpeg"]
-          }
-        }
+
+      {/* Shop Grid */}
+      <ShopPage
+        products={filteredProducts}
+        query={searchQuery}
+        onQueryChange={setSearchQuery}
+        showFilters={showFilters}
+        onToggleFilters={() => setShowFilters(prev => !prev)}
       />
-      <CartPage />
-      <CheckoutPage />
-      <OrderSuccess />
-      <TrackOrder />
-      <MyAccount />
-      <PricingSection />
-      <Testimonial
-        name={formData.testimonial?.name || "Jane Doe"}
-        role={formData.testimonial?.role || "Customer"}
-        quote={formData.testimonial?.quote || "This is the best store ever!"}
-        image={formData.testimonial?.image}
-      />
-      <FAQ items={formData.faqItems || []} />
-      <ContactForm />*/}
+
       <RecentlyViewedProducts />
-      
-      
-      
       <SupportCTA />
       <NewsletterSignup />
-      
       <StartSellingSection />
     </div>
   )

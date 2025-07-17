@@ -1,12 +1,14 @@
 "use client"
 
 import Link from "next/link"
+import { usePathname } from "next/navigation"
 import { Facebook, Instagram, Twitter, Mail } from "lucide-react"
 import { cn } from "@/lib/utils"
 
 export interface FooterLink {
   label: string
   href: string
+  external?: boolean
 }
 
 export interface FooterProps {
@@ -18,7 +20,10 @@ export interface FooterProps {
     twitter?: string
     instagram?: string
   }
+  storeSlug?: string
+  businessName?: string
 }
+
 
 export const Footer: React.FC<FooterProps> = ({
   logo = <span className="font-bold text-xl">Nabiel</span>,
@@ -33,13 +38,17 @@ export const Footer: React.FC<FooterProps> = ({
     twitter: "https://twitter.com/nabiel_store",
     facebook: "https://facebook.com/nabiel.store",
   },
+  storeSlug,
+  businessName = "Vendora"
 }) => {
+  const prefix = storeSlug ? `/store/${storeSlug}` : ""
+
   return (
     <footer className="bg-muted border-t text-muted-foreground">
       <div className="container px-4 py-10 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
         {/* Branding */}
         <div className="space-y-2">
-          <Link href="/" className="text-foreground">
+          <Link href={prefix || "/"} className="text-foreground">
             {logo}
           </Link>
           <p className="text-sm">
@@ -50,15 +59,33 @@ export const Footer: React.FC<FooterProps> = ({
         {/* Quick Links */}
         <div>
           <h3 className="text-sm font-semibold mb-2 text-foreground">Quick Links</h3>
-          <ul className="space-y-1">
-            {links.map((link) => (
-              <li key={link.href}>
-                <Link href={link.href} className="hover:text-foreground transition">
-                  {link.label}
-                </Link>
-              </li>
-            ))}
-          </ul>
+<ul className="space-y-1">
+  {links.map(({ label, href, external }) => {
+    const fullHref = external ? href : `${prefix}${href}`
+    return (
+      <li key={href}>
+        {external ? (
+          <a
+            href={href}
+            target="_blank"
+            rel="noreferrer"
+            className="hover:text-foreground transition block"
+          >
+            {label}
+          </a>
+        ) : (
+          <Link
+            href={fullHref}
+            className="hover:text-foreground transition block"
+          >
+            {label}
+          </Link>
+        )}
+      </li>
+    )
+  })}
+</ul>
+
         </div>
 
         {/* Contact + Social */}
@@ -66,7 +93,10 @@ export const Footer: React.FC<FooterProps> = ({
           <h3 className="text-sm font-semibold mb-2 text-foreground">Contact</h3>
           <ul className="space-y-1">
             <li>
-              <a href={`mailto:${contactEmail}`} className="hover:text-foreground transition flex items-center gap-1">
+              <a
+                href={`mailto:${contactEmail}`}
+                className="hover:text-foreground transition flex items-center gap-1"
+              >
                 <Mail className="w-4 h-4" />
                 {contactEmail}
               </a>
@@ -93,9 +123,10 @@ export const Footer: React.FC<FooterProps> = ({
         </div>
       </div>
 
-      <div className="border-t text-center py-4 text-xs">
-        &copy; {new Date().getFullYear()} Nabiel. All rights reserved.
-      </div>
+    <div className="border-t text-center py-4 text-xs">
+    &copy; {new Date().getFullYear()} {businessName}. All rights reserved.
+  </div>
+
     </footer>
   )
 }

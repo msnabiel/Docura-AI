@@ -54,7 +54,23 @@ export default function StoreLayout({
 
         <main className="flex-1">{children}</main>
 
-        <Footer />
+        <Footer
+  businessName={slug.toUpperCase()}
+  storeSlug={slug}
+  logo={<span className="font-bold text-xl">{slug.toUpperCase()}</span>}
+  contactEmail={`support@${slug}.store`}
+  social={{
+    instagram: `https://instagram.com/${slug}.store`,
+    twitter: `https://twitter.com/${slug}_store`,
+    facebook: `https://facebook.com/${slug}.store`,
+  }}
+  links={[
+    { label: "Shop", href: "/shop" },
+    { label: "About", href: "/about" },
+    { label: "Contact", href: "/contact" },
+  ]}
+/>
+
       </body>
     </html>
   )
