@@ -56,7 +56,12 @@ export function VendoraTemplate({ data }: { data: any }) {
   return (
     <div className="flex flex-col px-4 sm:px-6 lg:px-8 max-w-screen-xl mx-auto">
       <div className="mb-8">
-        <HeroSection title={formData.storeName} subtitle={formData.description} />
+<HeroSection
+  title={formData.storeName}
+  subtitle={formData.description}
+  storeSlug={formData.slug}
+/>
+
       </div>
 
 <div className="mb-8">

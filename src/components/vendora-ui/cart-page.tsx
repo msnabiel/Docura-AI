@@ -96,7 +96,12 @@ export const CartPage: React.FC<CartPageProps> = ({ className, storeSlug }) => {
               <p className="text-lg font-medium">
                 Total: <span className="text-primary">₹{total}</span>
               </p>
-              <Button className="w-full sm:w-auto">Checkout</Button>
+              <Button asChild className="w-full sm:w-auto">
+  <Link href={finalSlug ? `/store/${finalSlug}/checkout` : `/checkout`}>
+    Checkout
+  </Link>
+</Button>
+
             </div>
           </>
         )}

@@ -50,12 +50,36 @@ export const CheckoutPage: React.FC<CheckoutPageProps> = ({ className }) => {
     }
   }
 
-  const handlePlaceOrder = (e: React.FormEvent) => {
-    e.preventDefault()
-    localStorage.removeItem("cart")
-    setCart([])
-    setSubmitted(true)
+const handlePlaceOrder = async (e: React.FormEvent) => {
+  e.preventDefault()
+
+  const options = {
+    key: "YOUR_RAZORPAY_KEY_ID", // replace with your test/live key
+    amount: total * 100, // in paise
+    currency: "INR",
+    name: "Vendora Store",
+    description: "Order Payment",
+    image: "/logo.svg",
+    handler: function (response: any) {
+      console.log("Payment success", response)
+      localStorage.removeItem("cart")
+      setCart([])
+      setSubmitted(true)
+    },
+    prefill: {
+      name: "Customer Name",
+      email: "customer@example.com",
+      contact: "9999999999",
+    },
+    theme: {
+      color: "#6366f1",
+    },
   }
+
+  const rzp = new (window as any).Razorpay(options)
+  rzp.open()
+}
+
 
   return (
     <section className={cn("w-full py-10 px-4 sm:px-6 lg:px-8", className)}>

@@ -15,6 +15,7 @@ interface HeroSectionProps {
   reversed?: boolean
   className?: string
   showGeneralDescription?: boolean
+  storeSlug?: string
 }
 
 export const HeroSection: React.FC<HeroSectionProps> = ({
@@ -26,11 +27,17 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
   reversed = false,
   className,
   showGeneralDescription = true,
+  storeSlug,
 }) => {
+  // 👇 same logic as NavBar
+  const prefix = storeSlug ? `/store/${storeSlug}` : ""
+  const link = ctaHref.startsWith("http") ? ctaHref : `${prefix}${ctaHref}`
+
   const generalDescription = `Welcome to ${title} — where comfort meets quality. Tap “${ctaLabel}” to explore our curated picks.`
 
   return (
-    <section className={cn("w-full px-4 sm:px-6 lg:px-8 pt-8 md:pt-12", className)}>
+    <section className={cn("w-full px-4 pt-6 pb-3 sm:pt-8 sm:pb-4 md:pt-10 md:pb-6", className)}>
+
       <div
         className={cn(
           "mx-auto max-w-6xl flex flex-col-reverse md:flex-row items-center gap-6 md:gap-10",
@@ -44,24 +51,23 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
         >
-          <div className="space-y-4 max-w-md mx-auto md:mx-0">
-            <h1 className="text-3xl sm:text-4xl font-bold tracking-tight text-foreground">
+          <div className="space-y-3 max-w-md mx-auto md:mx-0">
+            <h1 className="text-3xl sm:text-4xl font-bold tracking-tight">
               {title}
             </h1>
-
-            <p className="text-base text-muted-foreground leading-relaxed">
+            <p className="text-sm sm:text-base text-muted-foreground">
               {subtitle}
             </p>
 
             {showGeneralDescription && (
-              <p className="text-sm sm:text-base text-muted-foreground/80 leading-relaxed">
+              <p className="text-sm text-muted-foreground/80">
                 {generalDescription}
               </p>
             )}
 
             <div className="pt-2">
               <Button asChild size="lg">
-                <Link href={ctaHref}>{ctaLabel}</Link>
+                <Link href={link}>{ctaLabel}</Link>
               </Button>
             </div>
           </div>

@@ -23,7 +23,7 @@ export const SupportCTA: React.FC<SupportCTAProps> = ({
   className,
 }) => {
   return (
-    <section className={cn("w-full py-12 px-4 sm:px-6 lg:px-8", className)}>
+    <section className={cn("w-full py-2 px-4 sm:px-6 lg:px-8", className)}>
       <div className="max-w-4xl mx-auto text-center space-y-4">
         <h2 className="text-3xl font-bold">{title}</h2>
         <p className="text-muted-foreground">{subtitle}</p>
