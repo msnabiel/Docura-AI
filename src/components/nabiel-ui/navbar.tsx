@@ -23,10 +23,11 @@ interface NavBarProps {
   promoBar?: React.ReactNode
   storeSlug?: string
   searchPlaceholder?: string
-  searchRedirectBase?: string // e.g. "/components"
+  searchRedirectBase?: string
 }
 
 const defaultLinks: NavLink[] = [
+  { label: "Home", href: "/" },
   { label: "Shop", href: "/shop" },
   { label: "Collections", href: "/collections" },
   { label: "About", href: "/about" },
@@ -36,7 +37,7 @@ const defaultLinks: NavLink[] = [
 const components = [
   { name: "Button", slug: "button" },
   { name: "Card", slug: "card" },
-  { name: "Badge", slug: "badge" }
+  { name: "Badge", slug: "badge" },
 ]
 
 export function NavBar({
@@ -82,7 +83,7 @@ export function NavBar({
             {logo}
           </Link>
 
-          {/* Desktop Nav Links */}
+          {/* Desktop Links */}
           <div className="hidden md:flex items-center gap-6 flex-1 justify-center">
             {links.map(({ label, href, external }) => {
               const fullHref = external ? href : `${prefix}${href}`
@@ -124,9 +125,7 @@ export function NavBar({
                   onChange={(e) => setQuery(e.target.value)}
                   className="w-[200px]"
                 />
-                <Button type="submit" variant="ghost">
-                  Go
-                </Button>
+                <Button type="submit" variant="ghost">Go</Button>
               </form>
             )}
             <Link href={`${prefix}/cart`} className="relative">
@@ -142,10 +141,17 @@ export function NavBar({
             </Link>
           </div>
 
-          {/* Mobile Menu Toggle */}
-          <Button variant="ghost" className="md:hidden" onClick={() => setIsOpen(!isOpen)}>
-            {isOpen ? <X size={20} /> : <Menu size={20} />}
-          </Button>
+          {/* Mobile Actions */}
+          <div className="md:hidden flex items-center gap-2">
+            <Link href={`${prefix}/shop`}>
+              <Button size="sm" variant="default" className="text-xs">
+                Shop Now
+              </Button>
+            </Link>
+            <Button variant="ghost" size="icon" onClick={() => setIsOpen(!isOpen)}>
+              {isOpen ? <X size={20} /> : <Menu size={20} />}
+            </Button>
+          </div>
         </div>
 
         {/* Mobile Menu */}
@@ -158,9 +164,7 @@ export function NavBar({
                   value={query}
                   onChange={(e) => setQuery(e.target.value)}
                 />
-                <Button type="submit" variant="ghost">
-                  Go
-                </Button>
+                <Button type="submit" variant="ghost">Go</Button>
               </form>
             )}
             {links.map(({ label, href, external }) => {
