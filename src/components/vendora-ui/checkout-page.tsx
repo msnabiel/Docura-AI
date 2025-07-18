@@ -27,11 +27,15 @@ export const CheckoutPage: React.FC<CheckoutPageProps> = ({ className }) => {
   const [couponCode, setCouponCode] = useState("")
   const [discount, setDiscount] = useState(0)
   const [couponError, setCouponError] = useState("")
+  const [razorpayKey, setRazorpayKey] = useState<string | null>(null)
+ useEffect(() => {
+  const storedCart = localStorage.getItem("cart")
+  const storedKey = localStorage.getItem("razorpay-key")
 
-  useEffect(() => {
-    const stored = localStorage.getItem("cart")
-    if (stored) setCart(JSON.parse(stored))
-  }, [])
+  if (storedCart) setCart(JSON.parse(storedCart))
+  if (storedKey) setRazorpayKey(storedKey)
+}, [])
+
 
   const subtotal = cart.reduce((sum, item) => sum + item.price * item.quantity, 0)
   const total = Math.max(0, subtotal - discount)
@@ -54,7 +58,7 @@ const handlePlaceOrder = async (e: React.FormEvent) => {
   e.preventDefault()
 
   const options = {
-    key: "YOUR_RAZORPAY_KEY_ID", // replace with your test/live key
+    key: razorpayKey ?? "rzp_test_default", // replace with your test/live key
     amount: total * 100, // in paise
     currency: "INR",
     name: "Vendora Store",

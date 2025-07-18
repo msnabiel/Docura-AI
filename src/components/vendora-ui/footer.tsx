@@ -124,7 +124,7 @@ export const Footer: React.FC<FooterProps> = ({
       </div>
 
     <div className="border-t text-center py-4 text-xs">
-    &copy; {new Date().getFullYear()} {businessName}. All rights reserved.
+    &copy; {new Date().getFullYear()} Powered by Vendora. All rights reserved.
   </div>
 
     </footer>

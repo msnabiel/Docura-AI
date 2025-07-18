@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google"
 import "../../../globals.css"
 import { Footer } from "@/components/vendora-ui/footer"
 import { NavBar } from "@/components/vendora-ui/navbar"
+import { ClientFooter } from "@/components/vendora-ui/footer-wrapper"
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -59,22 +60,7 @@ export default function StoreLayout({
 
         <main className="flex-1">{children}</main>
 
-        <Footer
-  businessName={slug.toUpperCase()}
-  storeSlug={slug}
-  logo={<span className="font-bold text-xl">{slug.toUpperCase()}</span>}
-  contactEmail={`support@${slug}.store`}
-  social={{
-    instagram: `https://instagram.com/${slug}.store`,
-    twitter: `https://twitter.com/${slug}_store`,
-    facebook: `https://facebook.com/${slug}.store`,
-  }}
-  links={[
-    { label: "Shop", href: "/shop" },
-    { label: "About", href: "/about" },
-    { label: "Contact", href: "/contact" },
-  ]}
-/>
+<ClientFooter slug={slug} />
 
       </body>
     </html>

@@ -69,7 +69,7 @@ useEffect(() => {
         onToggleFilters={() => setShowFilters((prev) => !prev)}
       />
 
-      <div className="pl-4">
+      <div className="pl-4 pb-4">
         <RecentlyViewedProducts />
       </div>
     </div>
