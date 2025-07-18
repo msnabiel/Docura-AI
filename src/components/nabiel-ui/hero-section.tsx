@@ -27,7 +27,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
   className,
   showGeneralDescription = true,
 }) => {
-  const generalDescription = `Welcome to our store — ${title}. Discover products crafted for comfort, quality, and everyday convenience. Hit “${ctaLabel}” to explore what we’ve picked just for you.`
+  const generalDescription = `Welcome to ${title} — where comfort meets quality. Tap “${ctaLabel}” to explore our curated picks.`
 
   return (
     <section className={cn("w-full px-4 sm:px-6 lg:px-8 pt-8 md:pt-12", className)}>

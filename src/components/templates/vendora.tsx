@@ -5,7 +5,7 @@ import { HeroSection } from "@/components/nabiel-ui/hero-section"
 import { ShopPage } from "@/components/nabiel-ui/shop-page"
 import { ProductFilters } from "@/components/nabiel-ui/product-filters"
 import { RecentlyViewedProducts } from "@/components/nabiel-ui/recently-viewed"
-import { NewsletterSignup } from "@/components/newsletter-signup"
+import { NewsletterSignup } from "@/components/nabiel-ui/newsletter-signup"
 import { SupportCTA } from "@/components/nabiel-ui/support-cta"
 import { FeaturesGrid } from "@/components/nabiel-ui/FeaturesGrid"
 import { StartSellingSection } from "@/components/StartSellingSection"
@@ -75,7 +75,7 @@ export function VendoraTemplate({ data }: { data: any }) {
           />
         </div>
       )}
-
+{/*
 <div className={`${features.length > 0 ? 'mb-10' : 'mb-6'}`}>
   <ShopPage
     products={filteredProducts}
@@ -88,7 +88,7 @@ export function VendoraTemplate({ data }: { data: any }) {
 
       <div className="mb-10">
         <RecentlyViewedProducts />
-      </div>
+      </div>*/}
 
       <div className="mb-10">
         <SupportCTA />
