@@ -1,7 +1,7 @@
 "use client"
 
 import { useParams } from "next/navigation"
-import { CheckoutPage } from "@/components/nabiel-ui/checkout-page"
+import { CheckoutPage } from "@/components/vendora-ui/checkout-page"
 
 export default function StoreCheckoutPage() {
   const slugParam = useParams().slug

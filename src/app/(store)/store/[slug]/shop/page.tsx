@@ -2,9 +2,9 @@
 
 import { useEffect, useState } from "react"
 import { useParams } from "next/navigation"
-import { ShopPage } from "@/components/nabiel-ui/shop-page"
-import { RecentlyViewedProducts } from "@/components/nabiel-ui/recently-viewed"
-import { ProductFilters } from "@/components/nabiel-ui/product-filters"
+import { ShopPage } from "@/components/vendora-ui/shop-page"
+import { RecentlyViewedProducts } from "@/components/vendora-ui/recently-viewed"
+import { ProductFilters } from "@/components/vendora-ui/product-filters"
 import type { Product, Variant, FlattenedVariant } from "@/data/products"
 
 export default function StoreShopPage() {

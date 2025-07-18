@@ -1,6 +1,6 @@
 "use client"
 
-import { CartPage } from "@/components/nabiel-ui/cart-page"
+import { CartPage } from "@/components/vendora-ui/cart-page"
 import { DocPageLayout } from "@/components/docs/doc-page-layout"
 
 export function cartDoc() {

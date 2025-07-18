@@ -1,7 +1,7 @@
 "use client"
 
 import { DocPageLayout } from "@/components/docs/doc-page-layout"
-import { CodeBlockWithCopy } from "@/components/code-block-with-copy"
+import { CodeBlockWithCopy } from "@/components/site-ui/code-block-with-copy"
 import { Button } from "@/components/ui/button"
 import Spline from "@splinetool/react-spline"
 const installSnippet = `npm install @splinetool/react-spline

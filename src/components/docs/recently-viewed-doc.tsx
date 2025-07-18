@@ -1,6 +1,6 @@
 "use client"
 
-import { RecentlyViewedProducts } from "@/components/nabiel-ui/recently-viewed"
+import { RecentlyViewedProducts } from "@/components/vendora-ui/recently-viewed"
 import { DocPageLayout } from "@/components/docs/doc-page-layout"
 
 export function recentlyViewedDoc() {

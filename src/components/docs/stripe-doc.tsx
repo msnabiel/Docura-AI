@@ -1,7 +1,7 @@
 "use client"
 
 import { DocPageLayout } from "@/components/docs/doc-page-layout"
-import { CodeBlockWithCopy } from "@/components/code-block-with-copy"
+import { CodeBlockWithCopy } from "@/components/site-ui/code-block-with-copy"
 import { Button } from "@/components/ui/button"
 
 const installSnippet = `npm install stripe

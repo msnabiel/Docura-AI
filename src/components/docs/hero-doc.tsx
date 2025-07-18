@@ -1,6 +1,6 @@
 "use client"
 
-import { HeroSection } from "@/components/nabiel-ui/hero-section"
+import { HeroSection } from "@/components/vendora-ui/hero-section"
 import { DocPageLayout } from "@/components/docs/doc-page-layout"
 
 export default function HeroDoc() {

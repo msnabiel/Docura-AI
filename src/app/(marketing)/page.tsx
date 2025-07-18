@@ -6,12 +6,12 @@ import { motion } from "framer-motion"
 import { ArrowRight, Check, Copy } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
-import { IntegrationsMarquee } from "@/components/integrations-marquee"
-import { WhyChooseSection } from "@/components/why-choose"
-import { FeatureHighlightsSection } from "@/components/FeatureHighlightsSection"
-import { TestimonialSection } from "@/components/TestimonialSection"
-import { PricingSection } from "@/components/pricing"
-import { StartSellingSection } from "@/components/StartSellingSection"
+import { IntegrationsMarquee } from "@/components/site-ui/integrations-marquee"
+import { WhyChooseSection } from "@/components/site-ui/why-choose"
+import { FeatureHighlightsSection } from "@/components/site-ui/FeatureHighlightsSection"
+import { TestimonialSection } from "@/components/site-ui/TestimonialSection"
+import { PricingSection } from "@/components/site-ui/pricing"
+import { StartSellingSection } from "@/components/site-ui/StartSellingSection"
 
 const fadeInUp = {
   hidden: { opacity: 0, y: 20 },

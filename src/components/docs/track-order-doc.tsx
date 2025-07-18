@@ -1,6 +1,6 @@
 "use client"
 
-import { TrackOrder } from "@/components/nabiel-ui/track-order"
+import { TrackOrder } from "@/components/vendora-ui/track-order"
 import { DocPageLayout } from "@/components/docs/doc-page-layout"
 
 export function trackOrderDoc() {

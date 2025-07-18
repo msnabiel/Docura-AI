@@ -1,5 +1,5 @@
-import { PricingSection } from "@/components/pricing"
-import { StartSellingSection } from "@/components/StartSellingSection"
+import { PricingSection } from "@/components/site-ui/pricing"
+import { StartSellingSection } from "@/components/site-ui/StartSellingSection"
 
 export default function PricingPage() {
   return (

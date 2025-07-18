@@ -1,7 +1,7 @@
 "use client"
 
 import { useParams } from "next/navigation"
-import { TrackOrder } from "@/components/nabiel-ui/track-order"
+import { TrackOrder } from "@/components/vendora-ui/track-order"
 
 export default function OrdersPage() {
   const slugParam = useParams().slug

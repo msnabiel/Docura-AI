@@ -7,7 +7,7 @@ import {
   CardContent,
   CardDescription,
 } from "@/components/ui/card"
-import { NavBar } from "@/components/nabiel-ui/navbar"
+import { NavBar } from "@/components/vendora-ui/navbar"
 import { DocPageLayout } from "@/components/docs/doc-page-layout"
 
 export function navbarDoc() {

@@ -1,7 +1,7 @@
 "use client"
 
 import { useParams } from "next/navigation"
-import { CartPage } from "@/components/nabiel-ui/cart-page"
+import { CartPage } from "@/components/vendora-ui/cart-page"
 
 export default function StoreCartPage() {
   const slugParam = useParams().slug

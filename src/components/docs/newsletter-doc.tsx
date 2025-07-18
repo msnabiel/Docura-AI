@@ -1,6 +1,6 @@
 "use client"
 
-import { NewsletterSignup } from "@/components/nabiel-ui/newsletter-signup"
+import { NewsletterSignup } from "@/components/vendora-ui/newsletter-signup"
 import { DocPageLayout } from "@/components/docs/doc-page-layout"
 
 export function newsletterDoc() {

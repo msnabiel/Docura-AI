@@ -8,7 +8,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card"
-import { CodeBlockWithCopy } from "@/components/code-block-with-copy"
+import { CodeBlockWithCopy } from "@/components/site-ui/code-block-with-copy"
 
 interface DocPageLayoutProps {
   title: string

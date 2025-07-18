@@ -1,6 +1,6 @@
 "use client"
 
-import { ShopPage } from "@/components/nabiel-ui/shop-page"
+import { ShopPage } from "@/components/vendora-ui/shop-page"
 import { flattenedVariants } from "@/data/products"
 import { DocPageLayout } from "@/components/docs/doc-page-layout"
 

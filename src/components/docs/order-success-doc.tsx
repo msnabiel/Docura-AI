@@ -1,6 +1,6 @@
 "use client"
 
-import { OrderSuccess } from "@/components/nabiel-ui/order-success"
+import { OrderSuccess } from "@/components/vendora-ui/order-success"
 import { DocPageLayout } from "@/components/docs/doc-page-layout"
 
 export function orderSuccessDoc() {

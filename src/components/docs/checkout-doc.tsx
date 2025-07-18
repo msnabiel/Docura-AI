@@ -1,6 +1,6 @@
 "use client"
 
-import { CheckoutPage } from "@/components/nabiel-ui/checkout-page"
+import { CheckoutPage } from "@/components/vendora-ui/checkout-page"
 import { DocPageLayout } from "@/components/docs/doc-page-layout"
 
 export function checkoutDoc() {

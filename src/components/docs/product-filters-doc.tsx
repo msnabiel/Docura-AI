@@ -1,6 +1,6 @@
 "use client"
 
-import { ProductFilters } from "@/components/nabiel-ui/product-filters"
+import { ProductFilters } from "@/components/vendora-ui/product-filters"
 import { DocPageLayout } from "@/components/docs/doc-page-layout"
 
 export function productFiltersDoc() {

@@ -1,6 +1,6 @@
 "use client"
 
-import { ContactForm } from "@/components/nabiel-ui/contact-form"
+import { ContactForm } from "@/components/vendora-ui/contact-form"
 import { DocPageLayout } from "@/components/docs/doc-page-layout"
 
 const usageSnippet = `import { ContactForm } from "@/components/nabiel-ui/contact-form"

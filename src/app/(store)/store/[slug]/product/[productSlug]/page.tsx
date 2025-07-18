@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react"
 import { useParams } from "next/navigation"
-import { ProductDetailPage } from "@/components/nabiel-ui/ProductDetailPage"
+import { ProductDetailPage } from "@/components/vendora-ui/ProductDetailPage"
 
 export default function ProductPage() {
   const { slug, productSlug } = useParams() as {

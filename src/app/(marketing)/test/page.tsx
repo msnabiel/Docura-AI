@@ -1,5 +1,5 @@
-import { NewsletterSignup } from "@/components/newsletter-signup"
-import { CartPage } from "@/components/cart-page"
+import { NewsletterSignup } from "@/components/site-ui/newsletter-signup"
+import { CartPage } from "@/components/site-ui/cart-page"
 export default function Page() {
   return (
     <div>

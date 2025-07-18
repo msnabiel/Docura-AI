@@ -1,9 +1,9 @@
 "use client"
 
 import { DocPageLayout } from "@/components/docs/doc-page-layout"
-import { CodeBlockWithCopy } from "@/components/code-block-with-copy"
+import { CodeBlockWithCopy } from "@/components/site-ui/code-block-with-copy"
 import { Button } from "@/components/ui/button"
-import { NewsletterSignup } from "@/components/newsletter-signup"
+import { NewsletterSignup } from "@/components/site-ui/newsletter-signup"
 
 const installSnippet = `npm install @mailchimp/mailchimp_marketing
 npx nabiel-ui add newsletter-signup`

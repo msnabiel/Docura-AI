@@ -1,14 +1,15 @@
 "use client"
 
 import { useEffect, useState } from "react"
-import { HeroSection } from "@/components/nabiel-ui/hero-section"
-import { ShopPage } from "@/components/nabiel-ui/shop-page"
-import { ProductFilters } from "@/components/nabiel-ui/product-filters"
-import { RecentlyViewedProducts } from "@/components/nabiel-ui/recently-viewed"
-import { NewsletterSignup } from "@/components/nabiel-ui/newsletter-signup"
-import { SupportCTA } from "@/components/nabiel-ui/support-cta"
-import { FeaturesGrid } from "@/components/nabiel-ui/FeaturesGrid"
-import { StartSellingSection } from "@/components/StartSellingSection"
+import { HeroSection } from "@/components/vendora-ui/hero-section"
+import { ShopPage } from "@/components/vendora-ui/shop-page"
+import { ProductFilters } from "@/components/vendora-ui/product-filters"
+import { RecentlyViewedProducts } from "@/components/vendora-ui/recently-viewed"
+import { NewsletterSignup } from "@/components/vendora-ui/newsletter-signup"
+import { SupportCTA } from "@/components/vendora-ui/support-cta"
+import { FeaturesGrid } from "@/components/vendora-ui/FeaturesGrid"
+import { StartSellingSection } from "@/components/site-ui/StartSellingSection"
+import { ProductMarqueeBanner } from "@/components/vendora-ui/marquee-product-banner"
 
 export function VendoraTemplate({ data }: { data: any }) {
   const [formData, setFormData] = useState<any>(data || null)
@@ -57,6 +58,12 @@ export function VendoraTemplate({ data }: { data: any }) {
       <div className="mb-8">
         <HeroSection title={formData.storeName} subtitle={formData.description} />
       </div>
+
+<div className="mb-8">
+  <ProductMarqueeBanner slug={formData.slug || "vendora-form-data"} />
+</div>
+
+
 
       {features.length > 0 && (
         <div className="mb-10">

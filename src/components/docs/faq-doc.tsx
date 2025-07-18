@@ -1,6 +1,6 @@
 "use client"
 
-import { FAQ } from "@/components/nabiel-ui/faq"
+import { FAQ } from "@/components/vendora-ui/faq"
 import { DocPageLayout } from "@/components/docs/doc-page-layout"
 
 const faqItems = [

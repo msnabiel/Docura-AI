@@ -1,8 +1,8 @@
 "use client"
 
 import { DocPageLayout } from "@/components/docs/doc-page-layout"
-import { CodeBlockWithCopy } from "@/components/code-block-with-copy"
-import { ProductDetailPage } from "@/components/nabiel-ui/ProductDetailPage"
+import { CodeBlockWithCopy } from "@/components/site-ui/code-block-with-copy"
+import { ProductDetailPage } from "@/components/vendora-ui/ProductDetailPage"
 
 export function googleSheetsIntegrationDoc() {
   const mockVariant = {

@@ -1,6 +1,6 @@
 "use client"
 
-import { MyAccount } from "@/components/nabiel-ui/my-account"
+import { MyAccount } from "@/components/vendora-ui/my-account"
 import { DocPageLayout } from "@/components/docs/doc-page-layout"
 
 export default function MyAccountDoc() {
