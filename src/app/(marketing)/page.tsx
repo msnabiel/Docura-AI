@@ -10,7 +10,7 @@ import { IntegrationsMarquee } from "@/components/site-ui/integrations-marquee"
 import { WhyChooseSection } from "@/components/site-ui/why-choose"
 import { FeatureHighlightsSection } from "@/components/site-ui/FeatureHighlightsSection"
 import { TestimonialSection } from "@/components/site-ui/TestimonialSection"
-import { PricingSection } from "@/components/site-ui/pricing"
+import { DeploymentOptionsSection } from "@/components/site-ui/pricing"
 import { StartSellingSection } from "@/components/site-ui/StartSellingSection"
 
 const fadeInUp = {
@@ -29,7 +29,7 @@ const stagger = {
 
 export default function Home() {
   const [copied, setCopied] = useState(false)
-  const command = "git clone https://github.com/msnabiel/docura"
+  const command = "https://docura-nluj.onrender.com"
 
   const handleCopy = () => {
     navigator.clipboard.writeText(command)

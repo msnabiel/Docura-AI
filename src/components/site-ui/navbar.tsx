@@ -20,9 +20,11 @@ export function NavBar() {
   const [query, setQuery] = useState("")
 
 const navLinks = [
-  { label: "Get Started", href: "/" },
+  { label: "Home", href: "/" },
+  { label: "Try It", href: "/chat" },
+  { label: "Models", href: "/models" },
   { label: "Documentation", href: "/docs/introduction" },
-  { label: "About Us", href: "/contact" },
+  { label: "About Us", href: "/about" },
   {
     label: "GitHub",
     href: "https://github.com/msnabiel/docura",
