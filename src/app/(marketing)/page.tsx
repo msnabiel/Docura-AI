@@ -74,7 +74,7 @@ export default function Home() {
     variants={fadeInUp}
     className="flex flex-col sm:flex-row justify-center items-center gap-3 sm:gap-4 mb-6 px-2"
   >
-    <Link href="/upload" className="w-[90%] sm:w-auto max-w-xs">
+    <Link href="/chat" className="w-[90%] sm:w-auto max-w-xs">
       <Button size="lg" className="w-full bg-indigo-500 text-white hover:bg-indigo-600">
         Try Docura <ArrowRight className="ml-2 h-4 w-4" />
       </Button>
