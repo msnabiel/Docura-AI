@@ -8,11 +8,9 @@ import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import { IntegrationsMarquee } from "@/components/site-ui/integrations-marquee"
 import { WhyChooseSection } from "@/components/site-ui/why-choose"
-import { FeatureHighlightsSection } from "@/components/site-ui/FeatureHighlightsSection"
-import { TestimonialSection } from "@/components/site-ui/TestimonialSection"
-import { DeploymentOptionsSection } from "@/components/site-ui/pricing"
 import { StartSellingSection } from "@/components/site-ui/StartSellingSection"
 import { ComingSoonFeatures } from "@/components/site-ui/comingsoon"
+import { DeploymentOptionsSection } from "@/components/site-ui/models"
 const fadeInUp = {
   hidden: { opacity: 0, y: 20 },
   show: { opacity: 1, y: 0, transition: { duration: 0.6 } },
@@ -134,6 +132,7 @@ export default function Home() {
 
       {/* Additional sections below */}
       <WhyChooseSection />
+      <DeploymentOptionsSection />
       <ComingSoonFeatures />
       <StartSellingSection />
     </motion.section>
