@@ -9,7 +9,7 @@ const team = [
     role: "AI + Full Stack Engineer",
     avatar: "/hero.jpeg",
     github: "https://github.com/msnabiel",
-    linkedin: "https://linkedin.com/in/nabielm",
+    linkedin: "https://linkedin.com/in/msnabiel",
     motto: "Loves building at the edge of AI and infra 🚀",
   },
   {
