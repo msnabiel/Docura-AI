@@ -35,9 +35,6 @@ export default function DocuraAI() {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" })
   }
 
-  useEffect(() => {
-    scrollToBottom()
-  }, [messages])
 
   const getFileIcon = (type: string) => {
     if (type.startsWith('image/')) return <Image className="w-4 h-4" />
@@ -145,8 +142,7 @@ export default function DocuraAI() {
 
   return (
     <div className="flex flex-col h-screen bg-gradient-to-br from-slate-50 via-purple-50 to-indigo-100">
-      {/* Header */}
-      {/*
+      {/* Header 
       <motion.div 
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
@@ -170,7 +166,6 @@ export default function DocuraAI() {
       </motion.div> */}
 
       {/* Chat Area */}
-      <div className="flex-1 overflow-y-auto px-4 py-6">
       <div 
         className="flex-1 overflow-y-auto px-4 py-6"
         onDrop={handleDrop}
@@ -200,21 +195,21 @@ export default function DocuraAI() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.2 }}
-              className="flex flex-col items-center justify-center h-full text-center py-20"
+              className="flex flex-col items-center justify-center min-h-[60vh] text-center py-8 sm:py-20"
             >
               <motion.div 
                 whileHover={{ scale: 1.05 }}
-                className="w-20 h-20 bg-gradient-to-r from-purple-600 to-indigo-600 rounded-3xl flex items-center justify-center mb-6 shadow-lg"
+                className="w-16 h-16 sm:w-20 sm:h-20 bg-gradient-to-r from-purple-600 to-indigo-600 rounded-2xl sm:rounded-3xl flex items-center justify-center mb-4 sm:mb-6 shadow-lg"
               >
-                <FileText className="w-10 h-10 text-white" />
+                <FileText className="w-8 h-8 sm:w-10 sm:h-10 text-white" />
               </motion.div>
-              <h3 className="text-2xl font-bold text-gray-800 mb-3">Welcome to Docura AI</h3>
-              <p className="text-gray-600 max-w-md mb-6">Upload documents and start a conversation. I can help you analyze, summarize, and extract insights from your files.</p>
+              <h3 className="text-xl sm:text-2xl font-bold text-gray-800 mb-2 sm:mb-3">Welcome to Docura AI</h3>
+              <p className="text-gray-600 max-w-xs sm:max-w-md mb-4 sm:mb-6 text-sm sm:text-base px-4">Upload documents and start a conversation. I can help you analyze, summarize, and extract insights from your files.</p>
               <motion.button
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
                 onClick={() => fileInputRef.current?.click()}
-                className="bg-gradient-to-r from-purple-600 to-indigo-600 text-white px-6 py-3 rounded-2xl font-medium shadow-lg hover:shadow-xl transition-all duration-200"
+                className="bg-gradient-to-r from-purple-600 to-indigo-600 text-white px-4 sm:px-6 py-2.5 sm:py-3 rounded-xl sm:rounded-2xl font-medium shadow-lg hover:shadow-xl transition-all duration-200 text-sm sm:text-base"
               >
                 Upload Your First Document
               </motion.button>
@@ -228,22 +223,22 @@ export default function DocuraAI() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.3 }}
-                className={cn("flex gap-4 group", msg.role === "user" ? "flex-row-reverse" : "")}
+                className={cn("flex gap-3 sm:gap-4 group", msg.role === "user" ? "flex-row-reverse" : "")}
               >
                 {/* Avatar */}
                 <motion.div 
                   whileHover={{ scale: 1.1 }}
                   className={cn(
-                    "w-10 h-10 rounded-2xl flex items-center justify-center flex-shrink-0 shadow-lg",
+                    "w-8 h-8 sm:w-10 sm:h-10 rounded-xl sm:rounded-2xl flex items-center justify-center flex-shrink-0 shadow-lg",
                     msg.role === "user" 
                       ? "bg-gradient-to-r from-emerald-500 to-teal-600" 
                       : "bg-gradient-to-r from-purple-600 to-indigo-600"
                   )}
                 >
                   {msg.role === "user" ? (
-                    <User className="w-5 h-5 text-white" />
+                    <User className="w-4 h-4 sm:w-5 sm:h-5 text-white" />
                   ) : (
-                    <Bot className="w-5 h-5 text-white" />
+                    <Bot className="w-4 h-4 sm:w-5 sm:h-5 text-white" />
                   )}
                 </motion.div>
 
@@ -252,10 +247,10 @@ export default function DocuraAI() {
                   <motion.div
                     whileHover={{ scale: 1.01 }}
                     className={cn(
-                      "max-w-lg px-6 py-4 rounded-3xl shadow-lg transition-all duration-200 hover:shadow-xl",
+                      "max-w-[280px] sm:max-w-md lg:max-w-lg px-4 sm:px-6 py-3 sm:py-4 rounded-2xl sm:rounded-3xl shadow-lg transition-all duration-200 hover:shadow-xl",
                       msg.role === "user"
-                        ? "bg-gradient-to-r from-emerald-500 to-teal-600 text-white rounded-tr-lg"
-                        : "bg-white border border-gray-200 text-gray-800 rounded-tl-lg"
+                        ? "bg-gradient-to-r from-emerald-500 to-teal-600 text-white rounded-tr-md"
+                        : "bg-white border border-gray-200 text-gray-800 rounded-tl-md"
                     )}
                   >
                     <p className="text-sm leading-relaxed whitespace-pre-wrap">{msg.content}</p>
@@ -301,7 +296,7 @@ export default function DocuraAI() {
                   </motion.div>
                   
                   {/* Timestamp */}
-                  <span className="text-xs text-gray-400 mt-2 px-3 opacity-0 group-hover:opacity-100 transition-opacity duration-200">
+                  <span className="text-xs text-gray-400 mt-1 sm:mt-2 px-2 sm:px-3 opacity-0 group-hover:opacity-100 transition-opacity duration-200">
                     {formatTime(msg.timestamp)}
                   </span>
                 </div>
@@ -316,12 +311,12 @@ export default function DocuraAI() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -20 }}
-                className="flex gap-4"
+                className="flex gap-3 sm:gap-4"
               >
-                <div className="w-10 h-10 bg-gradient-to-r from-purple-600 to-indigo-600 rounded-2xl flex items-center justify-center flex-shrink-0 shadow-lg">
-                  <Bot className="w-5 h-5 text-white" />
+                <div className="w-8 h-8 sm:w-10 sm:h-10 bg-gradient-to-r from-purple-600 to-indigo-600 rounded-xl sm:rounded-2xl flex items-center justify-center flex-shrink-0 shadow-lg">
+                  <Bot className="w-4 h-4 sm:w-5 sm:h-5 text-white" />
                 </div>
-                <div className="bg-white border border-gray-200 rounded-3xl rounded-tl-lg px-6 py-4 shadow-lg">
+                <div className="bg-white border border-gray-200 rounded-2xl sm:rounded-3xl rounded-tl-md px-4 sm:px-6 py-3 sm:py-4 shadow-lg">
                   <div className="flex gap-2">
                     <motion.div 
                       className="w-2 h-2 bg-purple-400 rounded-full"
@@ -347,7 +342,6 @@ export default function DocuraAI() {
           <div ref={messagesEndRef} />
         </div>
       </div>
-      </div>
 
       {/* Input Area */}
       <motion.div 
@@ -363,22 +357,22 @@ export default function DocuraAI() {
                 initial={{ opacity: 0, height: 0 }}
                 animate={{ opacity: 1, height: "auto" }}
                 exit={{ opacity: 0, height: 0 }}
-                className="mb-4 p-4 bg-white rounded-2xl border border-gray-200 shadow-lg"
+                className="mb-3 sm:mb-4 p-3 sm:p-4 bg-white rounded-xl sm:rounded-2xl border border-gray-200 shadow-lg"
               >
-                <h4 className="text-sm font-semibold text-gray-700 mb-3">Attached Files ({uploadedFiles.length})</h4>
-                <div className="space-y-2">
+                <h4 className="text-sm font-semibold text-gray-700 mb-2 sm:mb-3">Attached Files ({uploadedFiles.length})</h4>
+                <div className="space-y-1.5 sm:space-y-2">
                   {uploadedFiles.map((file, index) => (
                     <motion.div
                       key={index}
                       initial={{ opacity: 0, x: -20 }}
                       animate={{ opacity: 1, x: 0 }}
-                      className="flex items-center gap-3 p-3 bg-purple-50 rounded-xl"
+                      className="flex items-center gap-2 sm:gap-3 p-2.5 sm:p-3 bg-purple-50 rounded-lg sm:rounded-xl"
                     >
-                      <div className="p-2 bg-purple-100 rounded-lg">
+                      <div className="p-1.5 sm:p-2 bg-purple-100 rounded-md sm:rounded-lg">
                         {getFileIcon(file.type)}
                       </div>
                       <div className="flex-1 min-w-0">
-                        <p className="font-medium text-sm text-gray-800 truncate">{file.name}</p>
+                        <p className="font-medium text-xs sm:text-sm text-gray-800 truncate">{file.name}</p>
                         <p className="text-xs text-gray-500">{formatFileSize(file.size)}</p>
                       </div>
                       <motion.button
@@ -387,7 +381,7 @@ export default function DocuraAI() {
                         onClick={() => removeFile(index)}
                         className="p-1 text-gray-400 hover:text-red-500 transition-colors"
                       >
-                        <X className="w-4 h-4" />
+                        <X className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
                       </motion.button>
                     </motion.div>
                   ))}

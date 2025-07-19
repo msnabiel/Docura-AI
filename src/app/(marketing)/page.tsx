@@ -76,16 +76,16 @@ export default function Home() {
   >
     <Link href="/upload" className="w-[90%] sm:w-auto max-w-xs">
       <Button size="lg" className="w-full bg-indigo-500 text-white hover:bg-indigo-600">
-        Upload Docs <ArrowRight className="ml-2 h-4 w-4" />
+        Try Docura <ArrowRight className="ml-2 h-4 w-4" />
       </Button>
     </Link>
 
-    <Link href="/examples" className="w-[90%] sm:w-auto max-w-xs">
+    <Link href="/models" className="w-[90%] sm:w-auto max-w-xs">
       <Button
         size="lg"
         className="w-full bg-gray-100 text-gray-800 hover:bg-gray-200 border border-gray-300"
       >
-        Use Cases <ArrowRight className="ml-2 h-4 w-4" />
+        Models <ArrowRight className="ml-2 h-4 w-4" />
       </Button>
     </Link>
 
