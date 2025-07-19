@@ -1,7 +1,7 @@
 "use client"
 
 import { DocPageLayout } from "@/components/docs/doc-page-layout"
-
+import { CodeBlockWithCopy } from "../site-ui/code-block-with-copy"
 const setupSnippet = `# Using the deployed Docura API
 BASE_URL = "https://docura-nluj.onrender.com"
 
@@ -90,6 +90,7 @@ export function DocuraQueryDoc() {
         </div>
         </div>
       }
+      
       extraInfo={
         <div className="space-y-6 text-sm text-muted-foreground">
           <div>
@@ -103,6 +104,7 @@ export function DocuraQueryDoc() {
                 <p className="text-xs">Returns simple text responses. Perfect for chatbots and basic Q&A.</p>
               </div>
               
+              
               <div className="bg-muted/30 rounded-lg p-4">
                 <div className="flex items-center gap-2 mb-2">
                   <code className="bg-purple-100 text-purple-800 px-2 py-1 rounded text-xs">POST</code>
@@ -113,40 +115,45 @@ export function DocuraQueryDoc() {
             </div>
           </div>
           
-          <div>
-            <h2 className="font-semibold mb-3 text-foreground">📮 Postman Setup</h2>
-            <div className="bg-muted/20 rounded-lg p-4 space-y-3">
-              <div>
-                <strong>1. Create New Request:</strong>
-                <div className="mt-1 text-xs">
-                  • Method: <code>POST</code><br/>
-                  • URL: <code>https://docura-nluj.onrender.com/query</code>
-                </div>
-              </div>
-              <div>
-                <strong>2. Headers:</strong>
-                <div className="mt-1 text-xs">
-                  • <code>Content-Type: application/json</code><br/>
-                  • <code>Accept: application/json</code>
-                </div>
-              </div>
-              <div>
-                <strong>3. Body (raw JSON):</strong>
-                <div className="mt-1 text-xs bg-muted/30 p-2 rounded font-mono">
-                  {`{
+<div>
+  <h2 className="font-semibold mb-3 text-foreground">📮 Postman Setup</h2>
+  <div className="bg-muted/20 rounded-lg p-4 space-y-3">
+    <div>
+      <strong>1. Create New Request:</strong>
+      <div className="mt-1 text-xs">
+        • Method: <code>POST</code><br/>
+        • URL: <code>https://docura-nluj.onrender.com/query</code>
+      </div>
+    </div>
+
+    <div>
+      <strong>2. Headers:</strong>
+      <div className="mt-1 text-xs">
+        • <code>Content-Type: application/json</code><br/>
+        • <code>Accept: application/json</code>
+      </div>
+    </div>
+
+    <div>
+      <strong>3. Body (raw JSON):</strong>
+      <CodeBlockWithCopy
+        code={`{
   "query": "How does billing work?",
   "max_results": 5
 }`}
-                </div>
-              </div>
-              <div>
-                <strong>4. Send Request:</strong>
-                <div className="mt-1 text-xs">
-                  Click "Send" to get your answer!
-                </div>
-              </div>
-            </div>
-          </div>
+        className="mt-1 text-xs"
+      />
+    </div>
+
+    <div>
+      <strong>4. Send Request:</strong>
+      <div className="mt-1 text-xs">
+        Click "Send" to get your answer!
+      </div>
+    </div>
+  </div>
+</div>
+
           
           <div>
             <h2 className="font-semibold mb-2 text-foreground">📊 Request Parameters</h2>
@@ -156,36 +163,38 @@ export function DocuraQueryDoc() {
               <div><strong>format</strong> (/query_json only): Response format ("structured")</div>
             </div>
           </div>
-          
-          <div>
-            <h2 className="font-semibold mb-2 text-foreground">📋 Response Examples</h2>
-            <div className="space-y-3">
-              <div>
-                <strong>/query Response (Simple):</strong>
-                <div className="bg-muted/20 rounded-lg p-3 text-xs font-mono mt-1">
-                  <div className="text-blue-600">// HTTP 200 OK</div>
-                  <div>{'{'}</div>
-                  <div>&nbsp;&nbsp;"answer": "Billing works on a monthly subscription basis..."</div>
-                  <div>{'}'}</div>
-                </div>
-              </div>
-              
-              <div>
-                <strong>/query_json Response (Structured):</strong>
-                <div className="bg-muted/20 rounded-lg p-3 text-xs font-mono mt-1">
-                  <div className="text-purple-600">// HTTP 200 OK</div>
-                  <div>{'{'}</div>
-                  <div>&nbsp;&nbsp;"answer": "Billing works on a monthly subscription...",</div>
-                  <div>&nbsp;&nbsp;"sources": [</div>
-                  <div>&nbsp;&nbsp;&nbsp;&nbsp;{"{"}"document": "pricing.pdf", "page": 2{"}"}</div>
-                  <div>&nbsp;&nbsp;],</div>
-                  <div>&nbsp;&nbsp;"confidence": 0.95,</div>
-                  <div>&nbsp;&nbsp;"metadata": {"{"}"tokens_used": 150{"}"}</div>
-                  <div>{'}'}</div>
-                </div>
-              </div>
-            </div>
-          </div>
+<div>
+  <h2 className="font-semibold mb-4 text-foreground">📋 Response Examples</h2>
+  <div className="space-y-3">
+    
+    <div>
+      <strong className="block mb-2">/query Response (Simple):</strong>
+      <CodeBlockWithCopy
+        code={`// HTTP 200 OK
+{
+  "answer": "Billing works on a monthly subscription basis..."
+}`}
+      />
+    </div>
+
+    <div>
+      <strong className="block mb-2">/query_json Response (Structured):</strong>
+      <CodeBlockWithCopy
+        code={`// HTTP 200 OK
+{
+  "answer": "Billing works on a monthly subscription...",
+  "sources": [
+    {"document": "pricing.pdf", "page": 2}
+  ],
+  "confidence": 0.95,
+  "metadata": {"tokens_used": 150}
+}`}
+      />
+    </div>
+
+  </div>
+</div>
+
           
           <div>
             <h2 className="font-semibold mb-2 text-foreground">🧠 Hybrid Retrieval System</h2>

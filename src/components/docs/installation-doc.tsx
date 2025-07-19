@@ -3,10 +3,7 @@
 import { DocPageLayout } from "@/components/docs/doc-page-layout"
 import { CodeBlockWithCopy } from "@/components/site-ui/code-block-with-copy"
 
-const installSnippet = `// Using pip
-pip install docura
-
-// Or clone and run locally
+const installSnippet = `# Clone and run locally
 git clone https://github.com/msnabiel/docura
 cd docura
 pip install -r requirements.txt

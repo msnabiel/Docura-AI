@@ -1,7 +1,7 @@
 "use client"
 
 import { DocPageLayout } from "@/components/docs/doc-page-layout"
-
+import { CodeBlockWithCopy } from "../site-ui/code-block-with-copy"
 const setupSnippet = `# Using the deployed Docura API
 BASE_URL = "https://docura-nluj.onrender.com"
 
@@ -132,22 +132,24 @@ export function DocuraHealthDoc() {
             </ul>
           </div>
           
-          <div>
-            <h2 className="font-semibold mb-2 text-foreground">📋 Response Structure</h2>
-            <div className="bg-muted/20 rounded-lg p-3 text-xs font-mono">
-              <div className="text-green-600">// Example Response</div>
-              <div>{'{'}</div>
-              <div>&nbsp;&nbsp;"message": "Document Query API",</div>
-              <div>&nbsp;&nbsp;"version": "1.0.0",</div>
-              <div>&nbsp;&nbsp;"endpoints": {'{'}</div>
-              <div>&nbsp;&nbsp;&nbsp;&nbsp;"health": "/health",</div>
-              <div>&nbsp;&nbsp;&nbsp;&nbsp;"upload": "/upload",</div>
-              <div>&nbsp;&nbsp;&nbsp;&nbsp;"query": "/query",</div>
-              <div>&nbsp;&nbsp;&nbsp;&nbsp;"query_json": "/query_json"</div>
-              <div>&nbsp;&nbsp;{'}'}</div>
-              <div>{'}'}</div>
-            </div>
-          </div>
+<div>
+  <h2 className="font-semibold mb-2 text-foreground">📋 Response Structure</h2>
+  <CodeBlockWithCopy
+    code={`// Example Response
+{
+  "message": "Document Query API",
+  "version": "1.0.0",
+  "endpoints": {
+    "health": "/health",
+    "upload": "/upload",
+    "query": "/query",
+    "query_json": "/query_json"
+  }
+}`}
+    className="text-xs"
+  />
+</div>
+
           
           <div>
             <h2 className="font-semibold mb-2 text-foreground">🔧 Testing Tools</h2>

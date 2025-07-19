@@ -1,7 +1,7 @@
 "use client"
 
 import { DocPageLayout } from "@/components/docs/doc-page-layout"
-
+import { CodeBlockWithCopy } from "../site-ui/code-block-with-copy"
 const setupSnippet = `# Using the deployed Docura API
 BASE_URL = "https://docura-nluj.onrender.com"
 
@@ -165,33 +165,39 @@ export function DocuraUploadDoc() {
             </div>
           </div>
           
-          <div>
-            <h2 className="font-semibold mb-2 text-foreground">📋 Response Examples</h2>
-            <div className="space-y-3">
-              <div>
-                <strong>Success Response:</strong>
-                <div className="bg-muted/20 rounded-lg p-3 text-xs font-mono mt-1">
-                  <div className="text-green-600">// HTTP 200 OK</div>
-                  <div>{'{'}</div>
-                  <div>&nbsp;&nbsp;"status": "success",</div>
-                  <div>&nbsp;&nbsp;"message": "Document uploaded and processed",</div>
-                  <div>&nbsp;&nbsp;"filename": "document.pdf",</div>
-                  <div>&nbsp;&nbsp;"file_size": 2048576</div>
-                  <div>{'}'}</div>
-                </div>
-              </div>
-              <div>
-                <strong>Error Response:</strong>
-                <div className="bg-muted/20 rounded-lg p-3 text-xs font-mono mt-1">
-                  <div className="text-red-600">// HTTP 400 Bad Request</div>
-                  <div>{'{'}</div>
-                  <div>&nbsp;&nbsp;"error": "Invalid file type",</div>
-                  <div>&nbsp;&nbsp;"supported_formats": ["pdf", "docx", "pptx", "html"]</div>
-                  <div>{'}'}</div>
-                </div>
-              </div>
-            </div>
-          </div>
+<div>
+  <h2 className="font-semibold mb-2 text-foreground">📋 Response Examples</h2>
+  <div className="space-y-3">
+
+    <div>
+      <strong className="block mb-2">Success Response:</strong>
+      <CodeBlockWithCopy
+        code={`// HTTP 200 OK
+{
+  "status": "success",
+  "message": "Document uploaded and processed",
+  "filename": "document.pdf",
+  "file_size": 2048576
+}`}
+        className="text-xs"
+      />
+    </div>
+
+    <div>
+      <strong className="block mb-2">Error Response:</strong>
+      <CodeBlockWithCopy
+        code={`// HTTP 400 Bad Request
+{
+  "error": "Invalid file type",
+  "supported_formats": ["pdf", "docx", "pptx", "html"]
+}`}
+        className="text-xs"
+      />
+    </div>
+
+  </div>
+</div>
+
           
           <div>
             <h2 className="font-semibold mb-2 text-foreground">📊 File Limits & Guidelines</h2>

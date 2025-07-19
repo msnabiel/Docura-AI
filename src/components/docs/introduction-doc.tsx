@@ -16,7 +16,7 @@ export function DocuraIntroDoc() {
       preview={
         <div className="text-center space-y-4">
           <img
-            src="/docura-logo.png"
+            src="/hero.jpeg"
             alt="Docura Logo"
             className="mx-auto w-24 h-24"
           />
