@@ -7,7 +7,7 @@ import { stripeDoc } from "@/components/docs/stripe-doc"
 import { supabaseDoc } from "@/components/docs/supabase-doc"
 import {  paypalDoc } from "@/components/docs/paypal-doc"
 import { uploadthingDoc } from "@/components/docs/uploadthing-doc"
-import { googleSheetsIntegrationDoc } from "@/components/docs/google-sheets-doc"
+import { GoogleSheetsIntegrationDoc } from "@/components/docs/google-sheets-doc"
 import { paytmDoc } from "@/components/docs/paytm-doc"
 import { cashfreeDoc } from "@/components/docs/cashfree-doc"
 import { Spline } from "lucide-react"
@@ -58,7 +58,7 @@ export const docPages: Record<string, React.FC> = {
   shopify:shopifyIntegrationDoc,
   paypal: paypalDoc,
   uploadthing: uploadthingDoc,
-    "google-sheets": googleSheetsIntegrationDoc,
+    "google-sheets": GoogleSheetsIntegrationDoc,
      paytm: paytmDoc,
      cashfree: cashfreeDoc,
      spline: splineDoc,

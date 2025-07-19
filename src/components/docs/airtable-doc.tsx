@@ -4,103 +4,85 @@ import { DocPageLayout } from "@/components/docs/doc-page-layout"
 import { CodeBlockWithCopy } from "@/components/site-ui/code-block-with-copy"
 import { Button } from "@/components/ui/button"
 
-const installSnippet = `npm install airtable`
-
-const fetchSnippet = `// lib/airtable.ts
-import Airtable from "airtable"
-
-const base = new Airtable({ apiKey: process.env.AIRTABLE_API_KEY }).base(
-  process.env.AIRTABLE_BASE_ID!
-)
-
-export async function fetchProducts() {
-  const records = await base("Products")
-    .select({ view: "Grid view" })
-    .all()
-
-  return records.map((record) => ({
-    id: record.id,
-    name: record.get("Name"),
-    price: record.get("Price"),
-    description: record.get("Description"),
-    image: record.get("Image")?.[0]?.url,
-    category: record.get("Category"),
-  }))
-}`
+const installSnippet = `npm install @google/generative-ai @pinecone-database/pinecone`
 
 const envSnippet = `// .env.local
-AIRTABLE_API_KEY=your_airtable_api_key
-AIRTABLE_BASE_ID=your_base_id`
+# Pinecone
+PINECONE_API_KEY=your_pinecone_api_key
+PINECONE_ENV=your_pinecone_environment   # e.g. us-central1-gcp
+PINECONE_INDEX=docura-index
 
-const usageSnippet = `// app/shop/page.tsx
-import { fetchProducts } from "@/lib/airtable"
-import { ShopPage } from  "@/components/nabiel-ui/shop-page"
+# Gemini
+GEMINI_API_KEY=your_gemini_api_key`
 
-export default async function Page() {
-  const products = await fetchProducts()
+const usageSnippet = `// lib/pinecone.ts
+import { Pinecone } from "@pinecone-database/pinecone"
 
-  return <ShopPage products={products} />
-}`
+const pinecone = new Pinecone({
+  apiKey: process.env.PINECONE_API_KEY!,
+})
+
+export const index = pinecone.index(process.env.PINECONE_INDEX!)
+`
 
 export function airtableDoc() {
   return (
     <DocPageLayout
-      title="Airtable Integration with Shop Page"
+      title="Environment Setup for Docura (Gemini + Pinecone)"
       description={
-        <>Connect your <code>ShopPage</code> component to Airtable to fetch product listings and use Airtable as a lightweight CMS.</>
+        <>Add your <code>.env.local</code> with Pinecone and Gemini API keys to use Docura's intelligent document search features.</>
       }
       addSnippet={installSnippet}
-      usageSnippet={fetchSnippet}
+      usageSnippet={usageSnippet}
       preview={
         <div className="space-y-4 text-sm text-muted-foreground text-center">
-          <a
-            href="https://airtable.com"
-            target="_blank"
-            rel="noreferrer"
-            className="inline-block"
-          >
-            <Button>Open Airtable</Button>
-          </a>
-          <p>Use it to manage your product listings via the <code>Products</code> table.</p>
+          <p>
+            This setup powers document embedding, indexing, and querying using Google Gemini + Pinecone.
+          </p>
         </div>
       }
       extraInfo={
         <div className="space-y-6">
           <div>
-            <h3 className="text-lg font-semibold mb-2">🗂️ Airtable Table Structure</h3>
-            <ul className="list-disc text-muted-foreground pl-5 text-sm space-y-1">
-              <li><strong>Name</strong> (Single line text)</li>
-              <li><strong>Price</strong> (Number)</li>
-              <li><strong>Description</strong> (Long text)</li>
-              <li><strong>Image</strong> (Attachment)</li>
-              <li><strong>Category</strong> (Single select)</li>
-            </ul>
-          </div>
-
-          <div>
-            <h3 className="text-lg font-semibold mb-2">🌱 Environment Setup</h3>
+            <h3 className="text-lg font-semibold mb-2">🔑 Required Environment Variables</h3>
             <CodeBlockWithCopy code={envSnippet} />
           </div>
 
           <div>
-            <h3 className="text-lg font-semibold mb-2">🛍️ Integrate with Nabiel UI's ShopPage</h3>
+            <h3 className="text-lg font-semibold mb-2">📦 Installation</h3>
             <p className="text-sm text-muted-foreground mb-2">
-              The <code>ShopPage</code> component from <code>@nabiel/ui</code> accepts a <code>products</code> prop. Pass the array returned from <code>fetchProducts()</code> like this:
+              Use the following command to install the required SDKs:
             </p>
-            <CodeBlockWithCopy code={usageSnippet} />
+            <CodeBlockWithCopy code={installSnippet} />
+          </div>
+
+          <div>
+            <h3 className="text-lg font-semibold mb-2">🧠 Why These Keys Matter</h3>
+            <ul className="list-disc text-muted-foreground pl-5 text-sm space-y-1">
+              <li><strong>GEMINI_API_KEY:</strong> Used to generate embeddings and answer queries</li>
+              <li><strong>PINECONE_API_KEY:</strong> Powers vector index creation, upserts, and searches</li>
+              <li><strong>PINECONE_ENV / PINECONE_INDEX:</strong> Needed to connect to your vector database</li>
+            </ul>
           </div>
         </div>
       }
       extraNotes={
         <div className="mt-4 space-y-2 text-sm text-muted-foreground">
           <p>
-            You can extend this setup to other components like <code>FAQ</code>, <code>Testimonials</code>, or even your <code>Contact Form</code> by creating new tables in Airtable.
+            These variables enable Docura’s document intelligence engine. Be sure not to share your API keys publicly.
           </p>
-          <a href="https://airtable.com" target="_blank" rel="noreferrer">
-            <Button className="mt-2">Open Airtable</Button>
-          </a>
+          <p>
+            Want a deeper dive? Check the Docs for{" "}
+            <a href="https://docs.pinecone.io" target="_blank" rel="noreferrer" className="underline">
+              Pinecone
+            </a>{" "}
+            or{" "}
+            <a href="https://ai.google.dev" target="_blank" rel="noreferrer" className="underline">
+              Google Gemini
+            </a>.
+          </p>
         </div>
       }
     />
   )
-} 
+}

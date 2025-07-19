@@ -1,37 +1,100 @@
 "use client"
 
-import { CheckoutPage } from "@/components/nabiel-ui/checkout-page"
 import { DocPageLayout } from "@/components/docs/doc-page-layout"
+import { CodeBlockWithCopy } from "@/components/site-ui/code-block-with-copy"
+import { Button } from "@/components/ui/button"
+
+const uploadEndpointSnippet = `// /app/api/upload/route.ts
+
+import { NextRequest, NextResponse } from "next/server"
+import path from "path"
+import { writeFile, mkdir } from "fs/promises"
+import fs from "fs"
+
+export async function POST(req: NextRequest) {
+  const formData = await req.formData()
+  const file = formData.get("file") as File
+
+  if (!file) {
+    return NextResponse.json({ error: "No file uploaded" }, { status: 400 })
+  }
+
+  const buffer = Buffer.from(await file.arrayBuffer())
+  const uploadDir = path.join(process.cwd(), "public", "uploads")
+
+  if (!fs.existsSync(uploadDir)) {
+    await mkdir(uploadDir, { recursive: true })
+  }
+
+  const filePath = path.join(uploadDir, file.name)
+  await writeFile(filePath, buffer)
+
+  return NextResponse.json({ url: \`/uploads/\${file.name}\` })
+}`
+
+const frontendSnippet = `// Uploading a document from the client side
+
+const uploadFile = async (file: File) => {
+  const formData = new FormData()
+  formData.append("file", file)
+
+  const res = await fetch("/api/upload", {
+    method: "POST",
+    body: formData,
+  })
+
+  const data = await res.json()
+  console.log("Uploaded to:", data.url)
+}`
 
 export function checkoutDoc() {
   return (
     <DocPageLayout
-      title="CheckoutPage"
+      title="Document Upload via API Endpoint"
       description={
         <>
-          The <code>CheckoutPage</code> component provides a complete checkout experience including shipping
-          address, cart summary, coupon support, and a confirmation message. The cart data is read from{" "}
-          <code>localStorage</code>.
+          Learn how to implement a simple file upload API using <code>FormData</code> and handle document uploads
+          server-side with a POST endpoint.
         </>
       }
-      preview={<CheckoutPage />}
-      addSnippet={`npx nabiel-ui add checkout-page`}
-      usageSnippet={`import { CheckoutPage } from "@/components/nabiel-ui/checkout-page"
-
-export default function Page() {
-  return <CheckoutPage />
-}`}
+      preview={
+        <div className="flex flex-col items-center space-y-4">
+          <Button onClick={() => alert("This simulates a document upload flow.")}>
+            Simulate Upload
+          </Button>
+          <p className="text-sm text-muted-foreground text-center">
+            Use a <code>file</code> input on the frontend and send a <code>POST</code> request to <code>/api/upload</code>.
+          </p>
+        </div>
+      }
+      addSnippet={`npx your-cli-tool init upload-endpoint`}
+      usageSnippet={frontendSnippet}
       extraNotes={
         <>
-          💡 Coupon logic is built-in. Try these codes at checkout:
-          <ul className="list-disc list-inside ml-4 mt-2 space-y-1">
-            <li><code>SAVE10</code> – ₹100 off</li>
-            <li><code>FREESHIP</code> – ₹50 off (free shipping simulation)</li>
-          </ul>
-          <p className="mt-2">
-            You can extend this flow by integrating Stripe, Razorpay, or custom APIs. It’s also possible to auto-fill
-            address fields from a logged-in Supabase user.
+          <h3 className="text-lg font-semibold mt-6 mb-2">🛠 Backend: Create Upload Endpoint</h3>
+          <p className="mb-2 text-sm text-muted-foreground">
+            Here's how to create a Next.js API route that handles file uploads using <code>formData</code>:
           </p>
+          <CodeBlockWithCopy code={uploadEndpointSnippet} />
+
+          <h3 className="text-lg font-semibold mt-6 mb-2">🖼 Frontend Usage</h3>
+          <p className="mb-2 text-sm text-muted-foreground">
+            On the frontend, collect the file using an input and send it using <code>fetch()</code> and <code>FormData</code>:
+          </p>
+          <CodeBlockWithCopy code={frontendSnippet} />
+
+          <h3 className="text-lg font-semibold mt-6 mb-2">⚠️ Notes for Deployments (e.g., Render)</h3>
+          <ul className="text-sm list-disc pl-4 text-muted-foreground">
+            <li>
+              This saves files to the <code>/public/uploads</code> folder.
+            </li>
+            <li>
+              On Render, this folder is ephemeral — files will be lost on redeploy or restart.
+            </li>
+            <li>
+              For production use, store uploads on persistent storage like AWS S3 or Supabase Storage.
+            </li>
+          </ul>
         </>
       }
     />

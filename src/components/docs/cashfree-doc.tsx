@@ -4,146 +4,126 @@ import { DocPageLayout } from "@/components/docs/doc-page-layout"
 import { CodeBlockWithCopy } from "@/components/site-ui/code-block-with-copy"
 import { Button } from "@/components/ui/button"
 
-const installSnippet = `npm install axios
-npx nabiel-ui add checkout-page`
+const installSnippet = `npm install
+docker build -t docura-app .
+docker run -p 3000:3000 docura-app`
 
-const clientSnippet = `// Inside your customized CheckoutPage
+const clientSnippet = `// Dockerfile (place this in the root of your project)
 
-const handleCashfree = async () => {
-  const res = await fetch("/api/cashfree/initiate", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({
-      orderId: "ORDER123",
-      amount: 500,
-      customerEmail: "user@example.com",
-      customerPhone: "9999999999"
-    }),
-  })
+# Use the official Node.js image
+FROM node:18
 
-  const data = await res.json()
+# Set working directory
+WORKDIR /app
 
-  const paymentForm = document.createElement("form")
-  paymentForm.method = "POST"
-  paymentForm.action = data.paymentLink
+# Copy package files and install dependencies
+COPY package*.json ./
+RUN npm install
 
-  document.body.appendChild(paymentForm)
-  paymentForm.submit()
-}`
+# Copy the rest of the app
+COPY . .
 
-const serverSnippet = `// /app/api/cashfree/initiate/route.ts
+# Build the app (if using Next.js or similar)
+RUN npm run build
 
-import { NextRequest, NextResponse } from "next/server"
-import axios from "axios"
+# Expose port and start the app
+EXPOSE 3000
+CMD ["npm", "start"]`
 
-export async function POST(req: NextRequest) {
-  const { orderId, amount, customerEmail, customerPhone } = await req.json()
+const serverSnippet = `// render.yaml (place in the root of your project)
 
-  try {
-    const response = await axios.post(
-      "https://sandbox.cashfree.com/pg/orders",
-      {
-        order_id: orderId,
-        order_amount: amount,
-        order_currency: "INR",
-        customer_details: {
-          customer_email: customerEmail,
-          customer_phone: customerPhone,
-          customer_name: "Cashfree Buyer"
-        }
-      },
-      {
-        headers: {
-          "Content-Type": "application/json",
-          "x-api-version": "2022-09-01",
-          "x-client-id": process.env.CASHFREE_APP_ID!,
-          "x-client-secret": process.env.CASHFREE_SECRET_KEY!,
-        }
-      }
-    )
-
-    return NextResponse.json({ paymentLink: response.data.payment_link })
-  } catch (err) {
-    console.error(err)
-    return NextResponse.json({ error: "Failed to create Cashfree order" }, { status: 500 })
-  }
-}`
+services:
+  - type: web
+    name: docura-app
+    env: docker
+    plan: free
+    dockerfilePath: ./Dockerfile
+    buildCommand: ""
+    startCommand: ""
+    autoDeploy: true
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 3000
+`
 
 export function cashfreeDoc() {
   return (
     <DocPageLayout
-      title="Cashfree Integration with Checkout Page"
+      title="Deploying Docura on Render using Docker"
       description={
         <>
-          Integrate <code>Cashfree</code> with the <code>{"<CheckoutPage />"}</code> component from{" "}
-          <code>@nabiel/ui</code> to accept secure UPI, card, wallet, and net banking payments.
+          Deploy your <code>Docura</code> app to{" "}
+          <a href="https://render.com" className="underline" target="_blank" rel="noreferrer">
+            Render
+          </a>{" "}
+          using a <code>Dockerfile</code> and <code>render.yaml</code> configuration.
         </>
       }
       addSnippet={installSnippet}
       usageSnippet={clientSnippet}
       preview={
         <div className="flex flex-col items-center space-y-4">
-          <Button onClick={() => alert("This would redirect to Cashfree from your Checkout Page.")}>
-            Simulate Cashfree Checkout
+          <Button onClick={() => alert("This simulates a Docker build and deploy to Render.")}>
+            Simulate Docker Deployment
           </Button>
           <p className="text-sm text-muted-foreground text-center">
-            This simulates integration with the <code>CheckoutPage</code> template.
+            This simulates deployment using Docker and Render's auto-deploy feature.
           </p>
         </div>
       }
       extraNotes={
         <>
-          <h3 className="text-lg font-semibold mt-6 mb-2">🛠 Backend: Create Cashfree Order</h3>
+          <h3 className="text-lg font-semibold mt-6 mb-2">⚙️ Dockerizing Your App</h3>
           <p className="mb-2 text-sm text-muted-foreground">
-            This API route creates an order on Cashfree and returns a <code>paymentLink</code> to redirect the user.
+            Create a <code>Dockerfile</code> at your project root. This example assumes a Node.js-based frontend app.
           </p>
+          <CodeBlockWithCopy code={clientSnippet} />
+
+          <h3 className="text-lg font-semibold mt-6 mb-2">🚀 Configuring Render Deployment</h3>
+          <ul className="text-sm text-muted-foreground list-disc pl-4 space-y-2">
+            <li>Create a <code>render.yaml</code> file to tell Render how to build and run the container.</li>
+            <li>Push your code to GitHub/GitLab and connect the repo to Render.</li>
+            <li>Render will automatically detect the Docker setup and deploy your app.</li>
+          </ul>
+
           <CodeBlockWithCopy code={serverSnippet} />
 
-          <h3 className="text-lg font-semibold mt-6 mb-2">🔌 Connecting to CheckoutPage</h3>
-          <ul className="text-sm text-muted-foreground list-disc pl-4 space-y-2">
-            <li>Run <code>npx nabiel-ui add checkout-page</code> to scaffold the page.</li>
-            <li>Connect <code>handleCashfree()</code> to your Pay button.</li>
-            <li>Send cart total, customer email, and phone in the POST body.</li>
+          <h3 className="text-lg font-semibold mt-6 mb-2">🧪 Testing Locally</h3>
+          <ul className="text-sm list-disc pl-4 text-muted-foreground">
+            <li>Build your image locally: <code>docker build -t docura-app .</code></li>
+            <li>Run the container: <code>docker run -p 3000:3000 docura-app</code></li>
+            <li>Visit <code>http://localhost:3000</code> to test it before pushing to Render.</li>
           </ul>
 
-          <h3 className="text-lg font-semibold mt-6 mb-2">🔐 Credentials</h3>
+          <h3 className="text-lg font-semibold mt-6 mb-2">📌 Tips for Successful Deployment</h3>
           <ul className="text-sm list-disc pl-4 text-muted-foreground">
-            <li>
-              <code>CASHFREE_APP_ID</code> and <code>CASHFREE_SECRET_KEY</code> can be found in your Cashfree dashboard.
-            </li>
-            <li>Use test credentials from <code>https://sandbox.cashfree.com</code> for staging.</li>
-            <li>Don't forget to set <code>x-api-version: "2022-09-01"</code> in headers.</li>
-          </ul>
-
-          <h3 className="text-lg font-semibold mt-6 mb-2">🧾 Post-payment Verification</h3>
-          <ul className="text-sm list-disc pl-4 text-muted-foreground">
-            <li>Cashfree redirects users to your <code>return_url</code> after payment.</li>
-            <li>You should verify payment status using their <code>/orders</code> endpoint or Webhooks.</li>
-            <li>
-              Use <code>order_token</code> or <code>order_id</code> to check final status server-side.
-            </li>
+            <li>Ensure your <code>Dockerfile</code> exposes the right port (usually 3000).</li>
+            <li>Set correct environment variables in Render's dashboard or in <code>render.yaml</code>.</li>
+            <li>Use <code>npm run build</code> for production-optimized builds if needed.</li>
           </ul>
 
           <h3 className="text-lg font-semibold mt-6 mb-2">📚 Helpful Resources</h3>
           <ul className="text-sm list-disc pl-5 text-muted-foreground">
             <li>
               <a
-                href="https://docs.cashfree.com/docs"
+                href="https://render.com/docs/docker"
                 className="underline"
                 target="_blank"
                 rel="noreferrer"
               >
-                Cashfree Docs
+                Render Docker Deployment Docs
               </a>
             </li>
             <li>
               <a
-                href="https://docs.cashfree.com/docs/payment-gateway/pg-api-reference"
+                href="https://docs.docker.com/get-started/"
                 className="underline"
                 target="_blank"
                 rel="noreferrer"
               >
-                Cashfree API Reference
+                Docker Getting Started
               </a>
             </li>
           </ul>

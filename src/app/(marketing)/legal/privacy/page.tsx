@@ -4,50 +4,48 @@ export default function PrivacyPage() {
   return (
     <section className="max-w-4xl mx-auto px-4 py-12 space-y-6">
       <h1 className="text-3xl font-bold">Privacy Policy</h1>
-      <p className="text-muted-foreground">
-        Last updated: July 16, 2025
-      </p>
+      <p className="text-muted-foreground">Last updated: July 19, 2025</p>
 
       <p>
-        This Privacy Policy describes how Nabiel UI collects, uses, and protects your information when you use our website and services.
+        This Privacy Policy outlines how Docura handles, stores, and protects your data when using our platform, tools, and integrations.
       </p>
 
-      <h2 className="text-xl font-semibold">1. Information We Collect</h2>
+      <h2 className="text-xl font-semibold">1. Information We Process</h2>
       <ul className="list-disc pl-5 space-y-1">
-        <li>Personal data (e.g. name, email) when you subscribe to our newsletter</li>
-        <li>Anonymous analytics data via tools like Vercel Analytics or Google Analytics</li>
-        <li>Component install usage (locally stored only, not tracked remotely)</li>
+        <li>Documents and files uploaded to Docura for retrieval or summarization</li>
+        <li>Optional configuration data, such as Pinecone or OpenAI keys (only if enabled)</li>
+        <li>Diagnostic logs if you explicitly enable error reporting (disabled by default)</li>
       </ul>
 
-      <h2 className="text-xl font-semibold">2. How We Use Your Information</h2>
+      <h2 className="text-xl font-semibold">2. How We Use Your Data</h2>
       <ul className="list-disc pl-5 space-y-1">
-        <li>To provide updates, documentation, and support</li>
-        <li>To improve our components and user experience</li>
-        <li>To send optional marketing or product updates (only with consent)</li>
+        <li>To enable document search, extraction, and retrieval</li>
+        <li>To improve local vector indexing and chatbot performance</li>
+        <li>To enable optional external integrations, if configured by you</li>
       </ul>
 
-      <h2 className="text-xl font-semibold">3. Local Storage</h2>
+      <h2 className="text-xl font-semibold">3. Local-First Design</h2>
       <p>
-        We use your browser’s localStorage to persist component installation status, cart contents, and theme preferences. This data is not shared externally.
+        Docura is designed to run fully locally. Uploaded files, vector indexes, and chat history are stored on your device unless explicitly configured to use cloud storage. We do not collect or transmit user data without your consent.
       </p>
 
-      <h2 className="text-xl font-semibold">4. Third-Party Services</h2>
+      <h2 className="text-xl font-semibold">4. Third-Party Integrations</h2>
       <p>
-        Nabiel UI may use third-party providers like Resend (email), Stripe (payment), and Supabase (data). Your data may be processed in accordance with their privacy policies.
+        Docura may optionally connect to services like Pinecone, Google Generative AI, Hugging Face, or OpenAI. Any data sent to these services is governed by their respective privacy policies. We never transmit data to third-party APIs unless you explicitly enable and configure them.
       </p>
 
-      <h2 className="text-xl font-semibold">5. Your Rights</h2>
+      <h2 className="text-xl font-semibold">5. Your Control</h2>
       <p>
-        You may request access or deletion of your data by contacting us. We respect all data rights outlined in applicable laws like GDPR.
+        You control your data. You may delete documents, indexes, and configuration data at any time. We do not store or analyze your data unless you explicitly enable telemetry or cloud sync (coming soon).
       </p>
 
       <h2 className="text-xl font-semibold">6. Changes to This Policy</h2>
       <p>
-        We may update this Privacy Policy from time to time. Updates will be posted here with a revised “last updated” date.
+        We may update this Privacy Policy periodically. Significant changes will be communicated via version notes or in-app notifications, with the latest revision date always shown here.
       </p>
 
       <p className="text-sm text-muted-foreground">
-        For privacy-related questions, contact privacy@nabielui.dev
+        For any privacy-related questions, contact us at privacy@docura.dev
       </p>
     </section>
   )

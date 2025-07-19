@@ -11,9 +11,9 @@ export default function ContactPage() {
     <section className="w-full py-20 bg-gradient-to-br from-[#E3F2FD]/50 via-white to-[#FFF3E0]/40 dark:from-[#0f172a] dark:via-[#1e293b] dark:to-[#0f172a]">
       <div className="max-w-4xl mx-auto px-6">
         <div className="text-center mb-12">
-          <h1 className="text-4xl font-bold text-foreground mb-2">Get in Touch</h1>
+          <h1 className="text-4xl font-bold text-foreground mb-2">Contact Docura</h1>
           <p className="text-muted-foreground max-w-md mx-auto">
-            We'd love to hear from you! Whether you have a question, feedback, or just want to chat — drop us a message.
+            Questions, feedback, or feature ideas? We'd love to hear from you.
           </p>
         </div>
 
@@ -26,7 +26,7 @@ export default function ContactPage() {
             transition={{ duration: 0.6 }}
             onSubmit={(e) => {
               e.preventDefault()
-              alert("Form submitted!")
+              alert("Thanks for reaching out! We'll be in touch shortly.")
             }}
           >
             <Input placeholder="Your Name" required />
@@ -37,7 +37,7 @@ export default function ContactPage() {
 
           {/* Contact Info */}
           <motion.div
-            className="p-6 rounded-xl bg-[#EDE7F6]/60 dark:bg-[#1e1b4b]/30 shadow-md space-y-4 text-sm"
+            className="p-6 rounded-xl bg-[#EDE7F6]/60 dark:bg-[#1e1b4b]/30 shadow-md space-y-6 text-sm"
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
@@ -46,7 +46,7 @@ export default function ContactPage() {
               <Mail className="text-primary mt-1" />
               <div>
                 <h4 className="font-semibold">Email</h4>
-                <p className="text-muted-foreground">info.nabielco@gmail.com</p>
+                <p className="text-muted-foreground">support@docura.dev</p>
               </div>
             </div>
             <div className="flex items-start gap-3">

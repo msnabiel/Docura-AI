@@ -2,129 +2,76 @@
 
 import { DocPageLayout } from "@/components/docs/doc-page-layout"
 import { CodeBlockWithCopy } from "@/components/site-ui/code-block-with-copy"
-import { ProductDetailPage } from "@/components/nabiel-ui/ProductDetailPage"
+import { Button } from "@/components/ui/button"
 
-export function googleSheetsIntegrationDoc() {
-  const mockVariant = {
-    id: "demo-id",
-    name: "Sheet Product",
-    slug: "sheet-product",
-    description: "This product is powered by data from a Google Sheet.",
-    price: 299,
-    images: ["/hero.jpeg"],
+const backendSnippet = `// /app/api/query/route.ts
+
+import { NextRequest, NextResponse } from "next/server"
+import { embed } from "@/lib/embed"
+import { getPineconeClient } from "@/lib/pinecone"
+
+export async function GET(req: NextRequest) {
+  const { searchParams } = new URL(req.url)
+  const query = searchParams.get("q")
+
+  if (!query) {
+    return NextResponse.json({ error: "Missing query param \`q\`" }, { status: 400 })
   }
 
+  const vector = await embed(query)
+  const pinecone = await getPineconeClient()
+  const index = pinecone.Index(process.env.PINECONE_INDEX_NAME!)
+
+  const result = await index.query({
+    vector,
+    topK: 5,
+    includeMetadata: true,
+  })
+
+  return NextResponse.json({ results: result.matches })
+}`
+
+const usageSnippet = `// Example call from frontend
+
+const getResults = async (query: string) => {
+  const res = await fetch(\`/api/query?q=\${encodeURIComponent(query)}\`)
+  const data = await res.json()
+  console.log("Results:", data.results)
+}`
+
+export function GoogleSheetsIntegrationDoc() {
   return (
     <DocPageLayout
-      title="Google Sheets Integration"
+      title="Query Endpoint for Document Search"
       description={
         <>
-          Connect your UI components with{" "}
-          <a
-            href="https://developers.google.com/sheets/api"
-            className="underline"
-            target="_blank"
-            rel="noreferrer"
-          >
-            Google Sheets API
-          </a>{" "}
-          to turn any spreadsheet into a dynamic headless CMS powering your storefront.
+          This endpoint lets you search your document index using a natural language query. It returns the top matches from Pinecone.
         </>
       }
-      preview={<ProductDetailPage variant={mockVariant} />}
-      addSnippet={`npm install googleapis`}
-      usageSnippet={`import { google } from "googleapis"
-
-const auth = new google.auth.GoogleAuth({
-  credentials: {
-    client_email: process.env.GOOGLE_CLIENT_EMAIL,
-    private_key: process.env.GOOGLE_PRIVATE_KEY?.replace(/\\\\n/g, "\\n"),
-  },
-  scopes: ["https://www.googleapis.com/auth/spreadsheets.readonly"],
-})
-
-const sheets = google.sheets({ version: "v4", auth })
-
-const response = await sheets.spreadsheets.values.get({
-  spreadsheetId: "your-sheet-id",
-  range: "Products!A2:E",
-})`}
+      preview={
+        <div className="flex flex-col items-center space-y-4">
+          <Button onClick={() => alert("This simulates a search query.")}>
+            Simulate Query
+          </Button>
+          <p className="text-sm text-muted-foreground text-center">
+            Send a GET request to <code>/api/query?q=your+question</code> to retrieve relevant chunks.
+          </p>
+        </div>
+      }
+      addSnippet={`GET /api/query?q=how+do+I+upload+a+PDF`}
+      usageSnippet={usageSnippet}
       extraNotes={
         <>
-          <h3 className="text-base font-semibold mt-4 mb-2">📄 How It Works</h3>
-          <ul className="list-disc pl-5 space-y-2 text-sm">
-            <li>
-              Use a Google Sheet as a mini CMS for your product catalog, pricing, stock, or orders.
-            </li>
-            <li>
-              Securely fetch data with a service account using the <code>googleapis</code> Node.js SDK.
-            </li>
-            <li>
-              Populate <code>&lt;ShopPage /&gt;</code>, <code>&lt;ProductDetailPage /&gt;</code>, or custom UI from sheet rows.
-            </li>
-          </ul>
+          <h3 className="text-lg font-semibold mt-6 mb-2">🔧 Endpoint Logic</h3>
+          <CodeBlockWithCopy code={backendSnippet} />
 
-          <h3 className="text-base font-semibold mt-6 mb-2">🧪 Sheet Format Example</h3>
-          <pre className="bg-muted p-3 rounded-md text-sm font-mono overflow-x-auto">
-{`A        | B             | C       | D           | E
----------|---------------|---------|-------------|----------------
-ID       | Name          | Price   | Description | Image URL
-123      | Rose Candle   | 499     | Floral scent| https://...
-124      | Lavender Jar  | 399     | Soothing    | https://...`}
-          </pre>
-
-          <h3 className="text-base font-semibold mt-6 mb-2">🔐 Setup Credentials</h3>
-          <ul className="list-disc pl-5 space-y-2 text-sm">
-            <li>Create a Google Cloud project & enable Sheets API</li>
-            <li>Create a service account and download JSON credentials</li>
-            <li>Share your sheet with the service account email</li>
-            <li>
-              Store credentials in environment variables:
-              <CodeBlockWithCopy
-                code={`GOOGLE_CLIENT_EMAIL=your-service-account@project.iam.gserviceaccount.com
-GOOGLE_PRIVATE_KEY="-----BEGIN PRIVATE KEY-----\\nMIIE...\\n-----END PRIVATE KEY-----\\n"`}
-              />
-            </li>
-          </ul>
-
-          <h3 className="text-base font-semibold mt-6 mb-2">🚀 Usage Ideas</h3>
-          <ol className="list-decimal pl-5 text-sm space-y-1">
-            <li>Manage inventory and pricing directly in Google Sheets</li>
-            <li>List products dynamically in <code>&lt;ShopPage /&gt;</code></li>
-            <li>Use <code>&lt;TrackOrder /&gt;</code> to search order sheet by email or ID</li>
-            <li>Render FAQ or testimonials from sheet rows</li>
-          </ol>
-
-          <h3 className="text-base font-semibold mt-6 mb-2">📚 Resources</h3>
-          <ul className="list-disc pl-5 text-sm">
-            <li>
-              <a
-                href="https://developers.google.com/sheets/api"
-                className="underline"
-                target="_blank"
-              >
-                Google Sheets API Docs
-              </a>
-            </li>
-            <li>
-              <a
-                href="https://github.com/googleapis/google-api-nodejs-client"
-                className="underline"
-                target="_blank"
-              >
-                Google APIs Node.js Client
-              </a>
-            </li>
-            <li>
-              <a
-                href="https://gspreadsheetapi.vercel.app"
-                className="underline"
-                target="_blank"
-              >
-                Simple Sheet API Example (Vercel)
-              </a>
-            </li>
-          </ul>
+          <h3 className="text-lg font-semibold mt-6 mb-2">🧪 Example Usage</h3>
+          <p className="text-sm text-muted-foreground mb-2">
+            Query your documents by sending a GET request with <code>?q=</code>:
+          </p>
+          <CodeBlockWithCopy
+            code={`fetch("/api/query?q=what is the refund policy")`}
+          />
         </>
       }
     />

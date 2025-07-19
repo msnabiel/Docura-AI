@@ -1,35 +1,71 @@
 "use client"
 
 import { Button } from "@/components/ui/button"
-import { Copy, Check } from "lucide-react"
-import { useState } from "react"
+import { CodeBlockWithCopy } from "@/components/site-ui/code-block-with-copy"
+
+const dockerfile = `# Dockerfile
+FROM node:20
+
+WORKDIR /app
+COPY . .
+
+RUN npm install
+RUN npm run build
+
+EXPOSE 3000
+CMD ["npm", "start"]
+`
+
+const envFile = `# .env
+GEMINI_API_KEY=your_gemini_api_key
+PINECONE_API_KEY=your_pinecone_api_key
+PINECONE_ENV=your_pinecone_environment
+PINECONE_INDEX=your_index_name
+`
+
+const runCommands = `# Build and run your app
+docker build -t docura-app .
+docker run -p 3000:3000 --env-file .env docura-app
+`
 
 export function buttonDoc() {
-  const [copied, setCopied] = useState(false)
-  const code = `<Button variant="outline">Click me</Button>`
-
-  const handleCopy = () => {
-    navigator.clipboard.writeText(code)
-    setCopied(true)
-    setTimeout(() => setCopied(false), 1500)
-  }
-
   return (
     <div>
-      <h1 className="text-2xl font-bold mb-2">Button</h1>
-      <p className="text-muted-foreground mb-4">Buttons allow users to take actions.</p>
+      <h1 className="text-2xl font-bold mb-2">📦 Docker & Deployment</h1>
+      <p className="text-muted-foreground mb-4">
+        Here's how to Dockerize and deploy your app (like Docura) with required environment variables.
+      </p>
 
-      <div className="mb-6 space-y-2">
-        <Button>Default</Button>
-        <Button variant="outline">Outline</Button>
-        <Button variant="ghost">Ghost</Button>
-      </div>
+      <div className="space-y-6">
+        <div>
+          <h2 className="text-lg font-semibold mb-2">🛠️ Dockerfile</h2>
+          <CodeBlockWithCopy code={dockerfile} />
+        </div>
 
-      <div className="relative mt-4 bg-muted px-4 py-3 rounded-md text-sm font-mono flex items-center justify-between">
-        <span>{code}</span>
-        <button onClick={handleCopy} className="ml-4 text-muted-foreground hover:text-foreground">
-          {copied ? <Check className="h-4 w-4 text-green-500" /> : <Copy className="h-4 w-4" />}
-        </button>
+        <div>
+          <h2 className="text-lg font-semibold mb-2">🔐 .env Configuration</h2>
+          <CodeBlockWithCopy code={envFile} />
+        </div>
+
+        <div>
+          <h2 className="text-lg font-semibold mb-2">🚀 Build & Run</h2>
+          <CodeBlockWithCopy code={runCommands} />
+        </div>
+
+        <div className="text-sm text-muted-foreground">
+          <p>
+            Make sure your `.env` file is in the root of the project and not committed to version control.
+            When deploying, always use secrets or environment variables in your platform (like Vercel, Fly.io, or a VPS).
+          </p>
+        </div>
+
+        <a
+          href="https://docs.docker.com/get-started/"
+          target="_blank"
+          rel="noreferrer"
+        >
+          <Button className="mt-4">Learn More About Docker</Button>
+        </a>
       </div>
     </div>
   )
