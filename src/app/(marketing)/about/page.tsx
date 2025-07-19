@@ -1,49 +1,91 @@
 "use client"
 
 import { motion } from "framer-motion"
-import { ArrowRight } from "lucide-react"
+import { ArrowRight, Github, Linkedin } from "lucide-react"
 
 const team = [
-  { name: "Nabiel M", role: "AI + Full Stack Engineer", avatar: "/hero.jpeg" },
-  { name: "Arvindhan K", role: "Full Stack Engineer", avatar: "/hero.jpeg" },
-  { name: "Yashwanth B", role: "Full Stack Engineer", avatar: "/hero.jpeg" },
-  { name: "Vijay A", role: "Full Stack Engineer", avatar: "/hero.jpeg" },
+  {
+    name: "Nabiel M",
+    role: "AI + Full Stack Engineer",
+    avatar: "/hero.jpeg",
+    github: "https://github.com/nabiel-m",
+    linkedin: "https://linkedin.com/in/nabielm",
+    motto: "Loves building at the edge of AI and infra 🚀",
+  },
+  {
+    name: "Arvindhan K",
+    role: "Full Stack Engineer",
+    avatar: "/hero.jpeg",
+    github: "https://github.com/arvindhank",
+    linkedin: "https://linkedin.com/in/arvindhank",
+    motto: "Scaling things from zero to hero 💻",
+  },
+  {
+    name: "Yashwanth B",
+    role: "Full Stack Engineer",
+    avatar: "/hero.jpeg",
+    github: "https://github.com/yashwanthb",
+    linkedin: "https://linkedin.com/in/yashwanthb",
+    motto: "Clean code is my love language 🧼",
+  },
+  {
+    name: "Vijay A",
+    role: "Full Stack Engineer",
+    avatar: "/hero.jpeg",
+    github: "https://github.com/vijaya",
+    linkedin: "https://linkedin.com/in/vijaya",
+    motto: "Design-driven development for real impact 🎯",
+  },
 ]
 
 export default function AboutPage() {
   return (
-    <section className="min-h-screen bg-gradient-to-br from-white to-zinc-50 dark:from-zinc-950 dark:to-zinc-900 py-24 px-6 sm:px-8 lg:px-24 text-zinc-800 dark:text-zinc-100">
+    <section className="min-h-screen bg-gradient-to-br from-white to-zinc-50 dark:from-zinc-950 dark:to-zinc-900 py-20 px-4 sm:px-6 lg:px-20 text-zinc-800 dark:text-zinc-100">
       <div className="max-w-6xl mx-auto">
 
-        {/* Meet the Team */}
+        {/* Meet the Makers */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7 }}
-          className="text-center mb-20"
+          className="text-center mb-16"
         >
           <h2 className="text-3xl sm:text-4xl font-bold mb-4">Meet the Makers</h2>
-          <p className="text-zinc-600 dark:text-zinc-400 mb-10 max-w-2xl mx-auto">
-            Behind every line of code is a curious mind. Here's who we are.
+          <p className="text-zinc-600 dark:text-zinc-400 mb-10 max-w-2xl mx-auto text-sm sm:text-base">
+            Behind every line of code is a curious mind. Here’s who we are.
           </p>
+{/* Compact Team Cards */}
+<div className="flex flex-wrap justify-center gap-4 sm:gap-6">
+  {team.map((member, idx) => (
+    <motion.div
+      key={member.name}
+      whileHover={{ scale: 1.02 }}
+      initial={{ opacity: 0, y: 10 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ delay: idx * 0.1 }}
+      className="w-full sm:w-[45%] md:w-[200px] bg-gradient-to-br from-[#f1f5f9] to-[#e2e8f0] dark:from-[#1f2937] dark:to-[#111827] p-4 rounded-xl text-center shadow-sm border border-zinc-200 dark:border-zinc-800"
+    >
+      <img
+        src={member.avatar}
+        alt={member.name}
+        className="w-12 h-12 mx-auto rounded-full mb-2 object-cover border border-zinc-300 dark:border-zinc-700"
+      />
+      <div className="text-base font-medium">{member.name}</div>
+      <div className="text-xs text-zinc-500 dark:text-zinc-400">{member.role}</div>
+      <p className="text-xs text-zinc-600 dark:text-zinc-400 mt-1 italic leading-snug">{member.motto}</p>
 
-          <div className="flex flex-wrap justify-center gap-6">
-            {team.map((member) => (
-              <motion.div
-                key={member.name}
-                whileHover={{ scale: 1.05 }}
-                className="bg-gradient-to-br from-[#f1f5f9] to-[#e2e8f0] dark:from-[#1f2937] dark:to-[#111827] p-6 rounded-2xl w-64 text-center shadow-sm border border-zinc-200 dark:border-zinc-800"
-              >
-                <img
-                  src={member.avatar}
-                  alt={member.name}
-                  className="w-16 h-16 mx-auto rounded-full mb-3 object-cover border border-zinc-300 dark:border-zinc-700"
-                />
-                <div className="text-xl font-semibold">{member.name}</div>
-                <div className="text-sm text-zinc-500 dark:text-zinc-400">{member.role}</div>
-              </motion.div>
-            ))}
-          </div>
+      <div className="flex justify-center gap-2 mt-2">
+        <a href={member.github} target="_blank" rel="noopener noreferrer" className="hover:opacity-80">
+          <Github className="h-4 w-4 text-zinc-600 dark:text-zinc-300" />
+        </a>
+        <a href={member.linkedin} target="_blank" rel="noopener noreferrer" className="hover:opacity-80">
+          <Linkedin className="h-4 w-4 text-zinc-600 dark:text-zinc-300" />
+        </a>
+      </div>
+    </motion.div>
+  ))}
+</div>
+
         </motion.div>
 
         {/* Who We Are */}

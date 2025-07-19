@@ -26,9 +26,9 @@ export function StartSellingSection() {
           Build your own smart document chatbot with <span className="font-semibold text-foreground">Docura</span>. 
           Upload files, ask questions, and get instant answers — all powered by local embeddings and retrieval-augmented generation.
         </p>
-        <Link href="/signup">
+        <Link href="/chat">
           <Button size="lg" className="text-base shadow-md hover:scale-105 transition-transform">
-            Get Started for Free
+            Try It Instantly
           </Button>
         </Link>
       </motion.div>
