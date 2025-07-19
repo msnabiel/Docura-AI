@@ -110,38 +110,48 @@ export function DocuraUploadDoc() {
             </div>
           </div>
           
-          <div>
-            <h2 className="font-semibold mb-3 text-foreground">📮 Postman Setup</h2>
-            <div className="bg-muted/20 rounded-lg p-4 space-y-3">
-              <div>
-                <strong>1. Create New Request:</strong>
-                <div className="mt-1 text-xs">
-                  • Method: <code>POST</code><br/>
-                  • URL: <code>https://docura-nluj.onrender.com/upload</code>
-                </div>
-              </div>
-              <div>
-                <strong>2. Body Configuration:</strong>
-                <div className="mt-1 text-xs">
-                  • Select <code>form-data</code><br/>
-                  • Key: <code>file</code> (set type to "File")<br/>
-                  • Value: Select your document file
-                </div>
-              </div>
-              <div>
-                <strong>3. Headers (Auto-added):</strong>
-                <div className="mt-1 text-xs">
-                  • <code>Content-Type: multipart/form-data</code> (automatic)
-                </div>
-              </div>
-              <div>
-                <strong>4. Send Request:</strong>
-                <div className="mt-1 text-xs">
-                  Click "Send" to upload your document!
-                </div>
-              </div>
-            </div>
-          </div>
+<section>
+  <h2 className="text-xl font-semibold mb-4 text-foreground">📮 Postman Setup</h2>
+
+  <div className="bg-muted/10 dark:bg-muted/20 rounded-lg p-6 border border-muted dark:border-muted/40">
+    <div className="space-y-6">
+
+      <div>
+        <h3 className="font-medium mb-1 text-foreground">1. Create New Request</h3>
+        <div className="text-sm space-y-1 text-muted-foreground">
+          <div>• Method: <code className="px-1 py-0.5 bg-orange-100 dark:bg-orange-900/40 text-orange-800 dark:text-orange-200 rounded">POST</code></div>
+          <div>• URL: <code className="text-xs px-2 py-1 bg-slate-100 dark:bg-slate-800 rounded text-foreground">https://docura-nluj.onrender.com/upload</code></div>
+        </div>
+      </div>
+
+      <div>
+        <h3 className="font-medium mb-1 text-foreground">2. Body Configuration</h3>
+        <div className="text-sm space-y-1 text-muted-foreground">
+          <div>• Select <code className="bg-muted px-1 py-0.5 rounded">form-data</code></div>
+          <div>• Key: <code className="bg-muted px-1 py-0.5 rounded">file</code> (set type to <strong>File</strong>)</div>
+          <div>• Value: Upload your document</div>
+        </div>
+      </div>
+
+      <div>
+        <h3 className="font-medium mb-1 text-foreground">3. Headers</h3>
+        <div className="text-sm bg-slate-100 dark:bg-slate-800 rounded p-3 font-mono text-foreground">
+          Content-Type: multipart/form-data
+        </div>
+        <p className="text-xs mt-1 text-muted-foreground">This is auto-set by Postman.</p>
+      </div>
+
+      <div>
+        <h3 className="font-medium mb-1 text-foreground">4. Send Request</h3>
+        <div className="text-sm text-muted-foreground">
+          Hit <strong>Send</strong> and check the response.
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
           
           <div>
             <h2 className="font-semibold mb-2 text-foreground">🔄 Processing Pipeline</h2>

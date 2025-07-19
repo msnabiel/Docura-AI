@@ -114,55 +114,73 @@ export function DocuraQueryDoc() {
               </div>
             </div>
           </div>
-          
-<div>
-  <h2 className="font-semibold mb-3 text-foreground">📮 Postman Setup</h2>
-  <div className="bg-muted/20 rounded-lg p-4 space-y-3">
-    <div>
-      <strong>1. Create New Request:</strong>
-      <div className="mt-1 text-xs">
-        • Method: <code>POST</code><br/>
-        • URL: <code>https://docura-nluj.onrender.com/query</code>
-      </div>
-    </div>
+<section>
+  <h2 className="text-xl font-semibold mb-4 text-foreground">📮 Postman Setup</h2>
 
-    <div>
-      <strong>2. Headers:</strong>
-      <div className="mt-1 text-xs">
-        • <code>Content-Type: application/json</code><br/>
-        • <code>Accept: application/json</code>
-      </div>
-    </div>
+  <div className="bg-muted/10 dark:bg-muted/20 rounded-lg p-6 border border-muted dark:border-muted/40">
+    <div className="space-y-6">
 
-    <div>
-      <strong>3. Body (raw JSON):</strong>
-      <CodeBlockWithCopy
-        code={`{
+      <div>
+        <h3 className="font-medium mb-1 text-foreground">1. Create New Request</h3>
+        <div className="text-sm space-y-1 text-muted-foreground">
+          <div>• Method: <code className="px-1 py-0.5 bg-orange-100 dark:bg-orange-900/40 text-orange-800 dark:text-orange-200 rounded">POST</code></div>
+          <div>• URL: <code className="text-xs px-2 py-1 bg-slate-100 dark:bg-slate-800 rounded text-foreground">https://docura-nluj.onrender.com/query</code></div>
+        </div>
+      </div>
+
+      <div>
+        <h3 className="font-medium mb-1 text-foreground">2. Headers</h3>
+        <div className="text-sm bg-slate-100 dark:bg-slate-800 rounded p-3 font-mono text-foreground">
+          Content-Type: application/json<br />
+          Accept: application/json
+        </div>
+      </div>
+
+      <div>
+        <h3 className="font-medium mb-1 text-foreground">3. Body (raw JSON)</h3>
+        <div className="mt-1 text-sm text-muted-foreground">
+          <CodeBlockWithCopy
+            code={`{
   "query": "How does billing work?",
   "max_results": 5
 }`}
-        className="mt-1 text-xs"
-      />
-    </div>
-
-    <div>
-      <strong>4. Send Request:</strong>
-      <div className="mt-1 text-xs">
-        Click "Send" to get your answer!
+            className="text-xs"
+          />
+        </div>
       </div>
+
+      <div>
+        <h3 className="font-medium mb-1 text-foreground">4. Send Request</h3>
+        <div className="text-sm text-muted-foreground">
+          Hit <strong>Send</strong> to get your answer.
+        </div>
+      </div>
+
     </div>
   </div>
-</div>
+</section>
+
 
           
-          <div>
-            <h2 className="font-semibold mb-2 text-foreground">📊 Request Parameters</h2>
-            <div className="bg-muted/20 rounded-lg p-3 space-y-2 text-xs">
-              <div><strong>query</strong> (required): Your natural language question</div>
-              <div><strong>max_results</strong> (optional): Number of document chunks to retrieve (default: 5)</div>
-              <div><strong>format</strong> (/query_json only): Response format ("structured")</div>
-            </div>
-          </div>
+<section>
+  <h2 className="text-xl font-semibold mb-4 text-foreground">📊 Request Parameters</h2>
+
+  <div className="bg-muted/10 dark:bg-muted/20 rounded-lg p-4 border border-muted dark:border-muted/40 text-sm space-y-3 text-muted-foreground">
+    <div>
+      <span className="font-medium text-foreground">query</span> <span className="text-xs text-muted-foreground">(required)</span><br />
+      Your natural language question
+    </div>
+    <div>
+      <span className="font-medium text-foreground">max_results</span> <span className="text-xs text-muted-foreground">(optional)</span><br />
+      Number of document chunks to retrieve <span className="italic">(default: 5)</span>
+    </div>
+    <div>
+      <span className="font-medium text-foreground">format</span> <span className="text-xs text-muted-foreground">(/query_json only)</span><br />
+      Response format. Use <code className="px-1 py-0.5 bg-slate-100 dark:bg-slate-800 rounded text-foreground">"structured"</code> for JSON with source breakdowns.
+    </div>
+  </div>
+</section>
+
 <div>
   <h2 className="font-semibold mb-4 text-foreground">📋 Response Examples</h2>
   <div className="space-y-3">

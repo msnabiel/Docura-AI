@@ -97,30 +97,40 @@ export function DocuraHealthDoc() {
             </div>
           </div>
           
-          <div>
-            <h2 className="font-semibold mb-3 text-foreground">📮 Postman Setup</h2>
-            <div className="bg-muted/20 rounded-lg p-4 space-y-3">
-              <div>
-                <strong>1. Create New Request:</strong>
-                <div className="mt-1 text-xs">
-                  • Method: <code>GET</code><br/>
-                  • URL: <code>https://docura-nluj.onrender.com/health</code>
-                </div>
-              </div>
-              <div>
-                <strong>2. Headers (Optional):</strong>
-                <div className="mt-1 text-xs">
-                  • <code>Accept: application/json</code>
-                </div>
-              </div>
-              <div>
-                <strong>3. Send Request:</strong>
-                <div className="mt-1 text-xs">
-                  Click "Send" - No authentication needed!
-                </div>
-              </div>
-            </div>
-          </div>
+<section>
+  <h2 className="text-xl font-semibold mb-4 text-foreground">📮 Postman Setup</h2>
+
+  <div className="bg-muted/10 dark:bg-muted/20 rounded-lg p-4 border border-muted dark:border-muted/40 space-y-4 text-sm text-muted-foreground">
+
+    <div>
+      <h3 className="font-medium text-foreground mb-1">1. Create New Request</h3>
+      <div className="space-y-1">
+        <div>
+          • Method: <code className="px-1 py-0.5 bg-orange-100 dark:bg-orange-900/40 text-orange-800 dark:text-orange-200 rounded">GET</code>
+        </div>
+        <div>
+          • URL: <code className="text-xs px-2 py-1 bg-slate-100 dark:bg-slate-800 rounded text-foreground">https://docura-nluj.onrender.com/health</code>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <h3 className="font-medium text-foreground mb-1">2. Headers (Optional)</h3>
+      <div className="text-xs bg-slate-100 dark:bg-slate-800 rounded px-2 py-1 font-mono text-foreground w-fit">
+        Accept: application/json
+      </div>
+    </div>
+
+    <div>
+      <h3 className="font-medium text-foreground mb-1">3. Send Request</h3>
+      <div className="text-muted-foreground text-sm">
+        Click <strong>Send</strong> — no authentication required!
+      </div>
+    </div>
+
+  </div>
+</section>
+
           
           <div>
             <h2 className="font-semibold mb-2 text-foreground">✅ Use Cases</h2>

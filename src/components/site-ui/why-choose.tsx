@@ -52,10 +52,10 @@ export function WhyChooseSection() {
     <section className="w-full py-16 bg-gradient-to-b from-muted/30 to-background">
       <div className="max-w-6xl mx-auto px-6 text-center">
         <h2 className="text-3xl font-bold tracking-tight mb-4 leading-snug">
-          Whether you're building internal tools or public chatbots,
-          <br />
-          <span className="text-primary">here's why Docura is your ultimate RAG framework</span>
-        </h2>
+  What makes Docura Better?<br />
+  <span className="text-primary">Smarter retrieval, cleaner output, less guesswork.</span>
+</h2>
+
 
         <div className="mt-12 grid gap-8 sm:grid-cols-2 lg:grid-cols-3 text-left">
           {benefits.map(({ title, bg, text, icon }, index) => (
