@@ -15,55 +15,44 @@ import { environmentDoc } from "@/components/docs/environment-doc"
 import { zapierDoc } from "@/components/docs/zapier-doc"
 import { NabielUiInstallationDoc } from "@/components/docs/installation-doc"
 import { DocuraIntroDoc } from "@/components/docs/introduction-doc"
-import { env } from "process"
+import { DocuraHealthDoc } from "@/components/docs/docura-health-doc"
+import { DocuraUploadDoc } from "@/components/docs/docura-upload-doc"
+import { DocuraQueryDoc } from "@/components/docs/docura-query-doc"
+
 export type DocMeta = {
   name: string
   slug: string
 }
 
 export const docs: DocMeta[] = [
-  { name: "Razorpay Integration", slug: "razorpay" },
-  { name: "Stripe Integration", slug: "stripe" },
-  { name: "Supabase Integration", slug: "supabase" },
-  { name: "Resend Integration", slug: "resend" },
-  { name: "Clerk Integration", slug: "clerk" },
-  { name: "Mailchimp Integration", slug: "mailchimp" },
-  { name: "Shopify Integration", slug: "shopify" },
-  { name: "PayPal Integration", slug: "paypal" },
-  { name: "UploadThing Integration", slug: "uploadthing" },
-  { name: "Google Sheets Integration", slug: "google-sheets" },
-  { name: "Paytm Integration", slug: "paytm" },
-  { name: "Render Deployment", slug: "render" },
-  { name: "Spline Integration", slug: "spline" },
-  { name: "Environment Setup", slug: "environment-setup" },
-  { name: "Zapier Integration", slug: "zapier" },
   { name: "Installation", slug: "installation" },
   { name: "Introduction", slug: "introduction" },
+   { name: "Environment Setup", slug: "environment" },
+  { name: "Health Check", slug: "health-check" },
+  { name: "Document Upload", slug: "document-upload" },
+  { name: "Document Query", slug: "document-query" },
   // Add more docs here later
-].sort((a, b) => {
-  if (a.slug === "introduction") return -1
-  if (b.slug === "introduction") return 1
-  if (a.slug === "installation") return -1
-  if (b.slug === "installation") return 1
-  return a.name.localeCompare(b.name)
-})
+]
 
 export const docPages: Record<string, React.FC> = {
   razorpay: razorpayDoc,
-  stripe:stripeDoc,
+  stripe: stripeDoc,
   supabase: supabaseDoc,
   resend: resendDoc,
   clerk: clerkDoc,
-  mailchimp:mailchimpDoc,
-  shopify:shopifyIntegrationDoc,
+  mailchimp: mailchimpDoc,
+  shopify: shopifyIntegrationDoc,
   paypal: paypalDoc,
   uploadthing: uploadthingDoc,
-    "google-sheets": GoogleSheetsIntegrationDoc,
-     paytm: paytmDoc,
-     cashfree: cashfreeDoc,
-     spline: splineDoc,
-    environment: environmentDoc,
-    zapier:zapierDoc,
-    installation:NabielUiInstallationDoc,
-    introduction: DocuraIntroDoc
+  "google-sheets": GoogleSheetsIntegrationDoc,
+  paytm: paytmDoc,
+  cashfree: cashfreeDoc,
+  spline: splineDoc,
+  environment: environmentDoc,
+  zapier: zapierDoc,
+  installation: NabielUiInstallationDoc,
+  introduction: DocuraIntroDoc,
+  "health-check": DocuraHealthDoc,
+  "document-upload": DocuraUploadDoc,
+  "document-query": DocuraQueryDoc
 }
