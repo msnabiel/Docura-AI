@@ -1,6 +1,6 @@
 "use client"
 
-import { SupportCTA } from "@/components/vendora-ui/support-cta"
+import { SupportCTA } from "@/components/nabiel-ui/support-cta"
 import { DocPageLayout } from "@/components/docs/doc-page-layout"
 
 export function supportCtaDoc() {

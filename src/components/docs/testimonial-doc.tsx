@@ -1,6 +1,6 @@
 "use client"
 
-import { Testimonial } from "@/components/vendora-ui/Testimonial"
+import { Testimonial } from "@/components/nabiel-ui/Testimonial"
 import { DocPageLayout } from "@/components/docs/doc-page-layout"
 
 export function testimonialDoc() {

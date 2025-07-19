@@ -17,14 +17,14 @@ export function StartSellingSection() {
       >
         <div className="flex items-center justify-center gap-2 mb-3 text-primary font-medium">
           <Sparkles className="h-5 w-5 animate-pulse" />
-          <span>Ready to grow?</span>
+          <span>Ready to transform your documents?</span>
         </div>
         <h2 className="text-4xl sm:text-5xl font-bold text-foreground mb-4 tracking-tight">
-          Start selling online today.
+          Start using Docura today.
         </h2>
         <p className="text-muted-foreground max-w-2xl mx-auto text-base sm:text-lg mb-8">
-          Take your business online with <span className="font-semibold text-foreground">Vendora</span>. 
-          Get your free store in just <span className="underline decoration-wavy decoration-primary">30 seconds</span>.
+          Build your own smart document chatbot with <span className="font-semibold text-foreground">Docura</span>. 
+          Upload files, ask questions, and get instant answers — all powered by local embeddings and retrieval-augmented generation.
         </p>
         <Link href="/signup">
           <Button size="lg" className="text-base shadow-md hover:scale-105 transition-transform">

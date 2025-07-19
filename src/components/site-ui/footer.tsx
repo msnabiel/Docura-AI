@@ -23,20 +23,19 @@ export interface FooterProps {
 }
 
 export const Footer: React.FC<FooterProps> = ({
-  logo = <span className="font-bold text-xl">Vendora</span>,
+  logo = <span className="font-bold text-xl">Docura</span>,
   links = [
-  { label: "Docs", href: "/docs" },
-  { label: "Components", href: "/components" },
-  { label: "GitHub", href: "https://github.com/msnabiel/nabiel-ui", external: true },
-
-],
-  contactEmail = "info.nabielco@gmail.com",
+    { label: "Docs", href: "/docs" },
+    { label: "API", href: "/api" },
+    { label: "GitHub", href: "https://github.com/msnabiel/docura", external: true },
+  ],
+  contactEmail = "support@docura.ai",
   social = {
-    instagram: "https://instagram.com/nabiel.store",
-    twitter: "https://twitter.com/nabiel_store",
-    facebook: "https://facebook.com/nabiel.store",
-    github: "https://github.com/msnabiel",
-  linkedin: "https://linkedin.com/in/msnabiel",
+    instagram: "https://instagram.com/docura_ai",
+    twitter: "https://twitter.com/docura_ai",
+    facebook: "https://facebook.com/docura.ai",
+    github: "https://github.com/msnabiel/docura",
+    linkedin: "https://linkedin.com/in/msnabiel",
   },
 }) => {
   return (
@@ -47,10 +46,9 @@ export const Footer: React.FC<FooterProps> = ({
           <Link href="/" className="text-foreground">
             {logo}
           </Link>
-<p className="text-sm">
-  Build better, faster. Beautiful, production-ready components for commerce apps.
-</p>
-
+          <p className="text-sm">
+            Docura helps you turn documents into intelligent assistants using cutting-edge RAG and local embeddings.
+          </p>
         </div>
 
         {/* Quick Links */}
@@ -66,24 +64,23 @@ export const Footer: React.FC<FooterProps> = ({
             ))}
           </ul>
           <h3 className="text-sm font-semibold mt-6 mb-2 text-foreground">Legal</h3>
-<ul className="space-y-1">
-  <li>
-    <Link href="/legal/terms" className="hover:text-foreground transition">
-      Terms & Conditions
-    </Link>
-  </li>
-  <li>
-    <Link href="/legal/privacy" className="hover:text-foreground transition">
-      Privacy Policy
-    </Link>
-  </li>
-    <li>
-    <Link href="/legal/cookies" className="hover:text-foreground transition">
-      Cookie Policy
-    </Link>
-  </li>
-</ul>
-
+          <ul className="space-y-1">
+            <li>
+              <Link href="/legal/terms" className="hover:text-foreground transition">
+                Terms & Conditions
+              </Link>
+            </li>
+            <li>
+              <Link href="/legal/privacy" className="hover:text-foreground transition">
+                Privacy Policy
+              </Link>
+            </li>
+            <li>
+              <Link href="/legal/cookies" className="hover:text-foreground transition">
+                Cookie Policy
+              </Link>
+            </li>
+          </ul>
         </div>
 
         {/* Contact + Social */}
@@ -91,31 +88,33 @@ export const Footer: React.FC<FooterProps> = ({
           <h3 className="text-sm font-semibold mb-2 text-foreground">Contact</h3>
           <ul className="space-y-1">
             <li>
-              <a href={`mailto:${contactEmail}`} className="hover:text-foreground transition flex items-center gap-1">
+              <a
+                href={`mailto:${contactEmail}`}
+                className="hover:text-foreground transition flex items-center gap-1"
+              >
                 <Mail className="w-4 h-4" />
                 {contactEmail}
               </a>
             </li>
           </ul>
 
-<div className="flex items-center gap-4 mt-4">
-    {social?.github && (
-    <a href={social.github} target="_blank" rel="noreferrer" className="hover:text-foreground">
-      <Github className="h-5 w-5" />
-    </a>
-  )}
-  {social?.linkedin && (
-    <a href={social.linkedin} target="_blank" rel="noreferrer" className="hover:text-foreground">
-      <Linkedin className="h-5 w-5" />
-    </a>
-  )}
-</div>
-
+          <div className="flex items-center gap-4 mt-4">
+            {social?.github && (
+              <a href={social.github} target="_blank" rel="noreferrer" className="hover:text-foreground">
+                <Github className="h-5 w-5" />
+              </a>
+            )}
+            {social?.linkedin && (
+              <a href={social.linkedin} target="_blank" rel="noreferrer" className="hover:text-foreground">
+                <Linkedin className="h-5 w-5" />
+              </a>
+            )}
+          </div>
         </div>
       </div>
 
       <div className="border-t text-center py-4 text-xs">
-        &copy; {new Date().getFullYear()} Vendora. All rights reserved.
+        &copy; {new Date().getFullYear()} Docura. All rights reserved.
       </div>
     </footer>
   )

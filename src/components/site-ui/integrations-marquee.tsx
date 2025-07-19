@@ -2,23 +2,32 @@
 
 import { motion } from "framer-motion"
 import {
-  LucideIcon,
-  ShoppingBag,
-  Mail,
-  Github,
+  Database,
+  Bot,
+  BrainCircuit,
+  FileText,
+  BookOpenCheck,
+  Server,
   Zap,
+  Code,
+  FolderSearch,
   TerminalSquare,
 } from "lucide-react"
 
-const integrations: { name: string; icon: LucideIcon; color: string }[] = [
-  { name: "Shopify", icon: ShoppingBag, color: "text-[#7C3AED]" },
-  { name: "Mailchimp", icon: Mail, color: "text-[#F59E0B]" },
-  { name: "GitHub", icon: Github, color: "text-black dark:text-white" },
-  { name: "Stripe", icon: Zap, color: "text-[#635BFF]" },
-  { name: "Google Sheets", icon: TerminalSquare, color: "text-[#0F9D58]" },
+const integrations: { name: string; icon: React.ElementType; color: string }[] = [
+  { name: "ChromaDB", icon: Database, color: "text-[#10B981]" },
+  { name: "Gemini 2.5 Flash", icon: Bot, color: "text-[#7C3AED]" },
+  { name: "LangChain", icon: BrainCircuit, color: "text-[#F59E0B]" },
+  { name: "FastAPI", icon: Zap, color: "text-[#3B82F6]" },
+  { name: "NLTK", icon: BookOpenCheck, color: "text-[#DC2626]" },
+  { name: "Smart Chunking", icon: FolderSearch, color: "text-[#4B5563]" },
+  { name: "Offline Embeddings", icon: Code, color: "text-[#1E40AF]" },
+  { name: "Docx/PDF/Email", icon: FileText, color: "text-[#6B7280]" },
+  { name: "Local Vector Store", icon: Server, color: "text-[#16A34A]" },
+  { name: "Terminal-based Deploy", icon: TerminalSquare, color: "text-[#6366F1]" },
 ]
 
-// 🔁 Duplicate it 10 times for smooth looping
+// 🔁 Repeat 10 times for smooth animation
 const repeated = Array(10).fill(integrations).flat()
 
 export function IntegrationsMarquee() {

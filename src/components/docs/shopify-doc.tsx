@@ -1,7 +1,7 @@
 "use client"
 
 import { DocPageLayout } from "@/components/docs/doc-page-layout"
-import { ProductDetailPage } from "@/components/vendora-ui/ProductDetailPage"
+import { ProductDetailPage } from "@/components/nabiel-ui/ProductDetailPage"
 export function shopifyIntegrationDoc() {
     const mockVariant = {
   id: "demo-id",

@@ -15,7 +15,7 @@ import { splineDoc } from "@/components/docs/spline-doc"
 import { airtableDoc } from "@/components/docs/airtable-doc"
 import { zapierDoc } from "@/components/docs/zapier-doc"
 import { NabielUiInstallationDoc } from "@/components/docs/installation-doc"
-import { NabielUiIntroDoc } from "@/components/docs/introduction-doc"
+import { DocuraIntroDoc } from "@/components/docs/introduction-doc"
 export type DocMeta = {
   name: string
   slug: string
@@ -65,5 +65,5 @@ export const docPages: Record<string, React.FC> = {
     airtable: airtableDoc,
     zapier:zapierDoc,
     installation:NabielUiInstallationDoc,
-    introduction:NabielUiIntroDoc
+    introduction: DocuraIntroDoc
 }

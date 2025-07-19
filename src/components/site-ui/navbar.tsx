@@ -49,7 +49,7 @@ const navLinks = [
     <nav className="border-b bg-background/80 backdrop-blur-sm px-4 py-3 sticky top-0 z-50 shadow-sm">
       <div className="flex items-center justify-between">
         <Link href="/" className="text-xl font-bold tracking-tight">
-          ▨ Vendora
+          ▨ Docura
         </Link>
 
         {/* Desktop Nav */}

@@ -4,7 +4,7 @@ import { useState } from "react"
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
 import { SlidersHorizontal } from "lucide-react"
-import { ProductCard } from "@/components/vendora-ui/product-card"
+import { ProductCard } from "@/components/nabiel-ui/product-card"
 import { FlattenedVariant } from "@/data/products"
 import { cn } from "@/lib/utils"
 

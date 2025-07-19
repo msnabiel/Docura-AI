@@ -1,6 +1,6 @@
 "use client"
 
-import { Footer } from "@/components/vendora-ui/footer"
+import { Footer } from "@/components/nabiel-ui/footer"
 import { DocPageLayout } from "@/components/docs/doc-page-layout"
 
 export function footerDoc() {

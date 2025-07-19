@@ -1,6 +1,6 @@
 "use client"
 
-import { FeaturesGrid } from "@/components/vendora-ui/FeaturesGrid"
+import { FeaturesGrid } from "@/components/nabiel-ui/FeaturesGrid"
 import { DocPageLayout } from "@/components/docs/doc-page-layout"
 import { LayoutDashboard, ShoppingCart, Zap } from "lucide-react"
 
