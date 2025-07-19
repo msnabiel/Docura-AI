@@ -45,7 +45,7 @@ export function IntegrationsMarquee() {
         className="flex w-max gap-16 animate-marquee"
         animate={{ x: ["0%", "-50%"] }}
         transition={{
-          duration: 60,
+          duration: 75,
           ease: "linear",
           repeat: Infinity,
         }}

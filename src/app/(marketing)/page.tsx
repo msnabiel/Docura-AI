@@ -12,7 +12,7 @@ import { FeatureHighlightsSection } from "@/components/site-ui/FeatureHighlights
 import { TestimonialSection } from "@/components/site-ui/TestimonialSection"
 import { DeploymentOptionsSection } from "@/components/site-ui/pricing"
 import { StartSellingSection } from "@/components/site-ui/StartSellingSection"
-
+import { ComingSoonFeatures } from "@/components/site-ui/comingsoon"
 const fadeInUp = {
   hidden: { opacity: 0, y: 20 },
   show: { opacity: 1, y: 0, transition: { duration: 0.6 } },
@@ -135,6 +135,7 @@ export default function Home() {
       {/* Additional sections below */}
       <WhyChooseSection />
       <FeatureHighlightsSection />
+      <ComingSoonFeatures />
       <StartSellingSection />
     </motion.section>
   )
