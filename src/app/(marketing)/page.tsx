@@ -127,7 +127,7 @@ export default function Home() {
 
       <motion.div variants={fadeInUp} className="w-full mt-6 sm:mt-10">
         <h2 className="text-center text-muted-foreground text-sm uppercase font-medium mb-2">
-          10+ Integrations
+          Tech Stack & Features
         </h2>
         <IntegrationsMarquee />
       </motion.div>

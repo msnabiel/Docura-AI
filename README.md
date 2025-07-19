@@ -1,108 +1,189 @@
-# 🧩 nabiel-ui
+# 📄 Docura AI — Intelligent Document Understanding at Scale
 
-A beautiful, commerce-focused React component library built on **Tailwind CSS** and **Radix UI**, inspired by ShadCN, optimized for fast development and delightful user experiences.
+**Docura** is an end-to-end, AI-powered document intelligence framework. It helps teams ingest, query, summarize, and extract insights from unstructured files — PDFs, DOCX, PPTX, emails, and more — using an elegant React UI frontend and a modular FastAPI backend optimized for **RAG** (Retrieval-Augmented Generation) at scale.
 
-![MIT License](https://img.shields.io/badge/license-MIT-blue.svg)
-![Built with Next.js](https://img.shields.io/badge/Built%20with-Next.js-black?logo=next.js)
-![NPM](https://img.shields.io/npm/v/@nabiel/ui)
-[![GitHub Stars](https://img.shields.io/github/stars/msnabiel/nabiel-ui.svg?style=social)](https://github.com/msnabiel/nabiel-ui)
+---
 
+## 🔗 Live Deployments
 
-## ✨ Features
+- 🌐 Frontend (UI): [https://docura-ai.vercel.app](https://docura-ai.vercel.app)  
+- ⚙️ Backend (API): [https://docura-nluj.onrender.com](https://docura-nluj.onrender.com)
 
-- 🎨 **Prebuilt UI components** for e-commerce (e.g., product cards, checkout forms, variant pickers)
-- 💨 Built with **Tailwind CSS** and **ShadCN components**
-- 🧱 Powered by **Radix UI** primitives
-- ⚙️ Supports **theme customization** and utility class overrides
-- 📦 **Tree-shakable**, optimized for performance
-- 🌗 Light & dark mode support
-- 🧑‍💻 TypeScript-ready
+---
 
+## 🚀 Why Docura?
 
-## 📦 Installation
+Whether you're building internal tooling or intelligent customer-facing bots, **Docura** gives you:
+
+- ✅ Real-time document QA with **Gemini 2.5 Flash**
+- ✅ Fast, local vector search via **ChromaDB**
+- ✅ Privacy-first architecture: No external API calls required
+- ✅ Advanced preprocessing using **NLTK**, smart chunking, and reranking
+- ✅ Offline embeddings using **MiniLM** or **GGML**
+- ✅ One-click deploy with **Docker** and **FastAPI**
+
+---
+
+## 🧠 Features at a Glance
+
+### ✨ UI Features
+- Drag-and-drop file uploads
+- Animated, mobile-responsive chat interface
+- Rich message UI with inline file type previews
+- Typing indicator and user/bot separation
+- Input always visible (fixed at bottom)
+- Built with React + Tailwind + Framer Motion
+
+### 🛠 Backend Features
+- RAG pipeline: **Semantic Search + Keyword Matching + Cross-Encoder Reranking**
+- Smart chunking (via NLTK) for better contextual windows
+- Modular architecture: plug in your own LLM, embedding model, or vector DB
+- Bulk file ingestion with `system_cache` support
+- Document-aware chat — citations, highlights, metadata extraction
+- Optimized for **local or edge** deployments (no cloud dependency required)
+
+---
+
+## 🧱 Tech Stack
+
+| Layer        | Tools / Libraries                                        |
+|--------------|----------------------------------------------------------|
+| 🖥 Frontend   | React, TypeScript, Tailwind CSS, Framer Motion, Lucide  |
+| ⚙ Backend     | FastAPI, LangChain, ChromaDB, NLTK, Gemini 2.5 Flash    |
+| 🧠 Embedding  | MiniLM, GGML, OpenAI-compatible local models             |
+| 🧮 Vector DB  | ChromaDB (Local / Persistent)                            |
+| 🐳 Deployment | Docker, Render, Vercel, Terminal-based runners           |
+
+---
+
+## 📁 File & Format Support
+
+Docura supports intelligent parsing and ingestion of:
+
+- 📄 PDFs
+- 📃 DOCX / TXT
+- 📊 XLSX / CSV
+- 📧 Email (EML)
+- 📎 PPTX / HTML
+- 🗂️ Bulk folder uploads via `system_cache`
+
+---
+
+## 🧪 Quick Start
+
+### 1️⃣ Clone the Repository
 
 ```bash
-npm install @nabiel/ui
-# or
-pnpm add @nabiel/ui
+git clone https://github.com/your-org/docura.git
+cd docura
 ````
 
-> ⚠️ Tailwind CSS and Radix UI should be set up in your project. See [Setup](#setup).
-
-
-## 🛠️ Setup
-
-1. **Tailwind Config**
-
-```js
-// tailwind.config.js
-module.exports = {
-  content: [
-    "./node_modules/@nabiel/ui/**/*.{js,ts,jsx,tsx}",
-    "./app/**/*.{js,ts,jsx,tsx}",
-  ],
-  theme: {
-    extend: {},
-  },
-  plugins: [],
-}
-```
-
-2. **Add Theme Styles**
-
-```tsx
-// app/layout.tsx or root entry
-import "@/styles/globals.css"
-```
-
-3. **Done!** You're ready to use `@nabiel/ui` components in your app.
-
-
-## 📚 Components
-
-| Component             | Description                                      |
-| --------------------- | ------------------------------------------------ |
-| `<ProductCard />`     | Showcases product with images, name, price, etc. |
-| `<VariantSelector />` | Dropdown or swatch selector for product variants |
-| `<CartButton />`      | Add-to-cart button with animation                |
-| `<CheckoutForm />`    | Minimal checkout form UI                         |
-| `<RatingStars />`     | Star rating display or input                     |
-| ...and many more!     |                                                  |
-
-👉 View full documentation: [https://nabiel-ui.vercel.app](https://nabiel-ui.vercel.app)
-
-
-## 🧑‍💻 Local Development
+### 2️⃣ Setup Backend
 
 ```bash
-git clone https://github.com/msnabiel/nabiel-ui.git
-cd nabiel-ui
+cd backend
+python3 -m venv .venv
+source .venv/bin/activate
+pip install -r requirements.txt
+
+# Run server
+uvicorn app.main:app --reload
+```
+
+Environment variables can be configured via `.env` (e.g., `MODEL_PATH`, `CHROMA_DIR`, etc.)
+
+### 3️⃣ Run Frontend
+
+```bash
+cd frontend
 pnpm install
 pnpm dev
 ```
 
+Visit: `http://localhost:3000`
 
-## 📈 Roadmap
+---
 
-* [x] Component Documentation
-* [x] Dark Mode Support
-* [ ] CLI to scaffold new components
-* [ ] ShadCN-compatible theme tokens
-* [ ] Marketplace starter templates
+## 🧠 RAG Architecture Overview
 
+```
+[User Input]
+     ↓
+[Smart Chunker (NLTK)]
+     ↓
+[Embedding Model (MiniLM/GGML)]
+     ↓
+[ChromaDB Vector Search]
+     ↓
+[Hybrid Retriever]
+     → Semantic similarity
+     → Keyword matcher
+     → Cross-encoder reranker
+     ↓
+[Gemini 2.5 Flash / OpenAI]
+     ↓
+[Response + Citation Engine]
+```
 
-## 🤝 Contributing
+---
 
-PRs, feedback, and issues are very welcome!
-If you're using this in a project, feel free to share your showcase or use case!
+## 🔧 Deployment
 
+### ➤ Docker (Backend)
+
+```bash
+docker build -t docura-api .
+docker run -p 8000:8000 docura-api
+```
+
+### ➤ Vercel (Frontend)
+
+* Connect your frontend repo to Vercel
+* Ensure API URL is configured in `.env.local`
+* Deploy and done!
+
+### ➤ Render (Backend)
+
+* Point Render service to `backend/app/main.py`
+* Add environment variables
+* Auto-deploy from GitHub on push
+
+---
+
+## 💡 Extensibility
+
+Want to adapt Docura to your workflow? Try:
+
+* 🔌 Swap Gemini with OpenAI / Claude / LLaMA
+* 🧠 Use LangChain agents or tools
+* 📥 Hook into file ingestion pipeline (preprocessors, chunkers)
+* 🔐 Add authentication for user-specific doc indexing
+
+---
+
+## 📸 Screenshots
+
+*(Replace with your own)*
+
+![Chat Interface with File Upload](./public/screenshot-chat.png)
+*Drag-and-drop uploads and interactive chat UI*
+
+![Backend API](./public/screenshot-api.png)
+*FastAPI-powered REST interface with ChromaDB search*
+
+---
 
 ## 📄 License
 
-MIT © [Nabiel M.](https://github.com/msnabiel)
+Licensed under the MIT License.
 
+---
 
-## 🛍️ Built for Commerce
+## 👨‍💻 Maintainers
 
-`nabiel-ui` is not just another design system — it’s handcrafted for modern online stores, freelance platforms, and product-driven apps. Inspired by Shopify. Built with love.
+Built with ❤️ by **deadbytes**
+
+---
+
+> **Docura** transforms unstructured documents into structured answers, fast. All local. All secure. All yours.
 

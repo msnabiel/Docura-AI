@@ -12,22 +12,30 @@ import {
   Code,
   FolderSearch,
   TerminalSquare,
+  Cloud,
+  Globe,
+  Layers,
+  PackageCheck,
 } from "lucide-react"
 
 const integrations: { name: string; icon: React.ElementType; color: string }[] = [
   { name: "ChromaDB", icon: Database, color: "text-[#10B981]" },
+  { name: "Pinecone (Cloud)", icon: Cloud, color: "text-[#000000]" },
   { name: "Gemini 2.5 Flash", icon: Bot, color: "text-[#7C3AED]" },
   { name: "LangChain", icon: BrainCircuit, color: "text-[#F59E0B]" },
   { name: "FastAPI", icon: Zap, color: "text-[#3B82F6]" },
+  { name: "Hugging Face", icon: Layers, color: "text-[#F43F5E]" },
+  { name: "GGML Inference", icon: Code, color: "text-[#1E3A8A]" },
   { name: "NLTK", icon: BookOpenCheck, color: "text-[#DC2626]" },
   { name: "Smart Chunking", icon: FolderSearch, color: "text-[#4B5563]" },
   { name: "Offline Embeddings", icon: Code, color: "text-[#1E40AF]" },
   { name: "Docx/PDF/Email", icon: FileText, color: "text-[#6B7280]" },
   { name: "Local Vector Store", icon: Server, color: "text-[#16A34A]" },
   { name: "Terminal-based Deploy", icon: TerminalSquare, color: "text-[#6366F1]" },
+  { name: "Docker Deployments", icon: PackageCheck, color: "text-[#0F766E]" },
 ]
 
-// 🔁 Repeat 10 times for smooth animation
+// 🔁 Repeat for smooth animation
 const repeated = Array(10).fill(integrations).flat()
 
 export function IntegrationsMarquee() {
@@ -37,7 +45,7 @@ export function IntegrationsMarquee() {
         className="flex w-max gap-16 animate-marquee"
         animate={{ x: ["0%", "-50%"] }}
         transition={{
-          duration: 45,
+          duration: 60,
           ease: "linear",
           repeat: Infinity,
         }}
