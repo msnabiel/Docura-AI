@@ -134,7 +134,6 @@ export default function Home() {
 
       {/* Additional sections below */}
       <WhyChooseSection />
-      <FeatureHighlightsSection />
       <ComingSoonFeatures />
       <StartSellingSection />
     </motion.section>
