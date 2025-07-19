@@ -10,12 +10,12 @@ import { uploadthingDoc } from "@/components/docs/uploadthing-doc"
 import { GoogleSheetsIntegrationDoc } from "@/components/docs/google-sheets-doc"
 import { paytmDoc } from "@/components/docs/paytm-doc"
 import { cashfreeDoc } from "@/components/docs/cashfree-doc"
-import { Spline } from "lucide-react"
 import { splineDoc } from "@/components/docs/spline-doc"
-import { airtableDoc } from "@/components/docs/airtable-doc"
+import { environmentDoc } from "@/components/docs/environment-doc"
 import { zapierDoc } from "@/components/docs/zapier-doc"
 import { NabielUiInstallationDoc } from "@/components/docs/installation-doc"
 import { DocuraIntroDoc } from "@/components/docs/introduction-doc"
+import { env } from "process"
 export type DocMeta = {
   name: string
   slug: string
@@ -33,9 +33,9 @@ export const docs: DocMeta[] = [
   { name: "UploadThing Integration", slug: "uploadthing" },
   { name: "Google Sheets Integration", slug: "google-sheets" },
   { name: "Paytm Integration", slug: "paytm" },
-  { name: "Cashfree Integration", slug: "cashfree" },
+  { name: "Render Deployment", slug: "render" },
   { name: "Spline Integration", slug: "spline" },
-  { name: "Airtable Integration", slug: "airtable" },
+  { name: "Environment Setup", slug: "environment-setup" },
   { name: "Zapier Integration", slug: "zapier" },
   { name: "Installation", slug: "installation" },
   { name: "Introduction", slug: "introduction" },
@@ -62,7 +62,7 @@ export const docPages: Record<string, React.FC> = {
      paytm: paytmDoc,
      cashfree: cashfreeDoc,
      spline: splineDoc,
-    airtable: airtableDoc,
+    environment: environmentDoc,
     zapier:zapierDoc,
     installation:NabielUiInstallationDoc,
     introduction: DocuraIntroDoc

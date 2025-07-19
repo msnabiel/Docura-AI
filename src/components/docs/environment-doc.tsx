@@ -25,7 +25,7 @@ const pinecone = new Pinecone({
 export const index = pinecone.index(process.env.PINECONE_INDEX!)
 `
 
-export function airtableDoc() {
+export function environmentDoc() {
   return (
     <DocPageLayout
       title="Environment Setup for Docura (Gemini + Pinecone)"

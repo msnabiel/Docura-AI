@@ -29,7 +29,7 @@ const stagger = {
 
 export default function Home() {
   const [copied, setCopied] = useState(false)
-  const command = "npm install nabiel-ui"
+  const command = "git clone https://github.com/msnabiel/docura"
 
   const handleCopy = () => {
     navigator.clipboard.writeText(command)
@@ -50,7 +50,7 @@ export default function Home() {
       variant="secondary"
       className="mb-6 text-sm tracking-wide bg-[#E1F5FE] text-[#0277BD] dark:bg-[#1e3a8a]/20 dark:text-blue-400"
     >
-      📄 <code className="ml-1 text-xs font-mono">docura</code> powered by{" "}
+      📄 <code className="ml-1 text-xs font-mono">docura</code> powered by{""}
       <span className="font-semibold ml-1">deadbytes</span>
     </Badge>
   </motion.div>

@@ -7,7 +7,7 @@ const installSnippet = `// Using pip
 pip install docura
 
 // Or clone and run locally
-git clone https://github.com/your-org/docura
+git clone https://github.com/msnabiel/docura
 cd docura
 pip install -r requirements.txt
 uvicorn app.main:app --reload`
