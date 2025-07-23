@@ -31,20 +31,20 @@ const benefitItems: Record<string, string[]> = {
     "Context-aware chunking with NLTK, layout preservation, and smart de-hyphenation",
     "Comprehensive support for DOCX, PPTX, and mixed-format files with table and comment handling"
 ],
-  "Agentic Intelligence": [
-    "LLM agent executes autonomous multi-step tasks from natural queries",
-    "Intent recognition routes queries to appropriate API workflows (e.g., order, status)",
-    "One-shot multi-param extraction and auto-enrichment from vector context",
-    "Private local context memory via ChromaDB ensures on-device recall and inference",
-  ],
-  "Optimized Hybrid RAG": [
-    "Two-stage retrieval: dense semantic search + lexical keyword matching",
-    "Cross-encoder reranker (e.g., bge-reranker-large) boosts answer precision",
-    "Adaptive chunk merging + top-k scoring with redundancy-aware filtering",
-    "Offline embedding using BGE-Small for speed, outperforming LLaMini-v2 on retrieval",
-    "API-agnostic: plug-and-play with Gemini, OpenAI, Mistral, or local models",
-    "Multithreaded async pipeline optimized for low-latency inference and throughput",
-  ],
+"Agentic Intelligence": [
+  "Performs intent classification to detect whether the input is a document-related query or an action-triggering command",
+  "Identifies required parameters using NLP parsing and reranks relevant chunks from hybrid vector-keyword retrieval",
+  "Reiterates over retrieved context (e.g., via ChromaDB) to auto-fill missing or incomplete parameters",
+  "Executes the appropriate backend API call using the resolved intent and structured parameter set"
+],
+"Optimized Hybrid RAG": [
+  "Combines smart semantic search with keyword matching to find the most relevant information",
+  "Reranks results to improve answer accuracy using a powerful language model",
+  "Merges and filters content chunks to avoid repetition and keep responses clean",
+  "Keeps track of conversation history for contextual understanding",
+  "Pre-processes documents in advance for faster response times",
+  "Built for speed and scalability, works seamlessly with models like Gemini"
+]
 };
 
 

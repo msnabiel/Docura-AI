@@ -3,7 +3,7 @@ import { useState, useRef, useEffect } from "react"
 import { Send, Bot, User, Upload, X, FileText, Image, FileSpreadsheet, File } from "lucide-react"
 import { motion, AnimatePresence } from "framer-motion"
 import { File as FileIcon } from 'lucide-react' // ✅ Fix: rename icon
-
+import ReactMarkdown from 'react-markdown'
 const cn = (...classes: (string | undefined | null | boolean)[]) => {
   return classes.filter(Boolean).join(' ')
 }
@@ -301,7 +301,19 @@ const fileObj = new globalThis.File([blob], file.name, {
                         : "bg-white border border-gray-200 text-gray-800 rounded-tl-md"
                     )}
                   >
-                    <p className="text-sm leading-relaxed whitespace-pre-wrap">{msg.content}</p>
+                    <ReactMarkdown
+  components={{
+    p: ({ children }) => (
+      <p className="text-sm leading-relaxed whitespace-pre-wrap">{children}</p>
+    ),
+    strong: ({ children }) => (
+      <strong className="font-semibold">{children}</strong>
+    ),
+  }}
+>
+  {msg.content}
+</ReactMarkdown>
+
                     
                     {/* File Attachments */}
                     {msg.files && msg.files.length > 0 && (

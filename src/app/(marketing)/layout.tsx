@@ -15,8 +15,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Nabiel UI",
-  description: "A modern e-commerce UI kit for Next.js",
+  title: "Docura AI",
+  description: "The BEST RAG for your documents",
 };
 
 export default function RootLayout({
