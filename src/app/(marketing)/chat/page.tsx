@@ -2,6 +2,7 @@
 import { useState, useRef, useEffect } from "react"
 import { Send, Bot, User, Upload, X, FileText, Image, FileSpreadsheet, File } from "lucide-react"
 import { motion, AnimatePresence } from "framer-motion"
+import { File as FileIcon } from 'lucide-react' // ✅ Fix: rename icon
 
 const cn = (...classes: (string | undefined | null | boolean)[]) => {
   return classes.filter(Boolean).join(' ')
@@ -40,7 +41,7 @@ export default function DocuraAI() {
     if (type.startsWith('image/')) return <Image className="w-4 h-4" />
     if (type.includes('spreadsheet') || type.includes('excel')) return <FileSpreadsheet className="w-4 h-4" />
     if (type.includes('text') || type.includes('document')) return <FileText className="w-4 h-4" />
-    return <File className="w-4 h-4" />
+    return <FileIcon className="w-4 h-4" />
   }
 
   const formatFileSize = (bytes: number) => {
@@ -89,37 +90,84 @@ export default function DocuraAI() {
     setDragOver(false)
   }
 
-  const handleSend = async () => {
-    if (!input.trim() && uploadedFiles.length === 0) return
+const handleSend = async () => {
+  if (!input.trim() && uploadedFiles.length === 0) return;
 
-    const userMessage: Message = {
-      role: "user",
-      content: input.trim() || "Uploaded documents",
-      timestamp: new Date(),
-      files: uploadedFiles.length > 0 ? [...uploadedFiles] : undefined,
-    }
+  const userMessage: Message = {
+    role: "user",
+    content: input.trim() || "Uploaded documents",
+    timestamp: new Date(),
+    files: uploadedFiles.length > 0 ? [...uploadedFiles] : undefined,
+  };
 
-    setMessages((prev) => [...prev, userMessage])
-    setInput("")
-    setUploadedFiles([])
-    setIsTyping(true)
+  setMessages((prev) => [...prev, userMessage]);
+  setInput("");
+  setUploadedFiles([]);
+  setIsTyping(true);
 
-    if (textareaRef.current) {
-      textareaRef.current.style.height = "auto"
-    }
+  try {
+    // Upload files if any
+    if (uploadedFiles.length > 0) {
+      const uploadFormData = new FormData();
+      for (const file of uploadedFiles) {
+        const response = await fetch(file.url);
+        const blob = await response.blob();
+const fileObj = new globalThis.File([blob], file.name, {
+  type: file.type || 'application/octet-stream'
+});
 
-    setTimeout(() => {
-      const botMessage: Message = {
-        role: "bot",
-        content: userMessage.files 
-          ? `I've received your message along with ${userMessage.files.length} file(s): ${userMessage.files.map(f => f.name).join(', ')}. I can help you analyze and work with these documents!`
-          : `I received your message: "${userMessage.content}". How can I assist you with your documents today?`,
-        timestamp: new Date(),
+        uploadFormData.append("files", fileObj);
       }
-      setMessages((prev) => [...prev, botMessage])
-      setIsTyping(false)
-    }, 1200)
+
+      await fetch("http://localhost:8000/upload", {
+        method: "POST",
+        body: uploadFormData,
+      });
+    }
+
+    // Send query to /query
+    const queryFormData = new FormData();
+    queryFormData.append("query", input.trim());
+
+    const res = await fetch("http://localhost:8000/query", {
+      method: "POST",
+      body: queryFormData,
+    });
+
+    const data = await res.json();
+
+    const parts = [
+      data.answer && `🧠 Answer: ${data.answer}`,
+      data.summary && `📝 Summary: ${data.summary}`,
+      data.decision && `📌 Decision: ${data.decision}`,
+      data.justification && `🔍 Justification: ${data.justification}`,
+    ]
+      .filter(Boolean)
+      .join("\n\n");
+
+    const botMessage: Message = {
+      role: "bot",
+      content: parts || "I couldn't process that request.",
+      timestamp: new Date(),
+    };
+
+    setMessages((prev) => [...prev, botMessage]);
+  } catch (err) {
+    console.error(err);
+    setMessages((prev) => [
+      ...prev,
+      {
+        role: "bot",
+        content: "⚠️ Error occurred while processing your request.",
+        timestamp: new Date(),
+      },
+    ]);
+  } finally {
+    setIsTyping(false);
   }
+};
+
+
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
     if (e.key === "Enter" && !e.shiftKey) {
