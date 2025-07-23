@@ -4,19 +4,19 @@ import { CheckCircle } from "lucide-react"
 
 const benefits = [
   {
-    title: "Answer Smarter",
+    title: "State-of-the-Art Extraction",
     bg: "bg-[#E0F7FA]",
     text: "text-[#004D40]",
     icon: "text-[#004D40]",
   },
   {
-    title: "Scale Intelligently",
+    title: "Agentic Intelligence",
     bg: "bg-[#FFF3E0]",
     text: "text-[#E65100]",
     icon: "text-[#E65100]",
   },
   {
-    title: "Docurize Everything",
+    title: "Optimized Hybrid RAG",
     bg: "bg-[#EDE7F6]",
     text: "text-[#4527A0]",
     icon: "text-[#4527A0]",
@@ -24,28 +24,29 @@ const benefits = [
 ]
 
 const benefitItems: Record<string, string[]> = {
-  "Answer Smarter": [
-    "Built on Gemini 2.5 Flash for lightning-fast responses",
-    "Hybrid RAG using semantic search + keyword matching",
-    "NLTK-powered smart chunking for accurate context",
-    "Real-time document-aware responses",
-    "Cross-encoder reranking for relevant answers",
+"State-of-the-Art Extraction": [
+    "Hybrid architecture integrating OCR, layout analysis, and NLP-driven content extraction",
+    "Robust multi-engine parsing (OCR, PDF, layout) with intelligent fallback strategies",
+    "Streamlined preprocessing: noise filtering, normalization, and encoding repair",
+    "Context-aware chunking with NLTK, layout preservation, and smart de-hyphenation",
+    "Comprehensive support for DOCX, PPTX, and mixed-format files with table and comment handling"
+],
+  "Agentic Intelligence": [
+    "LLM agent executes autonomous multi-step tasks from natural queries",
+    "Intent recognition routes queries to appropriate API workflows (e.g., order, status)",
+    "One-shot multi-param extraction and auto-enrichment from vector context",
+    "Private local context memory via ChromaDB ensures on-device recall and inference",
   ],
-  "Scale Intelligently": [
-    "ChromaDB for high-performance local vector search",
-    "Optimized for speed with multi-threaded pipelines",
-    "Offline embeddings with all-MiniLM or GGML-based models",
-    "No external APIs required — privacy-first architecture",
-    "Modular components ready for cloud or edge deployment",
+  "Optimized Hybrid RAG": [
+    "Two-stage retrieval: dense semantic search + lexical keyword matching",
+    "Cross-encoder reranker (e.g., bge-reranker-large) boosts answer precision",
+    "Adaptive chunk merging + top-k scoring with redundancy-aware filtering",
+    "Offline embedding using BGE-Small for speed, outperforming LLaMini-v2 on retrieval",
+    "API-agnostic: plug-and-play with Gemini, OpenAI, Mistral, or local models",
+    "Multithreaded async pipeline optimized for low-latency inference and throughput",
   ],
-  "Docurize Everything": [
-    "Ingest PDFs, DOCX, PPTX, HTML, and even email files",
-    "Custom citation engine with contextual highlights",
-    "Supports bulk ingestion & system_cache directories",
-    "Automatic metadata extraction and indexing",
-    "Ready-to-deploy with FastAPI + Docker",
-  ],
-}
+};
+
 
 export function WhyChooseSection() {
   return (

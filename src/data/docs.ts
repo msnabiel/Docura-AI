@@ -5,6 +5,7 @@ import { DocuraIntroDoc } from "@/components/docs/introduction-doc"
 import { DocuraHealthDoc } from "@/components/docs/docura-health-doc"
 import { DocuraUploadDoc } from "@/components/docs/docura-upload-doc"
 import { DocuraQueryDoc } from "@/components/docs/docura-query-doc"
+import { DocuraParserDoc } from "@/components/docs/parser-api"
 
 export type DocMeta = {
   name: string
@@ -12,12 +13,13 @@ export type DocMeta = {
 }
 
 export const docs: DocMeta[] = [
+    { name: "Introduction", slug: "introduction" },
   { name: "Installation", slug: "installation" },
-  { name: "Introduction", slug: "introduction" },
    { name: "Environment Setup", slug: "environment" },
   { name: "Health Check", slug: "health-check" },
   { name: "Document Upload", slug: "document-upload" },
   { name: "Document Query", slug: "document-query" },
+  {name:"Extraction API",slug:"extraction-api"},
   {name:"Examples",slug:"examples"},
   // Add more docs here later
 ]
@@ -29,5 +31,6 @@ export const docPages: Record<string, React.FC> = {
   introduction: DocuraIntroDoc,
   "health-check": DocuraHealthDoc,
   "document-upload": DocuraUploadDoc,
-  "document-query": DocuraQueryDoc
+  "document-query": DocuraQueryDoc,
+  "extraction-api": DocuraParserDoc
 }
