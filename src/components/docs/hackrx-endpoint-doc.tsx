@@ -14,20 +14,23 @@ uvicorn app.main:app --reload --host 0.0.0.0 --port 9000
 # BASE_URL="http://localhost:9000"
 `
 
-const usageSnippet = `# Example: Submit prescription image for parsing
-curl -X POST "$BASE_URL/parse-prescription" \\
-  -H "Accept: application/json" \\
-  -F "file=@/path/to/prescription.jpg"
-
-# Local example
-curl -X POST "http://localhost:9000/parse-prescription" \\
-  -F "file=@prescription.png"
+const usageSnippet = `# Example: Submit documents and questions for QA
+curl -X POST "$BASE_URL/hackrx-run" \\
+  -H "Content-Type: application/json" \\
+  -d '{
+    "documents": ["https://example.com/file1.pdf", "https://example.com/file2.png"],
+    "questions": [
+      "What medication is prescribed?",
+      "What is the dosage frequency?"
+    ],
+    "search_strategy": "bm25+bge"
+  }'
 
 # Expected Success Response:
 # {
-#   "status": "success",
-#   "medications": [
-#       {"name": "Amoxicillin", "dose": "500mg", "frequency": "3 times a day"}
+#   "answers": [
+#     "Amoxicillin 500mg is prescribed.",
+#     "Take it 3 times a day."
 #   ]
 # }
 `
@@ -38,7 +41,7 @@ export function HackRxEndpointDoc() {
       title="HackRx Endpoint"
       description={
         <>
-          The <code>HackRx</code> API extracts structured prescription data from images. Supports <strong>JPEG</strong>, <strong>PNG</strong>, and <strong>PDF</strong>.
+          The <code>/hackrx-run</code> endpoint processes documents (PDF, DOCX, CSV, Images, etc.) and answers natural language questions using <strong>OCR + Hybrid Search + Gemini AI</strong>.
         </>
       }
       addSnippet={setupSnippet}
@@ -46,19 +49,37 @@ export function HackRxEndpointDoc() {
       preview={
         <div className="px-4 sm:px-6 lg:px-12 bg-background text-foreground">
           <div className="text-center text-muted-foreground text-sm space-y-3">
-            <p>Upload prescription images to get structured medication details via AI parsing.</p>
+            <p>Upload files and ask questions to receive structured answers using advanced document understanding and QA.</p>
             <div className="bg-muted/50 p-4 rounded-lg text-xs space-y-2 border">
               <div className="flex items-center gap-2">
-                <span className="w-2 h-2 bg-blue-500 rounded-full"></span>
-                <span><strong>POST</strong> /parse-prescription</span>
+                <span className="w-2 h-2 bg-green-500 rounded-full"></span>
+                <span><strong>POST</strong> /hackrx-run</span>
               </div>
               <div className="text-left mt-2">
                 <div><strong>Supported formats:</strong></div>
-                <div className="flex flex-wrap gap-2 mt-1">
-                  <span className="bg-yellow-100 text-yellow-800 px-2 py-1 rounded text-xs">JPEG</span>
-                  <span className="bg-yellow-100 text-yellow-800 px-2 py-1 rounded text-xs">PNG</span>
-                  <span className="bg-red-100 text-red-800 px-2 py-1 rounded text-xs">PDF</span>
-                </div>
+<div className="flex flex-wrap gap-2 mt-2">
+  {[
+    { type: "PDF (.pdf)", color: "bg-blue-100 text-blue-800" },
+    { type: "Text (.txt)", color: "bg-blue-100 text-blue-800" },
+    { type: "CSV (.csv)", color: "bg-green-100 text-green-800" },
+    { type: "Excel (.xls, .xlsx)", color: "bg-green-100 text-green-800" },
+    { type: "PowerPoint (.ppt, .pptx)", color: "bg-orange-100 text-orange-800" },
+    { type: "Word (.doc, .docx)", color: "bg-blue-100 text-blue-800" },
+    { type: "Email (.eml)", color: "bg-purple-100 text-purple-800" },
+    { type: "HTML (.html)", color: "bg-purple-100 text-purple-800" },
+    { type: "XML (.xml)", color: "bg-purple-100 text-purple-800" },
+    { type: "JSON (.json)", color: "bg-purple-100 text-purple-800" },
+    { type: "Markdown (.md)", color: "bg-purple-100 text-purple-800" },
+    { type: "RTF (.rtf)", color: "bg-blue-100 text-blue-800" },
+    { type: "Images (.jpg, .png, .gif, .svg)", color: "bg-pink-100 text-pink-800" },
+    { type: "Archives (.zip, .rar)", color: "bg-red-100 text-red-800" },
+  ].map(({ type, color }) => (
+    <span key={type} className={`${color} px-2 py-1 rounded text-xs`}>
+      {type}
+    </span>
+  ))}
+</div>
+
               </div>
             </div>
           </div>
@@ -72,19 +93,19 @@ export function HackRxEndpointDoc() {
               <div className="grid gap-2 text-sm">
                 <div className="flex justify-between">
                   <strong>Method:</strong>
-                  <code className="bg-blue-100 text-blue-800 px-2 py-1 rounded">POST</code>
+                  <code className="bg-green-100 text-green-800 px-2 py-1 rounded">POST</code>
                 </div>
                 <div className="flex justify-between">
                   <strong>Path:</strong>
-                  <code>/parse-prescription</code>
+                  <code>/hackrx-run</code>
                 </div>
                 <div className="flex justify-between">
                   <strong>Content-Type:</strong>
-                  <code>multipart/form-data</code>
+                  <code>application/json</code>
                 </div>
                 <div className="flex justify-between">
-                  <strong>Parameter:</strong>
-                  <code>file</code> (binary image or PDF)
+                  <strong>Parameters:</strong>
+                  <code>{`{ documents: string[], questions: string[], search_strategy?: string }`}</code>
                 </div>
               </div>
             </div>
@@ -94,10 +115,9 @@ export function HackRxEndpointDoc() {
             <h2 className="font-semibold mb-2 text-foreground">📋 Response Example</h2>
             <CodeBlockWithCopy
               code={`{
-  "status": "success",
-  "medications": [
-    {"name": "Amoxicillin", "dose": "500mg", "frequency": "3 times a day"},
-    {"name": "Ibuprofen", "dose": "200mg", "frequency": "as needed"}
+  "answers": [
+    "Amoxicillin 500mg is prescribed.",
+    "Take it 3 times a day."
   ]
 }`}
               className="text-xs"
@@ -107,7 +127,7 @@ export function HackRxEndpointDoc() {
       }
       extraNotes={
         <>
-          <strong>Note:</strong> HackRx is optimized for prescription handwriting but also works with printed prescriptions.
+          <strong>Note:</strong> HackRx supports OCR + structured parsing. It works well for scanned prescriptions, research PDFs, slides, spreadsheets, and more.
         </>
       }
     />

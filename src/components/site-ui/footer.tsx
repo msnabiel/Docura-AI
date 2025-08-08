@@ -29,7 +29,7 @@ export const Footer: React.FC<FooterProps> = ({
     { label: "API", href: "/api" },
     { label: "GitHub", href: "https://github.com/msnabiel/docura", external: true },
   ],
-  contactEmail = "support@docura.ai",
+  contactEmail = "msyednabiel@gmail.com",
   social = {
     instagram: "https://instagram.com/docura_ai",
     twitter: "https://twitter.com/docura_ai",

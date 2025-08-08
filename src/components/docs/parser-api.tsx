@@ -2,7 +2,9 @@
 
 import { DocPageLayout } from "@/components/docs/doc-page-layout"
 import { CodeBlockWithCopy } from "../site-ui/code-block-with-copy"
-
+import { DownloadIcon } from "lucide-react"
+import { Button } from "@/components/ui/button"
+import Link from "next/link"
 const setupSnippet = `# Using the deployed Docura Parser API
 BASE_URL = "https://docura-parser.onrender.com"
 
@@ -27,9 +29,26 @@ $files = @{ files = Get-Item "C:\\docs\\sample.pdf" }
 Invoke-RestMethod -Uri "https://docura-parser.onrender.com/parse" \\
   -Method POST \\
   -Form $files`
-
+const downloadButtons = (
+  <div className="flex flex-wrap gap-4 items-center justify-center mb-6">
+    <Link href="/downloads/docura-extractor.py" download>
+      <Button variant="outline" className="flex items-center gap-2">
+        <DownloadIcon className="w-4 h-4" />
+        Download Python Extractor
+      </Button>
+    </Link>
+    <Link href="/downloads/docura-parser.zip" download>
+      <Button variant="default" className="flex items-center gap-2">
+        <DownloadIcon className="w-4 h-4" />
+        Download Full Tool (.zip)
+      </Button>
+    </Link>
+  </div>
+)
 export function DocuraParserDoc() {
   return (
+      <>
+    {downloadButtons}
     <DocPageLayout
       title="Text Extraction API"
       description={
@@ -137,5 +156,6 @@ export function DocuraParserDoc() {
         </>
       }
     />
+    </>
   )
 }

@@ -2,45 +2,50 @@
 
 import { DocPageLayout } from "@/components/docs/doc-page-layout"
 import { CodeBlockWithCopy } from "@/components/site-ui/code-block-with-copy"
-import { Button } from "@/components/ui/button"
-
-const installSnippet = `npm install @google/generative-ai @pinecone-database/pinecone`
+import {Button} from "@/components/ui/button"
+const installSnippet = `npm install @google/generative-ai`
 
 const envSnippet = `// .env.local
-# Pinecone
-PINECONE_API_KEY=your_pinecone_api_key
-PINECONE_ENV=your_pinecone_environment   # e.g. us-central1-gcp
-PINECONE_INDEX=docura-index
-
 # Gemini
-GEMINI_API_KEY=your_gemini_api_key`
+GEMINI_API_KEY=your_gemini_api_key
+BEARER_TOKEN=your_secure_bearer_token`
 
-const usageSnippet = `// lib/pinecone.ts
-import { Pinecone } from "@pinecone-database/pinecone"
+const usageSnippet = `// lib/gemini.ts
+import { GoogleGenerativeAI } from "@google/generative-ai"
 
-const pinecone = new Pinecone({
-  apiKey: process.env.PINECONE_API_KEY!,
-})
+const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY!)
 
-export const index = pinecone.index(process.env.PINECONE_INDEX!)
+export const model = genAI.getGenerativeModel({ model: "gemini-2.5-flash" })
 `
 
 export function environmentDoc() {
   return (
     <DocPageLayout
-      title="Environment Setup for Docura (Gemini + Pinecone)"
+      title="Environment Setup for Docura (Gemini)"
       description={
-        <>Add your <code>.env.local</code> with Pinecone and Gemini API keys to use Docura's intelligent document search features.</>
+        <>Add your <code>.env.local</code> with Gemini credentials to power Docura’s intelligent document features.</>
       }
       addSnippet={installSnippet}
       usageSnippet={usageSnippet}
-      preview={
-        <div className="space-y-4 text-sm text-muted-foreground text-center">
-          <p>
-            This setup powers document embedding, indexing, and querying using Google Gemini + Pinecone.
-          </p>
-        </div>
-      }
+preview={
+  <div className="space-y-4 text-sm text-muted-foreground text-center">
+        <a
+      href="https://ai.google.dev"
+      target="_blank"
+      rel="noreferrer"
+      className="inline-block"
+    >
+      <Button variant="default" size="sm">
+        Visit Gemini Docs
+      </Button>
+    </a>
+    <p>
+      This setup powers document enrichment, semantic search, and question answering using Google Gemini.
+    </p>
+
+  </div>
+}
+
       extraInfo={
         <div className="space-y-6">
           <div>
@@ -51,7 +56,7 @@ export function environmentDoc() {
           <div>
             <h3 className="text-lg font-semibold mb-2">📦 Installation</h3>
             <p className="text-sm text-muted-foreground mb-2">
-              Use the following command to install the required SDKs:
+              Use the following command to install the Gemini SDK:
             </p>
             <CodeBlockWithCopy code={installSnippet} />
           </div>
@@ -59,9 +64,8 @@ export function environmentDoc() {
           <div>
             <h3 className="text-lg font-semibold mb-2">🧠 Why These Keys Matter</h3>
             <ul className="list-disc text-muted-foreground pl-5 text-sm space-y-1">
-              <li><strong>GEMINI_API_KEY:</strong> Used to generate embeddings and answer queries</li>
-              <li><strong>PINECONE_API_KEY:</strong> Powers vector index creation, upserts, and searches</li>
-              <li><strong>PINECONE_ENV / PINECONE_INDEX:</strong> Needed to connect to your vector database</li>
+              <li><strong>GEMINI_API_KEY:</strong> Used to generate embeddings, answer questions, and reason over documents.</li>
+              <li><strong>BEARER_TOKEN:</strong> Secures your Docura API endpoints with authentication headers.</li>
             </ul>
           </div>
         </div>
@@ -69,16 +73,12 @@ export function environmentDoc() {
       extraNotes={
         <div className="mt-4 space-y-2 text-sm text-muted-foreground">
           <p>
-            These variables enable Docura’s document intelligence engine. Be sure not to share your API keys publicly.
+            These credentials allow Docura’s intelligent agent to read, analyze, and summarize your documents securely.
           </p>
           <p>
-            Want a deeper dive? Check the Docs for{" "}
-            <a href="https://docs.pinecone.io" target="_blank" rel="noreferrer" className="underline">
-              Pinecone
-            </a>{" "}
-            or{" "}
+            Learn more from{" "}
             <a href="https://ai.google.dev" target="_blank" rel="noreferrer" className="underline">
-              Google Gemini
+              Google Gemini Docs
             </a>.
           </p>
         </div>
