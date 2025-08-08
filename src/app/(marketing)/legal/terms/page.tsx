@@ -27,7 +27,7 @@ export default function TermsPage() {
 
       <h2 className="text-xl font-semibold">4. Privacy and Local-First Design</h2>
       <p>
-        Docura is designed to run locally by default, using open-source libraries like ChromaDB and GGML-based models. No data is sent to external servers unless explicitly configured by the user.
+        Docura is designed to run locally by default, using open-source libraries like FAISS and GGML-based models. No data is sent to external servers unless explicitly configured by the user.
       </p>
 
       <h2 className="text-xl font-semibold">5. Third-Party Services</h2>

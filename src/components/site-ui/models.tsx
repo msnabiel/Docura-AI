@@ -17,10 +17,10 @@ type Solution = {
 const solutionSets: Record<"dev" | "prod", Solution[]> = {
   dev: [
     {
-      name: "ChromaDB + Gemini API",
-      description: "Lightweight RAG setup ideal for fast prototyping. Uses local vector DB and Gemini 2.5 API.",
+      name: "FAISS + Gemini API",
+      description: "Lightweight RAG setup ideal for fast prototyping. Uses FAISS local vector DB and Gemini 2.5 API.",
       features: [
-        "ChromaDB for local embeddings",
+        "FAISS for local embeddings",
         "HuggingFace MiniLM model",
         "Gemini Flash 2.5 API for LLM",
         "Great for demos, quick iteration",
@@ -29,10 +29,10 @@ const solutionSets: Record<"dev" | "prod", Solution[]> = {
       badge: "For Fast Prototyping",
     },
     {
-      name: "Mini LLM + Pinecone (Basic)",
-      description: "Cloud-ready deployment with Pinecone vector DB and a mini LLM. No lazy loading or GPU dependency.",
+      name: "Mini LLM + FAISS (Basic)",
+      description: "Cloud-ready deployment with FAISS vector DB and a mini LLM. No lazy loading or GPU dependency.",
       features: [
-        "Pinecone for scalable retrieval",
+        "FAISS for scalable retrieval",
         "Self-hosted mini LLM",
         "Clean separation of vector & model layers",
         "No GPU or infra dependency",
@@ -45,7 +45,7 @@ const solutionSets: Record<"dev" | "prod", Solution[]> = {
       description: "Best for production-grade use with GPU inference, cold-start control, and optimized vector search.",
       features: [
         "Mini LLM w/ NVIDIA Inference",
-        "Pinecone w/ lazy loading",
+        "FAISS w/ lazy loading",
         "Render-ready Docker setup",
         "Cost-efficient cold-starts",
       ],
@@ -85,33 +85,32 @@ export function DeploymentOptionsSection() {
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 text-left">
           {solutionSets[env].map((solution, idx) => (
-<div
-  key={idx}
-  className={cn(
-    "rounded-2xl p-6 border transition-all hover:shadow-lg group relative",
-    solution.bg
-  )}
->
-  <h3 className="text-xl font-semibold text-foreground">{solution.name}</h3>
+            <div
+              key={idx}
+              className={cn(
+                "rounded-2xl p-6 border transition-all hover:shadow-lg group relative",
+                solution.bg
+              )}
+            >
+              <h3 className="text-xl font-semibold text-foreground">{solution.name}</h3>
 
-  {solution.badge && (
-    <Badge className="mt-2 inline-block text-xs" variant="secondary">
-      {solution.badge}
-    </Badge>
-  )}
+              {solution.badge && (
+                <Badge className="mt-2 inline-block text-xs" variant="secondary">
+                  {solution.badge}
+                </Badge>
+              )}
 
-  <p className="text-sm text-black mt-3 mb-4">{solution.description}</p>
+              <p className="text-sm text-black mt-3 mb-4">{solution.description}</p>
 
-  <ul className="space-y-3 text-sm mt-6">
-    {solution.features.map((feature, i) => (
-      <li key={i} className="flex items-start gap-2 text-black">
-        <Check className="h-4 w-4 text-primary mt-0.5" />
-        <span>{feature}</span>
-      </li>
-    ))}
-  </ul>
-</div>
-
+              <ul className="space-y-3 text-sm mt-6">
+                {solution.features.map((feature, i) => (
+                  <li key={i} className="flex items-start gap-2 text-black">
+                    <Check className="h-4 w-4 text-primary mt-0.5" />
+                    <span>{feature}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
           ))}
         </div>
       </div>

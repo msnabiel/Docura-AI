@@ -56,7 +56,7 @@ export function DocuraUploadDoc() {
       title="Document Upload"
       description={
         <>
-          Upload and ingest documents into <code>Docura AI</code> for processing. Supports <strong>PDF</strong>, <strong>DOCX</strong>, <strong>PPTX</strong>, <strong>HTML</strong>, and email files with automatic indexing using <strong>ChromaDB</strong>.
+          Upload and ingest documents into <code>Docura AI</code> for processing. Supports <strong>PDF</strong>, <strong>DOCX</strong>, <strong>PPTX</strong>, <strong>HTML</strong>, and email files with automatic indexing using <strong>FAISS</strong>.
         </>
       }
       addSnippet={setupSnippet}
@@ -170,7 +170,7 @@ export function DocuraUploadDoc() {
               </div>
               <div className="flex items-center gap-2">
                 <span className="w-2 h-2 bg-orange-500 rounded-full"></span>
-                <span><strong>Indexing:</strong> Store in ChromaDB for fast retrieval</span>
+                <span><strong>Indexing:</strong> Store in FAISS for fast retrieval</span>
               </div>
             </div>
           </div>

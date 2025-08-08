@@ -63,7 +63,7 @@ export function DocuraIntroDoc() {
               Custom citation engine with contextual highlights and automatic metadata extraction.
             </li>
             <li>
-              Powered by <strong>ChromaDB</strong> for fast local vector search and offline-ready embeddings (MiniLM or GGML).
+              Powered by <strong>FAISS</strong> for fast local vector search and offline-ready embeddings (MiniLM or GGML).
             </li>
             <li>
               Multi-threaded pipelines optimized for speed, scalability, and control.

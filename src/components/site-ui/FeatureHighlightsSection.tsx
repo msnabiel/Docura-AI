@@ -37,7 +37,7 @@ const features = [
   {
     title: "Private & Local-first",
     description:
-      "Runs locally using ChromaDB and GGML/All-MiniLM models—no internet, no leaks. Your documents stay with you.",
+      "Runs locally using FAISS and GGML/All-MiniLM models—no internet, no leaks. Your documents stay with you.",
     icon: ShieldCheck,
     bg: "bg-[#F3E5F5]",
     text: "text-[#6A1B9A]",

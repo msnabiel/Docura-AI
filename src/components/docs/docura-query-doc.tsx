@@ -60,7 +60,7 @@ export function DocuraQueryDoc() {
       title="Document Querying"
       description={
         <>
-          Query your uploaded documents using natural language with <code>Docura AI</code>. Get intelligent answers powered by <strong>hybrid retrieval</strong>, <strong>ChromaDB</strong>, and <strong>Gemini Flash</strong> for accurate, context-aware responses.
+          Query your uploaded documents using natural language with <code>Docura AI</code>. Get intelligent answers powered by <strong>hybrid retrieval</strong>, <strong>FAISS</strong>, and <strong>Gemini Flash</strong> for accurate, context-aware responses.
         </>
       }
       addSnippet={setupSnippet}
@@ -219,7 +219,7 @@ export function DocuraQueryDoc() {
             <div className="space-y-2">
               <div className="flex items-center gap-2">
                 <span className="w-2 h-2 bg-blue-500 rounded-full"></span>
-                <span><strong>Semantic Search:</strong> Vector similarity using ChromaDB embeddings</span>
+                <span><strong>Semantic Search:</strong> Vector similarity using FAISS embeddings</span>
               </div>
               <div className="flex items-center gap-2">
                 <span className="w-2 h-2 bg-green-500 rounded-full"></span>

@@ -25,7 +25,7 @@ export function NabielUiInstallationDoc() {
       title="Installing Docura"
       description={
         <>
-          Get started with <code>Docura</code>, a blazing-fast RAG framework for building <strong>private</strong>, <strong>real-time</strong> document-aware applications using <strong>FastAPI</strong>, <strong>ChromaDB</strong>, and <strong>Gemini Flash</strong>.
+          Get started with <code>Docura</code>, a blazing-fast RAG framework for building <strong>private</strong>, <strong>real-time</strong> document-aware applications using <strong>FastAPI</strong>, <strong>FAISS</strong>, and <strong>Gemini Flash</strong>.
         </>
       }
       addSnippet={installSnippet}

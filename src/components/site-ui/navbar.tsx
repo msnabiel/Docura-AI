@@ -19,19 +19,18 @@ export function NavBar() {
   const [isOpen, setIsOpen] = useState(false)
   const [query, setQuery] = useState("")
 
-const navLinks = [
-  { label: "Home", href: "/" },
-  { label: "Try It", href: "/chat" },
-  { label: "Models", href: "/models" },
-  { label: "Documentation", href: "/docs/introduction" },
-  { label: "About Us", href: "/about" },
-  {
-    label: "GitHub",
-    href: "https://github.com/msnabiel/docura",
-    external: true,
-  },
-]
-
+  const navLinks = [
+    { label: "Home", href: "/" },
+    { label: "Try It", href: "/chat" },
+    // Removed Models link
+    { label: "Documentation", href: "/docs/introduction" },
+    { label: "About Us", href: "/about" },
+    {
+      label: "GitHub",
+      href: "https://github.com/msnabiel/docura",
+      external: true,
+    },
+  ]
 
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault()

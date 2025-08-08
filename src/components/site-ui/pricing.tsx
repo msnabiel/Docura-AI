@@ -17,10 +17,10 @@ type Solution = {
 const solutionSets: Record<"dev" | "prod", Solution[]> = {
   dev: [
     {
-      name: "ChromaDB + Gemini API",
+      name: "FAISS + Gemini API",
       description: "Lightweight RAG setup ideal for fast prototyping. Uses local vector DB and Gemini 2.5 API.",
       features: [
-        "ChromaDB for local embeddings",
+        "FAISS for local embeddings",
         "HuggingFace MiniLM model",
         "Gemini Flash 2.5 API for LLM",
         "Great for demos, quick iteration",

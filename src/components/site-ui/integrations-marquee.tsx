@@ -2,7 +2,6 @@
 
 import { motion } from "framer-motion"
 import {
-  Database,
   Bot,
   BrainCircuit,
   FileText,
@@ -16,11 +15,11 @@ import {
   Globe,
   Layers,
   PackageCheck,
+  Database,
 } from "lucide-react"
 
 const integrations: { name: string; icon: React.ElementType; color: string }[] = [
-  { name: "ChromaDB", icon: Database, color: "text-[#10B981]" },
-  { name: "Pinecone (Cloud)", icon: Cloud, color: "text-[#000000]" },
+  { name: "FAISS", icon: Database, color: "text-[#0EA5E9]" },
   { name: "Gemini 2.5 Flash", icon: Bot, color: "text-[#7C3AED]" },
   { name: "LangChain", icon: BrainCircuit, color: "text-[#F59E0B]" },
   { name: "FastAPI", icon: Zap, color: "text-[#3B82F6]" },

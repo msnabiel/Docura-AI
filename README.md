@@ -16,7 +16,7 @@
 Whether you're building internal tooling or intelligent customer-facing bots, **Docura** gives you:
 
 - ✅ Real-time document QA with **Gemini 2.5 Flash**
-- ✅ Fast, local vector search via **ChromaDB**
+- ✅ Fast, local vector search via **FAISS**
 - ✅ Privacy-first architecture: No external API calls required
 - ✅ Advanced preprocessing using **NLTK**, smart chunking, and reranking
 - ✅ Offline embeddings using **MiniLM** or **GGML**
@@ -49,9 +49,9 @@ Whether you're building internal tooling or intelligent customer-facing bots, **
 | Layer        | Tools / Libraries                                        |
 |--------------|----------------------------------------------------------|
 | 🖥 Frontend   | React, TypeScript, Tailwind CSS, Framer Motion, Lucide  |
-| ⚙ Backend     | FastAPI, LangChain, ChromaDB, NLTK, Gemini 2.5 Flash    |
+| ⚙ Backend     | FastAPI, LangChain, FAISS, NLTK, Gemini 2.5 Flash    |
 | 🧠 Embedding  | MiniLM, GGML, OpenAI-compatible local models             |
-| 🧮 Vector DB  | ChromaDB (Local / Persistent)                            |
+| 🧮 Vector DB  | FAISS (Local / Persistent)                            |
 | 🐳 Deployment | Docker, Render, Vercel, Terminal-based runners           |
 
 ---
@@ -113,7 +113,7 @@ Visit: `http://localhost:3000`
      ↓
 [Embedding Model (MiniLM/GGML)]
      ↓
-[ChromaDB Vector Search]
+[FAISS Vector Search]
      ↓
 [Hybrid Retriever]
      → Semantic similarity
@@ -169,7 +169,7 @@ Want to adapt Docura to your workflow? Try:
 *Drag-and-drop uploads and interactive chat UI*
 
 ![Backend API](./public/screenshot-api.png)
-*FastAPI-powered REST interface with ChromaDB search*
+*FastAPI-powered REST interface with FAISS search*
 
 ---
 
