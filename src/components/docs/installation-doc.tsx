@@ -4,7 +4,7 @@ import { DocPageLayout } from "@/components/docs/doc-page-layout"
 import { CodeBlockWithCopy } from "@/components/site-ui/code-block-with-copy"
 
 const installSnippet = `# Clone and run locally
-git clone https://github.com/msnabiel/docura
+https://yourapi.example.com
 cd docura
 pip install -r requirements.txt
 uvicorn app.main:app --reload`

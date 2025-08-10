@@ -3,17 +3,17 @@
 import { DocPageLayout } from "@/components/docs/doc-page-layout"
 import { CodeBlockWithCopy } from "../site-ui/code-block-with-copy"
 const setupSnippet = `# Using the deployed Docura API
-BASE_URL = "https://docura-nluj.onrender.com"
+BASE_URL = "https://yourapi.example.com"
 
 # Or run locally for development
-git clone https://github.com/msnabiel/docura
+https://yourapi.example.com
 cd docura
 pip install -r requirements.txt
 uvicorn app.main:app --reload --host 0.0.0.0 --port 8000
 # BASE_URL = "http://localhost:8000"`
 
 const usageSnippet = `# Using cURL
-curl -X GET "https://docura-nluj.onrender.com/health" \\
+curl -X GET "https://yourapi.example.com/health" \\
   -H "Accept: application/json"
 
 # For local development
@@ -36,10 +36,10 @@ curl -X GET "http://localhost:8000/health" \\
 # }
 
 # Using PowerShell (Windows)
-Invoke-RestMethod -Uri "https://docura-nluj.onrender.com/health" -Method GET
+Invoke-RestMethod -Uri "https://yourapi.example.com/health" -Method GET
 
 # Using wget
-wget -qO- "https://docura-nluj.onrender.com/health"`
+wget -qO- "https://yourapi.example.com/health"`
 
 export function DocuraHealthDoc() {
   return (
@@ -109,7 +109,7 @@ export function DocuraHealthDoc() {
           • Method: <code className="px-1 py-0.5 bg-orange-100 dark:bg-orange-900/40 text-orange-800 dark:text-orange-200 rounded">GET</code>
         </div>
         <div>
-          • URL: <code className="text-xs px-2 py-1 bg-slate-100 dark:bg-slate-800 rounded text-foreground">https://docura-nluj.onrender.com/health</code>
+          • URL: <code className="text-xs px-2 py-1 bg-slate-100 dark:bg-slate-800 rounded text-foreground">https://yourapi.example.com/health</code>
         </div>
       </div>
     </div>

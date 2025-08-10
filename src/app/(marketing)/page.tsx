@@ -28,7 +28,7 @@ const stagger = {
 
 export default function Home() {
   const [copied, setCopied] = useState(false)
-  const command = "https://docura-nluj.onrender.com"
+  const command = "git clone https://github.com/msnabiel/Docura"
 
   const handleCopy = () => {
     navigator.clipboard.writeText(command)

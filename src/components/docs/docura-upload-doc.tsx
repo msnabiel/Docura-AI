@@ -3,17 +3,17 @@
 import { DocPageLayout } from "@/components/docs/doc-page-layout"
 import { CodeBlockWithCopy } from "../site-ui/code-block-with-copy"
 const setupSnippet = `# Using the deployed Docura API
-BASE_URL = "https://docura-nluj.onrender.com"
+BASE_URL = "https://yourapi.example.com"
 
 # Or run locally for development
-git clone https://github.com/msnabiel/docura
+https://yourapi.example.com
 cd docura
 pip install -r requirements.txt
 uvicorn app.main:app --reload --host 0.0.0.0 --port 8000
 # BASE_URL = "http://localhost:8000"`
 
 const usageSnippet = `# Upload a document using cURL
-curl -X POST "https://docura-nluj.onrender.com/upload" \\
+curl -X POST "https://yourapi.example.com/upload" \\
   -H "Accept: application/json" \\
   -F "file=@/path/to/your/document.pdf"
 
@@ -23,13 +23,13 @@ curl -X POST "http://localhost:8000/upload" \\
   -F "file=@document.pdf"
 
 # Upload different file types
-curl -X POST "https://docura-nluj.onrender.com/upload" \\
+curl -X POST "https://yourapi.example.com/upload" \\
   -F "file=@presentation.pptx"
 
-curl -X POST "https://docura-nluj.onrender.com/upload" \\
+curl -X POST "https://yourapi.example.com/upload" \\
   -F "file=@document.docx"
 
-curl -X POST "https://docura-nluj.onrender.com/upload" \\
+curl -X POST "https://yourapi.example.com/upload" \\
   -F "file=@webpage.html"
 
 # Expected Success Response:
@@ -48,7 +48,7 @@ curl -X POST "https://docura-nluj.onrender.com/upload" \\
 $form = @{
     file = Get-Item -Path "C:\\path\\to\\document.pdf"
 }
-Invoke-RestMethod -Uri "https://docura-nluj.onrender.com/upload" -Method POST -Form $form`
+Invoke-RestMethod -Uri "https://yourapi.example.com/upload" -Method POST -Form $form`
 
 export function DocuraUploadDoc() {
   return (
@@ -120,7 +120,7 @@ export function DocuraUploadDoc() {
         <h3 className="font-medium mb-1 text-foreground">1. Create New Request</h3>
         <div className="text-sm space-y-1 text-muted-foreground">
           <div>• Method: <code className="px-1 py-0.5 bg-orange-100 dark:bg-orange-900/40 text-orange-800 dark:text-orange-200 rounded">POST</code></div>
-          <div>• URL: <code className="text-xs px-2 py-1 bg-slate-100 dark:bg-slate-800 rounded text-foreground">https://docura-nluj.onrender.com/upload</code></div>
+          <div>• URL: <code className="text-xs px-2 py-1 bg-slate-100 dark:bg-slate-800 rounded text-foreground">https://yourapi.example.com/upload</code></div>
         </div>
       </div>
 

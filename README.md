@@ -7,7 +7,7 @@
 ## 🔗 Live Deployments
 
 - 🌐 Frontend (UI): [https://docura-ai.vercel.app](https://docura-ai.vercel.app)  
-- ⚙️ Backend (API): [https://docura-nluj.onrender.com](https://docura-nluj.onrender.com)
+- ⚙️ Backend (API): [https://yourapi.example.com](https://yourapi.example.com)
 
 ---
 

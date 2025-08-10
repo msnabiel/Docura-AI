@@ -9,7 +9,7 @@ const setupSnippet = `# Using the deployed Docura Parser API
 BASE_URL = "https://docura-parser.onrender.com"
 
 # Or run locally for development
-git clone https://github.com/msnabiel/docura-parser
+https://yourapi.example.com-parser
 cd docura-parser
 pip install -r requirements.txt
 uvicorn main:app --reload --host 0.0.0.0 --port 8000

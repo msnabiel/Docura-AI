@@ -7,10 +7,10 @@ const setupSnippet = `# Using the HackRx API
 BASE_URL="https://hackrx-api.example.com"
 
 # Or run locally
-git clone https://github.com/msnabiel/hackrx
+https://yourapi.example.com
 cd hackrx
 pip install -r requirements.txt
-uvicorn app.main:app --reload --host 0.0.0.0 --port 9000
+uvicorn app.main:app --reload --host 0.0.0.0 --port 8000
 # BASE_URL="http://localhost:9000"
 `
 
