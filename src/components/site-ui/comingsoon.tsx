@@ -2,25 +2,25 @@
 
 import { motion } from "framer-motion"
 import {
-  Bot,
-  Languages,
+Users,
+  Camera,
   Mic,
 } from "lucide-react"
 
 const comingSoonFeatures = [
+{
+  title: "Multi-User Chat",
+  icon: Users,
+  color: "from-[#ddd6fe] to-[#ede9fe]",
+  description:
+    "Collaborate with teammates in shared AI-powered chat rooms — co-ask, discuss, and refine answers together in real time.",
+},
   {
-    title: "Agentic Workflows",
-    icon: Bot,
-    color: "from-[#c7d2fe] to-[#e0e7ff]",
+    title: "Multimodal Intelligence",
+    icon: Camera,
+    color: "from-[#bae6fd] to-[#e0f2fe]",
     description:
-      "Chain document tasks across intelligent agents — summarize, tag, route, and respond autonomously.",
-  },
-  {
-    title: "Multilingual Support",
-    icon: Languages,
-    color: "from-[#bbf7d0] to-[#dcfce7]",
-    description:
-      "Query, summarize, and translate documents across 20+ languages with seamless LLM integration.",
+      "Process and understand images, videos, and audio with advanced embeddings — search and analyze across formats.",
   },
   {
     title: "Voice Commands",
@@ -29,7 +29,7 @@ const comingSoonFeatures = [
     description:
       "Control your document assistant with natural voice queries — fast, hands-free, and contextual.",
   },
-]
+];
 
 export function ComingSoonFeatures() {
   return (
