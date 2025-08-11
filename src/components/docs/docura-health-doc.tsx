@@ -6,7 +6,7 @@ const setupSnippet = `# Using the deployed Docura API
 BASE_URL = "https://yourapi.example.com"
 
 # Or run locally for development
-https://yourapi.example.com
+git clone https://github.com/msnabiel/Docura.git
 cd docura
 pip install -r requirements.txt
 uvicorn app.main:app --reload --host 0.0.0.0 --port 8000

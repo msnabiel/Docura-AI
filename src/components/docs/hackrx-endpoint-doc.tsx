@@ -7,7 +7,7 @@ const setupSnippet = `# Using the HackRx API
 BASE_URL="https://hackrx-api.example.com"
 
 # Or run locally
-https://yourapi.example.com
+git clone https://github.com/msnabiel/Docura.git
 cd hackrx
 pip install -r requirements.txt
 uvicorn app.main:app --reload --host 0.0.0.0 --port 8000

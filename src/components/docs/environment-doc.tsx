@@ -7,7 +7,7 @@ const installSnippet = `npm install @google/generative-ai`
 
 const envSnippet = `// .env.local
 # Gemini
-GEMINI_API_KEY=your_gemini_api_key
+GEMINI_API_KEY_PAID=your_gemini_api_key
 BEARER_TOKEN=your_secure_bearer_token`
 
 const usageSnippet = `// lib/gemini.ts

@@ -7,7 +7,7 @@ const setupSnippet = `# Using the Cache API
 BASE_URL="https://docura-api.example.com"
 
 # Or run locally
-https://yourapi.example.com
+git clone https://github.com/msnabiel/Docura.git
 cd Docura
 pip install -r requirements.txt
 uvicorn app.main:app --reload --host 0.0.0.0 --port 8000
