@@ -147,7 +147,7 @@ const fileObj = new globalThis.File([blob], file.name, {
 
     const botMessage: Message = {
       role: "bot",
-      content: parts || "I couldn't process that request.",
+      content: parts || "Backend not connected. Will Connect Soon!",
       timestamp: new Date(),
     };
 
@@ -158,7 +158,7 @@ const fileObj = new globalThis.File([blob], file.name, {
       ...prev,
       {
         role: "bot",
-        content: "⚠️ Error occurred while processing your request.",
+        content: "⚠️ Backend not connected. Will Connect Soon!",
         timestamp: new Date(),
       },
     ]);
