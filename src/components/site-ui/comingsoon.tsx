@@ -20,7 +20,7 @@ const comingSoonFeatures = [
     icon: Camera,
     color: "from-[#bae6fd] to-[#e0f2fe]",
     description:
-      "Process and understand images, videos, and audio with advanced embeddings — search and analyze across formats.",
+      "Process and understand videos, and audio with advanced embeddings — search and analyze across formats.",
   },
   {
     title: "Voice Commands",
