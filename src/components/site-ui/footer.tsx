@@ -25,8 +25,8 @@ export interface FooterProps {
 export const Footer: React.FC<FooterProps> = ({
   logo = <span className="font-bold text-xl">Docura</span>,
   links = [
-    { label: "Docs", href: "/docs" },
-    { label: "API", href: "/api" },
+    { label: "Docs", href: "/docs/introduction" },
+    { label: "API", href: "/chat" },
     { label: "GitHub", href: "https://github.com/msnabiel/docura", external: true },
   ],
   contactEmail = "msyednabiel@gmail.com",
