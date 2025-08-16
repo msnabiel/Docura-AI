@@ -2,8 +2,9 @@
 import { useState, useRef, useEffect } from "react"
 import { Send, Bot, User, Upload, X, FileText, Image, FileSpreadsheet, File } from "lucide-react"
 import { motion, AnimatePresence } from "framer-motion"
-import { File as FileIcon } from 'lucide-react' // ✅ Fix: rename icon
+import { File as FileIcon } from 'lucide-react'
 import ReactMarkdown from 'react-markdown'
+
 const cn = (...classes: (string | undefined | null | boolean)[]) => {
   return classes.filter(Boolean).join(' ')
 }
@@ -20,6 +21,7 @@ interface UploadedFile {
   size: number
   type: string
   url: string
+  localUrl?: string // URL returned from backend upload
 }
 
 export default function DocuraAI() {
@@ -28,14 +30,19 @@ export default function DocuraAI() {
   const [isTyping, setIsTyping] = useState(false)
   const [uploadedFiles, setUploadedFiles] = useState<UploadedFile[]>([])
   const [dragOver, setDragOver] = useState(false)
+  const [searchStrategy, setSearchStrategy] = useState("ensemble")
+  const [uploadingFiles, setUploadingFiles] = useState(false)
   const messagesEndRef = useRef<HTMLDivElement>(null)
   const textareaRef = useRef<HTMLTextAreaElement>(null)
   const fileInputRef = useRef<HTMLInputElement>(null)
-
+  const API_URL = "https://grateful-united-coyote.ngrok-free.app/api/v1"
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" })
   }
 
+  useEffect(() => {
+    scrollToBottom()
+  }, [messages])
 
   const getFileIcon = (type: string) => {
     if (type.startsWith('image/')) return <Image className="w-4 h-4" />
@@ -52,20 +59,69 @@ export default function DocuraAI() {
     return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i]
   }
 
-  const handleFileUpload = (files: FileList) => {
-    Array.from(files).forEach(file => {
-      const reader = new FileReader()
-      reader.onload = (e) => {
-        const newFile: UploadedFile = {
+  const uploadFileToBackend = async (file: File): Promise<string> => {
+    const formData = new FormData()
+    formData.append('file', file)
+
+    const response = await fetch(`${API_URL}/upload`, {
+      method: "POST",
+      body: formData,
+    });
+
+    if (!response.ok) {
+      throw new Error(`Upload failed: ${response.statusText}`)
+    }
+
+    const data = await response.json()
+    return data.url
+  }
+
+  const handleFileUpload = async (files: FileList) => {
+    setUploadingFiles(true)
+    
+    try {
+      for (const file of Array.from(files)) {
+        // Create a temporary object for immediate UI feedback
+        const tempFile: UploadedFile = {
           name: file.name,
           size: file.size,
           type: file.type,
-          url: e.target?.result as string
+          url: URL.createObjectURL(file), // Temporary URL for preview
         }
-        setUploadedFiles(prev => [...prev, newFile])
+        
+        setUploadedFiles(prev => [...prev, tempFile])
+        
+        // Upload to backend
+        try {
+          const backendUrl = await uploadFileToBackend(file)
+          
+          // Update the file with the backend URL
+          setUploadedFiles(prev => 
+            prev.map(f => 
+              f.name === file.name 
+                ? { ...f, localUrl: backendUrl }
+                : f
+            )
+          )
+        } catch (error) {
+          console.error(`Failed to upload ${file.name}:`, error)
+          // Remove the file from the list if upload failed
+          setUploadedFiles(prev => prev.filter(f => f.name !== file.name))
+          
+          // Show error message
+          setMessages(prev => [
+            ...prev,
+            {
+              role: "bot",
+              content: `⚠️ Failed to upload ${file.name}: ${error instanceof Error ? error.message : 'Unknown error'}`,
+              timestamp: new Date(),
+            },
+          ])
+        }
       }
-      reader.readAsDataURL(file)
-    })
+    } finally {
+      setUploadingFiles(false)
+    }
   }
 
   const removeFile = (index: number) => {
@@ -90,84 +146,86 @@ export default function DocuraAI() {
     setDragOver(false)
   }
 
-const handleSend = async () => {
-  if (!input.trim() && uploadedFiles.length === 0) return;
+  const handleSend = async () => {
+    if (!input.trim() && uploadedFiles.length === 0) return;
 
-  const userMessage: Message = {
-    role: "user",
-    content: input.trim() || "Uploaded documents",
-    timestamp: new Date(),
-    files: uploadedFiles.length > 0 ? [...uploadedFiles] : undefined,
-  };
-
-  setMessages((prev) => [...prev, userMessage]);
-  setInput("");
-  setUploadedFiles([]);
-  setIsTyping(true);
-
-  try {
-    // Upload files if any
-    if (uploadedFiles.length > 0) {
-      const uploadFormData = new FormData();
-      for (const file of uploadedFiles) {
-        const response = await fetch(file.url);
-        const blob = await response.blob();
-const fileObj = new globalThis.File([blob], file.name, {
-  type: file.type || 'application/octet-stream'
-});
-
-        uploadFormData.append("files", fileObj);
-      }
-
-      await fetch("http://localhost:8000/upload", {
-        method: "POST",
-        body: uploadFormData,
-      });
+    // Check if all files have been uploaded to backend
+    const filesNotUploaded = uploadedFiles.filter(f => !f.localUrl)
+    if (filesNotUploaded.length > 0) {
+      setMessages(prev => [
+        ...prev,
+        {
+          role: "bot",
+          content: `⚠️ Please wait for all files to finish uploading before sending your message.`,
+          timestamp: new Date(),
+        },
+      ])
+      return
     }
 
-    // Send query to /query
-    const queryFormData = new FormData();
-    queryFormData.append("query", input.trim());
-
-    const res = await fetch("http://localhost:8000/query", {
-      method: "POST",
-      body: queryFormData,
-    });
-
-    const data = await res.json();
-
-    const parts = [
-      data.answer && `🧠 Answer: ${data.answer}`,
-      data.summary && `📝 Summary: ${data.summary}`,
-      data.decision && `📌 Decision: ${data.decision}`,
-      data.justification && `🔍 Justification: ${data.justification}`,
-    ]
-      .filter(Boolean)
-      .join("\n\n");
-
-    const botMessage: Message = {
-      role: "bot",
-      content: parts || "Backend not connected. Will Connect Soon!",
+    const userMessage: Message = {
+      role: "user",
+      content: input.trim() || "Uploaded documents",
       timestamp: new Date(),
+      files: uploadedFiles.length > 0 ? [...uploadedFiles] : undefined,
     };
 
-    setMessages((prev) => [...prev, botMessage]);
-  } catch (err) {
-    console.error(err);
-    setMessages((prev) => [
-      ...prev,
-      {
+    setMessages((prev) => [...prev, userMessage]);
+    const currentInput = input.trim();
+    setInput("");
+    setUploadedFiles([]);
+    setIsTyping(true);
+
+    try {
+      // Prepare request payload using backend URLs
+      const payload = {
+        documents: uploadedFiles.length === 1
+          ? uploadedFiles[0].localUrl // single doc → string
+          : uploadedFiles.map((file) => file.localUrl), // multiple → array
+        questions: [currentInput || "Please analyze the uploaded document(s)"], // Always send as array
+        search_strategy: searchStrategy // Include the search strategy
+      };
+
+      console.log("Sending payload:", payload);
+
+      const res = await fetch(`${API_URL}/hackrx/run`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(payload),
+      });
+      if (!res.ok) {
+        throw new Error(`HTTP ${res.status}: ${res.statusText}`);
+      }
+
+      const data = await res.json();
+      console.log("Received response:", data);
+
+      const botMessage: Message = {
         role: "bot",
-        content: "⚠️ Backend not connected. Will Connect Soon!",
+        content: Array.isArray(data.answers) && data.answers.length > 0
+          ? data.answers.join("\n\n")
+          : data.answers || "⚠️ No answer found or backend returned empty response.",
         timestamp: new Date(),
-      },
-    ]);
-  } finally {
-    setIsTyping(false);
-  }
-};
+      };
 
-
+      setMessages((prev) => [...prev, botMessage]);
+    } catch (err) {
+      console.error("Error:", err);
+      const errorMessage = err instanceof Error ? err.message : "Unknown error occurred";
+      setMessages((prev) => [
+        ...prev,
+        {
+          role: "bot",
+          content: `⚠️ Error contacting backend: ${errorMessage}`,
+          timestamp: new Date(),
+        },
+      ]);
+    } finally {
+      setIsTyping(false);
+    }
+  };
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
     if (e.key === "Enter" && !e.shiftKey) {
@@ -196,22 +254,40 @@ const fileObj = new globalThis.File([blob], file.name, {
         animate={{ opacity: 1, y: 0 }}
         className="relative p-6 border-b border-white/20 bg-white/80 backdrop-blur-lg shadow-lg"
       >
-        <div className="flex items-center gap-4 max-w-6xl mx-auto">
-          <motion.div 
-            whileHover={{ scale: 1.05 }}
-            className="w-12 h-12 bg-gradient-to-r from-purple-600 to-indigo-600 rounded-2xl flex items-center justify-center shadow-lg"
-          >
-            <FileText className="w-6 h-6 text-white" />
-          </motion.div>
-          <div>
-            <h1 className="text-2xl font-bold bg-gradient-to-r from-purple-600 to-indigo-600 bg-clip-text text-transparent">
-              Docura AI
-            </h1>
-            <p className="text-sm text-gray-600">Your intelligent document assistant</p>
+        {/* Header Content 
+        <div className="flex items-center justify-between max-w-6xl mx-auto">
+          <div className="flex items-center gap-4">
+            <motion.div 
+              whileHover={{ scale: 1.05 }}
+              className="w-12 h-12 bg-gradient-to-r from-purple-600 to-indigo-600 rounded-2xl flex items-center justify-center shadow-lg"
+            >
+              <FileText className="w-6 h-6 text-white" />
+            </motion.div>
+            <div>
+              <h1 className="text-2xl font-bold bg-gradient-to-r from-purple-600 to-indigo-600 bg-clip-text text-transparent">
+                Docura AI
+              </h1>
+              <p className="text-sm text-gray-600">Your intelligent document assistant</p>
+            </div>
+          </div>
+          
+          {/* Search Strategy Selector 
+          <div className="flex items-center gap-3">
+            <span className="text-sm font-medium text-gray-700">Search Strategy:</span>
+            <select
+              value={searchStrategy}
+              onChange={(e) => setSearchStrategy(e.target.value)}
+              className="px-3 py-2 text-sm bg-white border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+            >
+              <option value="ensemble">Ensemble</option>
+              <option value="semantic">Semantic</option>
+              <option value="lexical">Lexical</option>
+              <option value="hybrid">Hybrid</option>
+            </select>
           </div>
         </div>
         <div className="absolute inset-0 bg-gradient-to-r from-purple-500/5 to-indigo-500/5"></div>
-      </motion.div> */}
+      </motion.div>*/}
 
       {/* Chat Area */}
       <div 
@@ -302,18 +378,26 @@ const fileObj = new globalThis.File([blob], file.name, {
                     )}
                   >
                     <ReactMarkdown
-  components={{
-    p: ({ children }) => (
-      <p className="text-sm leading-relaxed whitespace-pre-wrap">{children}</p>
-    ),
-    strong: ({ children }) => (
-      <strong className="font-semibold">{children}</strong>
-    ),
-  }}
->
-  {msg.content}
-</ReactMarkdown>
-
+                      components={{
+                        p: ({ children }) => (
+                          <p className="text-sm leading-relaxed whitespace-pre-wrap">{children}</p>
+                        ),
+                        strong: ({ children }) => (
+                          <strong className="font-semibold">{children}</strong>
+                        ),
+                        ul: ({ children }) => (
+                          <ul className="list-disc list-inside space-y-1 text-sm">{children}</ul>
+                        ),
+                        ol: ({ children }) => (
+                          <ol className="list-decimal list-inside space-y-1 text-sm">{children}</ol>
+                        ),
+                        li: ({ children }) => (
+                          <li className="text-sm">{children}</li>
+                        ),
+                      }}
+                    >
+                      {msg.content}
+                    </ReactMarkdown>
                     
                     {/* File Attachments */}
                     {msg.files && msg.files.length > 0 && (
@@ -419,7 +503,10 @@ const fileObj = new globalThis.File([blob], file.name, {
                 exit={{ opacity: 0, height: 0 }}
                 className="mb-3 sm:mb-4 p-3 sm:p-4 bg-white rounded-xl sm:rounded-2xl border border-gray-200 shadow-lg"
               >
-                <h4 className="text-sm font-semibold text-gray-700 mb-2 sm:mb-3">Attached Files ({uploadedFiles.length})</h4>
+                <h4 className="text-sm font-semibold text-gray-700 mb-2 sm:mb-3">
+                  Attached Files ({uploadedFiles.length})
+                  {uploadingFiles && <span className="text-purple-600 ml-2">• Uploading...</span>}
+                </h4>
                 <div className="space-y-1.5 sm:space-y-2">
                   {uploadedFiles.map((file, index) => (
                     <motion.div
@@ -434,6 +521,9 @@ const fileObj = new globalThis.File([blob], file.name, {
                       <div className="flex-1 min-w-0">
                         <p className="font-medium text-xs sm:text-sm text-gray-800 truncate">{file.name}</p>
                         <p className="text-xs text-gray-500">{formatFileSize(file.size)}</p>
+                        {file.localUrl && (
+                          <p className="text-xs text-green-600">✓ Uploaded</p>
+                        )}
                       </div>
                       <motion.button
                         whileHover={{ scale: 1.1 }}
@@ -468,7 +558,13 @@ const fileObj = new globalThis.File([blob], file.name, {
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.9 }}
               onClick={() => fileInputRef.current?.click()}
-              className="p-3 text-purple-600 hover:text-purple-700 hover:bg-purple-50 rounded-2xl transition-all duration-200 flex-shrink-0"
+              disabled={uploadingFiles}
+              className={cn(
+                "p-3 rounded-2xl transition-all duration-200 flex-shrink-0",
+                uploadingFiles 
+                  ? "text-gray-400 cursor-not-allowed" 
+                  : "text-purple-600 hover:text-purple-700 hover:bg-purple-50"
+              )}
             >
               <Upload className="w-5 h-5" />
             </motion.button>
@@ -491,10 +587,10 @@ const fileObj = new globalThis.File([blob], file.name, {
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               onClick={handleSend}
-              disabled={(!input.trim() && uploadedFiles.length === 0) || isTyping}
+              disabled={(!input.trim() && uploadedFiles.length === 0) || isTyping || uploadingFiles}
               className={cn(
                 "p-3 rounded-2xl transition-all duration-200 flex-shrink-0",
-                (input.trim() || uploadedFiles.length > 0) && !isTyping
+                (input.trim() || uploadedFiles.length > 0) && !isTyping && !uploadingFiles
                   ? "bg-gradient-to-r from-purple-600 to-indigo-600 text-white shadow-lg hover:shadow-xl hover:from-purple-700 hover:to-indigo-700"
                   : "bg-gray-100 text-gray-400 cursor-not-allowed"
               )}
